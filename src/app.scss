@@ -1,0 +1,59 @@
+@import "colors.scss";
+
+@font-face {
+    font-family: "sf-pro";
+    src: url("./assets/font/sf-pro/SFPRODISPLAYREGULAR.ttf");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "sf-pro";
+    src: url("./assets/font/sf-pro/SFPRODISPLAYMEDIUM.ttf");
+    font-weight: medium;
+}
+
+@font-face {
+    font-family: "sf-pro";
+    src: url("./assets/font/sf-pro/SFPRODISPLAYBOLD.ttf");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Borel";
+    src: url("./assets/font/borel/Borel-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "urbanist-variable";
+    src: url("./assets/font/urbanist-variable/Urbanist-VariableFont_wght.ttf");
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+*:focus {
+    outline: none;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    user-select: none;
+    overflow: hidden;
+}
+
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $accent-color;
+    border-radius: 10px;
+}
