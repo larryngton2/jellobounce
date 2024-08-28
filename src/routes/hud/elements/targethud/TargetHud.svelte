@@ -84,10 +84,6 @@
     @import "../../../../colors.scss";
 
     .targethud {
-        //position: fixed;
-        //top: 50%;
-        //left: calc(50% + 20px);
-        //transform: translateY(-50%); // overwrites the component transform
         min-width: 250px;
         background-color: rgba($background-color, $opacity);
         border-radius: 12px;
