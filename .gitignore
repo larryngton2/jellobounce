@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 
-.github/workflows/node.js.yml
+
 
 # Editor directories and files
 .vscode/*
