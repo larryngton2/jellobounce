@@ -4,7 +4,7 @@
 </p>
     
 <p align="center">
-    <img src="https://img.shields.io/github/downloads/larryngton/jellobounce/total?label=Github%20Downloads" alt="Downloads">
+    <img src="https://img.shields.io/github/downloads/164x/jellobounce/total?label=Github%20Downloads" alt="Downloads">
 </p>
 
 ## preview
