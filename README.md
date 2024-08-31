@@ -23,3 +23,6 @@ cd into the repository
 install dependencies `npm install`
 
 compile the theme `npm run build`
+
+## stats
+![Alt](https://repobeats.axiom.co/api/embed/481a818b61e6429e0a48969e51066586943b16a3.svg "Repobeats analytics image")
