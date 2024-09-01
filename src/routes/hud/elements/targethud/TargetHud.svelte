@@ -8,6 +8,7 @@
     import {onMount} from "svelte";
     import {getPlayerData} from "../../../../integration/rest";
     import {backInOut} from "svelte/easing";
+    import HealthProgress from "./HealthProgress.svelte";
 
     let target: PlayerData | null = null;
     let visible = true;
@@ -70,13 +71,8 @@
                     {/if}
                 {/if}
             </div>
-
-            <div class="health-stats">
-                <div class="stat">
-                    <div class="value">Health: {Math.floor(target.actualHealth + target.absorption)}</div>
-                </div>
-            </div>
         </div>
+        <HealthProgress maxHealth={target.maxHealth + target.absorption} health={target.actualHealth + target.absorption} />
     </div>
 {/if}
 
@@ -117,9 +113,9 @@
     .wl {
         grid-area: b;
         position: absolute;
-        right: 11px;
-        bottom: 11px;
-        padding-top: 9px;
+        right: 14px;
+        top: 15.5px;
+        padding-bottom: 9px;
         font-size: 16px;
         text-shadow: 0 0 10px rgba($shadow-color, 0.5);
 
@@ -139,26 +135,6 @@
         }
     }
 
-    .health-stats {
-        grid-area: b;
-        position: absolute;
-        left: 64px;
-        bottom: 11px;
-        padding-top: 9px;
-        text-shadow: 0 0 10px rgba($shadow-color, 0.5);
-
-        .stat {
-            .value {
-                color: $text-dimmed-color;
-                font-size: 16px;
-                min-width: 18px;
-                display:inline-block;
-                text-align: right;
-                font-weight: 500;
-            }
-        }
-    }
-
     .avatar {
         grid-area: a;
         height: 50px;
@@ -168,7 +144,7 @@
         background-image: url("/img/steve.png");
         background-repeat: no-repeat;
         background-size: cover;
-        border-radius: 100px;
+        border-radius: 6px;
         overflow: hidden;
         padding-left: 11px;
         padding-top: 11px;
