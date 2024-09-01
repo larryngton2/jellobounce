@@ -93,7 +93,7 @@
     .main-wrapper {
         display: grid;
         grid-template-areas:
-            "a ."
+            "a c"
             ". b";
         padding: 7px;
     }
@@ -106,12 +106,12 @@
         padding-left: 56px;
         padding-top: 4px;
         font-size: 20px;
-        padding-right: 5px;
+        padding-right: 68px;
         text-shadow: 0 0 10px rgba($shadow-color, 0.5);
     }
 
     .wl {
-        grid-area: b;
+        grid-area: c;
         position: absolute;
         right: 14px;
         top: 15.5px;
