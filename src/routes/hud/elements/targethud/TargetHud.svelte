@@ -63,11 +63,11 @@
             <div class="wl">
                 {#if playerData !== null && playerData.health !== null}
                     {#if (playerData.health + playerData.absorption) > (target.actualHealth + target.absorption)}
-                        <div class="winning">Winning</div>
+                        <div class="winning">W</div>
                         {:else if (playerData.health + playerData.absorption) < (target.actualHealth + target.absorption)}
-                        <div class="losing">Losing</div>
+                        <div class="losing">L</div>
                         {:else}
-                        <div class="draw">Draw</div>
+                        <div class="draw">D</div>
                     {/if}
                 {/if}
             </div>
@@ -106,14 +106,14 @@
         padding-left: 56px;
         padding-top: 4px;
         font-size: 20px;
-        padding-right: 68px;
+        padding-right: 12px;
         text-shadow: 0 0 10px rgba($shadow-color, 0.5);
     }
 
     .wl {
         grid-area: c;
         position: absolute;
-        right: 14px;
+        right: 16px;
         top: 15.5px;
         padding-bottom: 9px;
         font-size: 16px;
