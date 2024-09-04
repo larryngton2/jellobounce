@@ -37,7 +37,7 @@
         .thumb2 {
             position: absolute;
             height: 7px;
-            transition: ease-out width 0.5s;
+            transition: ease-out width 0.6s;
             background-image: linear-gradient(to right, #fff, #929292);
             z-index: -1;
         }
