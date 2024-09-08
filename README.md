@@ -6,9 +6,9 @@
 
 ## preview
 
-![image](https://github.com/user-attachments/assets/27871860-5bf6-4157-85a9-96f6f491088a)
-![image](https://github.com/user-attachments/assets/2395b9ca-f381-49fd-b9b9-92c17b404654)
-![image](https://github.com/user-attachments/assets/43901751-22b3-42f5-b699-72402e287884)
+![image](/misc/ingame%20hud.png)
+![image](/misc/clickgui.png)
+![image](/misc/title.png)
 </div>
 
 ## how to install manually
@@ -26,4 +26,3 @@ compile the theme `npm run build`
 <p align="center"> 
     <img src="https://repobeats.axiom.co/api/embed/481a818b61e6429e0a48969e51066586943b16a3.svg" alt="stats">
 </p>
-
