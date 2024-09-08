@@ -1,4 +1,4 @@
-![jellobounce-wide1](/misc/jellobounce-wide1.png)
+![jellobounce-wide1](/.github/img/jellobounce-wide1.png)
     
 <p align="center">
     <img src="https://img.shields.io/github/downloads/larryngton2/jellobounce/total?label=Github%20Downloads" alt="Downloads">
@@ -6,9 +6,9 @@
 
 ## preview
 
-![ingame-hud](/misc/ingame%20hud.png)
-![clickgui](/misc/clickgui.png)
-![title](/misc/title.png)
+![ingame-hud](/.github/img/ingame%20hud.png)
+![clickgui](/.github/img/clickgui.png)
+![title](/.github/img/title.png)
 </div>
 
 ## how to install manually
