@@ -52,7 +52,7 @@
         position: absolute;
         background-color: rgba(black, 0.1);
         width: 100vw;
-        height: 100vw;
+        height: 100vh;
         z-index: -2;
     }
 </style>

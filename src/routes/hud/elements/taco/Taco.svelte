@@ -25,17 +25,19 @@
   });
 </script>
 
-<div class="userinfo" transition:fly|global={{duration: 500, y: 50, easing: backInOut}}>
-    <object data={avatar} type="image/png" class="avatar" aria-label="avatar">
-        <img src="img/steve.png" alt=avatar class="avatar">
-    </object>
-  <span class="username">{username} |
-      {#if premium}
-      <span class="status">Online</span>
-      {:else}
-      <span class="status">Offline</span>
-      {/if}
-  </span>
+<div class="h">
+    <div class="userinfo" transition:fly|global={{duration: 500, y: 50, easing: backInOut}}>
+        <object data={avatar} type="image/png" class="avatar" aria-label="avatar">
+            <img src="img/steve.png" alt=avatar class="avatar">
+        </object>
+    <span class="username">{username} |
+        {#if premium}
+        <span class="status">Online</span>
+        {:else}
+        <span class="status">Offline</span>
+        {/if}
+    </span>
+    </div>
 </div>
 
 <style lang="scss">

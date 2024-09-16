@@ -71,7 +71,8 @@
     .arraylist {
         //position: fixed;
         //top: 0;
-        //right: 0; 
+        //right: 0;
+        //filter: drop-shadow(0px 0px 15px rgba($shadow-color, 1));
     }
 
     .module {
@@ -85,6 +86,7 @@
         margin-left: auto;
         text-shadow: 0 0 10px rgba($shadow-color, 0.5);
         box-shadow: -5px 0px 10px rgba(black, 0.27), 5px 0px 10px rgba(black, 0.27);
+        //filter: drop-shadow(0px 0px 10px rgba($shadow-color, 1));
     }
 
     .tag {

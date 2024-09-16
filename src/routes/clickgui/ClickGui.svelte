@@ -59,7 +59,8 @@
     position: absolute;
     left: 0%;
     top: 0%;
-}
+  }
+  
   .clickgui {
     overflow: hidden;
     position: relative;
