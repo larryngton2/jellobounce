@@ -98,7 +98,7 @@
 <style>
 
     .clock {
-        color: black;
+        color: white;
         opacity: 0.8;
         font-size: 250px;
         font-weight: 800;

@@ -90,12 +90,12 @@
 
     .premium {
       color: $account-online-color;
-      text-shadow: 0px 0px 10px rgba($text-dimmed-color, 0.5);
+      text-shadow: 0px 0px 10px rgba($shadow-color, 0.5);
     }
 
     .offline {
       color: $text-dimmed-color;
-      text-shadow: 0px 0px 10px rgba($account-online-color, 0.5);
+      text-shadow: 0px 0px 10px rgba($shadow-color, 0.5);
     }
   }
 
