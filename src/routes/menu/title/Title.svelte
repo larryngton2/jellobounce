@@ -65,10 +65,11 @@
     updateTime();
 </script>
 
+<div class="shaderfix"></div>
 <Menu>
     <div class="content">
         <div class="clock" transition:fly|global={{duration: 500, y: -100}}>{currentTime}</div>
-        <div class="account" transition:fade|global={{duration: 500}}><Account/></div>
+        <div class="account"><Account/></div>
         <div class="main-buttons">
             {#if regularButtonsShown}
                 <MainButton title="Singleplayer" icon="singleplayer" index={0}
@@ -97,8 +98,7 @@
 <style>
 
     .clock {
-        font-family: inter;
-        color: white;
+        color: black;
         opacity: 0.8;
         font-size: 250px;
         font-weight: 800;
@@ -135,4 +135,14 @@
         left: 50.5%;
         transform: translateX(-50%);
     }
+
+  .shaderfix {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(black, 0.1);
+    width: 100vw;
+    height: 100vh;  
+    z-index: -9999999999999999;
+  }
 </style>

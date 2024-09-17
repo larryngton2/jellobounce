@@ -30,8 +30,8 @@
 
   .tooltip {
     color: white;
-    padding: 10px 15px;
-    border-radius: 20px;
+    padding: 7px 10px;
+    border-radius: 12px;
     font-size: 16px;
     font-weight: 600;
     position: absolute;
@@ -46,8 +46,8 @@
     &::after {
       content: "";
       display: block;
-      height: 12px;
-      width: 12px;
+      height: 7px;
+      width: 7px;
       background-color: inherit;
       position: absolute;
       left: 50%;

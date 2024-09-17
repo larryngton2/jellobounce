@@ -3,6 +3,7 @@
     import {getSession, openScreen} from "../../../../integration/rest";
     import {onMount} from "svelte";
     import {listen} from "../../../../integration/ws";
+    import {fly} from "svelte/transition";
 
     let username = "";
     let avatar = "";
@@ -24,7 +25,8 @@
     });
 </script>
 
-<div class="account">
+
+<div class="account" transition:fly|global={{duration: 500, y: 50}}>
     <object data={avatar} type="image/png" class="avatar" aria-label="avatar">
         <img src="img/steve.png" alt=avatar class="avatar">
     </object>
@@ -65,6 +67,7 @@
     border-radius: 50%;
     grid-area: a;
     margin-right: 10px;
+    box-shadow: 0px 0px 10px rgba($shadow-color, 0.5);
   }
 
   .username {
@@ -75,6 +78,7 @@
     grid-area: b;
     align-self: flex-end;
     margin-right: 7px;
+    text-shadow: 0px 0px 10px rgba($shadow-color, 0.5);
   }
 
   .account-type {
@@ -86,10 +90,12 @@
 
     .premium {
       color: $account-online-color;
+      text-shadow: 0px 0px 10px rgba($text-dimmed-color, 0.5);
     }
 
     .offline {
       color: $text-dimmed-color;
+      text-shadow: 0px 0px 10px rgba($account-online-color, 0.5);
     }
   }
 

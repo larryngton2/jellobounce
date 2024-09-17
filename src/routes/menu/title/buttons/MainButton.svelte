@@ -15,8 +15,8 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="main-button" on:mouseenter={() => hovered = true} on:mouseleave={() => hovered = false}
-   on:click={() => dispatch("click")} out:fly|global={{duration: 350, y: 200, delay: index * 15, easing: backIn}}
-   in:fly|global={{duration: 350, y: 200, delay: index * 15, easing: backOut}}>
+   on:click={() => dispatch("click")} out:fly|global={{duration: 350, y: 125, delay: index * 25, easing: backIn}}
+   in:fly|global={{duration: 350, y: 125, delay: index * 25, easing: backOut}}>
   <div class="icon">
       {#if !hovered}
           <img transition:fade={{duration: 200}} src="img/menu/icon-{icon}.svg" alt={icon}>
@@ -60,6 +60,7 @@
   position: relative;
   align-items: center;
   border: solid 1px $border-thing;
+  box-shadow: 0px 0px 10px rgba($shadow-color, 0.5);
 
     .title {
       position: fixed;
