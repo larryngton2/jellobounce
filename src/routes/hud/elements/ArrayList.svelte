@@ -8,6 +8,7 @@
     import {fly} from "svelte/transition";
     import {convertToSpacedString, spaceSeperatedNames} from "../../../theme/theme_config";
     import {arraylistGradient} from "../../../theme/arraylist";
+    import {expoOut} from "svelte/easing";
 
     let enabledModules: Module[] = [];
 
@@ -51,7 +52,7 @@
 
 <div class="arraylist" id="arraylist">
     {#each enabledModules as {name, tag} (name)}
-        <div class="module" id="module" animate:flip={{duration: 200}} in:fly={{x: 50, duration: 200}} out:fly={{x: 50, duration: 200}}>
+        <div class="module" id="module" animate:flip={{duration: 350, easing: expoOut}} in:fly={{x: 50, duration: 250, easing: expoOut}} out:fly={{x: 50, duration: 250}}>
             {$spaceSeperatedNames ? convertToSpacedString(name) : name}
             {#if tag}
                 <span class="tag" id="tag"> {tag}</span>
