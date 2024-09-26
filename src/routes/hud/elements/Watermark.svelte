@@ -50,7 +50,7 @@
         top: -15px;
         left: -15px;
         position: absolute;
-        background-color: rgba(black, 0.1);
+        background-color: $shaderfix-color;
         width: 100vw;
         height: 100vh;
         z-index: -2;
