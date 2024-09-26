@@ -19,12 +19,12 @@
     .health-progress {
         position: relative;
         bottom: 21px;
-        left: 65px;
+        left: 64.8px;
         border-radius: 6px;
         max-width: 169.5px;
         //max-width: 67.8%;
         background-color: rgba($background-color, 0.2);
-        box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+        box-shadow: 0 0 10px rgba($shadow-color, 0.3);
     }
 
     .thumb {
@@ -51,5 +51,5 @@
             background-color: $healthprogress-gain;
             z-index: -2;
         }
-    }    
+    }
 </style>

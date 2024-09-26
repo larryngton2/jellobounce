@@ -144,7 +144,7 @@
         background-image: url("/img/steve.png");
         background-repeat: no-repeat;
         background-size: cover;
-        border-radius: 6px;
+        border-radius: 8px;
         overflow: hidden;
         padding-left: 11px;
         padding-top: 11px;
