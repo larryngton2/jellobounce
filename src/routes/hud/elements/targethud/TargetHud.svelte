@@ -80,7 +80,7 @@
     @import "../../../../colors.scss";
 
     .targethud {
-        min-width: 250px;
+        width: 250px;
         background-color: rgba($background-color, $opacity);
         border-radius: 12px;
         overflow: hidden;

@@ -9,6 +9,7 @@
 <div class="health-progress">
     <div class="thumb" style="width: {width}%;">
         <div class="thumb2" style="width: {width}%;"></div>
+        <div class="thumb3" style="width: {width}%;"></div>
     </div>
 </div>
 
@@ -31,15 +32,24 @@
         background-color: $accent-color;
         transition: ease-out width 0.3s;
         border-radius: 6px;
-        background-image: linear-gradient(to right, rgba(#FFF, 1), rgba(#929292, 1));
+        background-image: linear-gradient(to right, $healthprogress-neutral-1, $healthprogress-neutral-2);
         z-index: 1;
 
         .thumb2 {
             position: absolute;
             height: 7px;
             transition: ease-out width 0.6s;
-            background-image: linear-gradient(to right, #fff, #929292);
+            border-radius: 6px;
+            background-image: linear-gradient(to right, $healthprogress-lose-1, $healthprogress-lose-2);
             z-index: -1;
+        }
+
+        .thumb3 {
+            position: absolute;
+            height: 7px;
+            border-radius: 6px;
+            background-color: $healthprogress-gain;
+            z-index: -2;
         }
     }    
 </style>

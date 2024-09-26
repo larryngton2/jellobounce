@@ -25,7 +25,6 @@
     });
 </script>
 
-
 <div class="account" transition:fly|global={{duration: 500, y: 50}}>
     <object data={avatar} type="image/png" class="avatar" aria-label="avatar">
         <img src="img/steve.png" alt=avatar class="avatar">
@@ -67,7 +66,7 @@
     border-radius: 50%;
     grid-area: a;
     margin-right: 10px;
-    box-shadow: 0px 0px 10px rgba($shadow-color, 0.5);
+    box-shadow: 0 0 10px rgba($shadow-color, 0.5);
   }
 
   .username {
