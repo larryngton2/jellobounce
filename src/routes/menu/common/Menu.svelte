@@ -1,7 +1,8 @@
 <script lang="ts">
     import Header from "./header/Header.svelte";
-    import {fly} from "svelte/transition";
+    import {scale} from "svelte/transition";
     import {onMount} from "svelte";
+    import {expoInOut} from "svelte/easing";
 
     const transitionDuration = 700; // TODO: suboptimal
 
@@ -16,7 +17,7 @@
 
 <div class="menu">
     {#if ready}
-        <div transition:fly|global={{duration: 500, y: -100}}>
+        <div transition:scale|global={{duration: 500, easing: expoInOut}}>
             <Header/>
         </div>
 
