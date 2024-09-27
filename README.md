@@ -4,25 +4,25 @@
     <img src="https://img.shields.io/github/downloads/larryngton2/jellobounce/total?label=Github%20Downloads" alt="Downloads">
 </p>
 
-## preview
-
+## Preview
 ![ingame-hud](/.github/img/ingame%20hud.png)
 ![clickgui](/.github/img/clickgui.png)
 ![title](/.github/img/title.png)
-</div>
 
-## how to install manually
 
-clone into the repo `git clone https://github.com/larryngton/jellobounce`
+## Check out the optimised version
+[jellobounce-lite](https://github.com/larryngton2/jellobounce/tree/lite)
 
-cd into the repository
+## How to install manually
+Clone the repository `git clone https://github.com/larryngton/jellobounce`
 
-install dependencies `npm install`
+CD into the repository
 
-compile the theme `npm run build`
+Install dependencies `npm install`
 
-## stats
+Compile the theme `npm run build`
 
+## Stats
 <p align="center"> 
     <img src="https://repobeats.axiom.co/api/embed/481a818b61e6429e0a48969e51066586943b16a3.svg" alt="stats">
 </p>
