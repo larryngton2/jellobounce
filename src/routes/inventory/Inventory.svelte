@@ -1,8 +1,9 @@
 <script lang="ts">
+    import {expoInOut} from "svelte/easing";
     import {fade} from "svelte/transition";
 </script>
 
-<div class="logo" transition:fade={{duration: 200}}>jellobounce</div>
+<div class="logo" transition:fade={{duration: 350, easing: expoInOut}}>jellobounce</div>
 
 <style lang="scss">
     @import "../../colors.scss";

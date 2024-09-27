@@ -3,7 +3,7 @@
     import {SortableList} from "@jhubbardsf/svelte-sortablejs";
     import "./menulist.scss";
     import {createEventDispatcher} from "svelte";
-    import {backInOut} from "svelte/easing";
+    import {expoInOut} from "svelte/easing";
 
     export let sortable = false;
     export let elementCount = -1;

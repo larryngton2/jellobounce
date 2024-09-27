@@ -3,7 +3,7 @@
     import type {ClientPlayerDataEvent} from "../../../integration/events";
     import type {StatusEffect} from "../../../integration/types";
     import {fly} from "svelte/transition";
-    import {backInOut} from "svelte/easing";
+    import {expoInOut} from "svelte/easing";
 
     let effects: StatusEffect[] = [];
 
@@ -18,7 +18,7 @@
 
 <div class="effects">
     {#each effects as e}
-        <div class="effect" transition:fly={{duration: 700, y: 50, easing: backInOut}}>
+        <div class="effect" transition:fly={{duration: 700, y: 50, easing: expoInOut}}>
             <span class="name" style="color: {'#' + e.color.toString(16)}">{e.localizedName} {e.amplifier + 1}</span>
             <span class="duration">{formatTime(e.duration)}</span>
         </div>
@@ -32,7 +32,7 @@
     font-weight: 600;
     font-size: 14px;
     text-align: left;
-    background-color: rgba(black, $opacity);
+    background-color: rgba($background-color, $opacity);
     padding: 5px 8px;
     box-shadow: 0 0 10px rgba($shadow-color, 0.5);
     border-left: solid 1px $border-thing;

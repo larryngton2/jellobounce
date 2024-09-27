@@ -1,6 +1,6 @@
 <script lang="ts">
     import {fly} from "svelte/transition";
-    import {backInOut} from "svelte/easing";
+    import {expoInOut} from "svelte/easing";
     import {onMount} from 'svelte';
     import {fade} from 'svelte/transition';
 
@@ -19,7 +19,7 @@
         <div class="fade" transition:fade={{duration: 1000}}></div>
     {/if}
 
-<div class="watermark" id="watermark" transition:fly|global={{duration: 500, y: -50, easing: backInOut}}>jello</div>
+<div class="watermark" transition:fly|global={{duration: 500, x: -50, easing: expoInOut}}>jello</div>
 <div class="shaderfix"></div>
 
 <style lang="scss">
@@ -43,7 +43,7 @@
         background-color: black;
         width: 100vw;
         height: 100vh;
-        z-index: -3;
+        z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999; // just to be sure
     }
 
     .shaderfix {

@@ -1,6 +1,6 @@
 <script lang="ts">
   import {fly} from "svelte/transition";
-  import {backInOut} from "svelte/easing";
+  import {expoInOut} from "svelte/easing";
   import {onMount} from 'svelte';
   import {getSession} from "../../../../integration/rest";
   import {listen} from "../../../../integration/ws";
@@ -26,7 +26,7 @@
 </script>
 
 <div class="h">
-    <div class="userinfo" transition:fly|global={{duration: 500, y: 50, easing: backInOut}}>
+    <div class="userinfo" transition:fly|global={{duration: 500, y: 50, easing: expoInOut}}>
         <object data={avatar} type="image/png" class="avatar" aria-label="avatar">
             <img src="img/steve.png" alt=avatar class="avatar">
         </object>

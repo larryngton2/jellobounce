@@ -1,4 +1,5 @@
 <script lang="ts">
+    import {expoIn} from "svelte/easing";
     import {fly} from "svelte/transition";
 </script>
 
