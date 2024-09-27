@@ -6,4 +6,5 @@
 
 <p align="center">
     see? even the readme is optimised
+    (you need to compile the theme yourself)
 </p>
