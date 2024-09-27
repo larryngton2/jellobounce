@@ -38,7 +38,6 @@
     position: relative;
     text-align: center;
     font-family: "sf-pro";
-    box-shadow: 0 0 10px rgba($shadow-color, 0.5);
     border: solid 1px $border-thing;
     text-shadow: 0 0 10px rgba($shadow-color, 0.5);
 

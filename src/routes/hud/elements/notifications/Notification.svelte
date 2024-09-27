@@ -20,13 +20,12 @@
             "a c";
     grid-template-columns: max-content 1fr;
     column-gap: 10px;
-    background: rgba(black, $opacity);
+    background: rgba($background-color, $opacity);
     border-radius: 12px;
     min-width: 250px;
     overflow: hidden;
     padding: 10px;
     margin-bottom: 10px;
-    box-shadow: 0 0 10px rgba($shadow-color, 0.5);
     border: solid 1px $border-thing;
     font-family: "sf-pro";
     text-shadow: 0 0 10px rgba($shadow-color, 0.5);

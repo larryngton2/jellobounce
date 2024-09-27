@@ -195,7 +195,6 @@
     background-color: rgba($background-color, $opacity);
     position: relative;
     border-radius: 12px;
-    box-shadow: 0 0 10px rgba($shadow-color, 0.5);
     border: solid 1px $border-thing;
 
     .slider {
@@ -228,7 +227,6 @@
     position: absolute;
     bottom: 0;
     left: -65px;
-    box-shadow: 0 0 10px rgba($shadow-color, 0.5);
     border: solid 1px $border-thing;
   }
 
@@ -238,7 +236,6 @@
     margin: 0 auto 15px;
     font-weight: 500;
     width: max-content;
-    text-shadow: 0px 0px 10px rgba(black, 0.7);
   }
 
   .overlay-message {
@@ -246,6 +243,5 @@
     text-align: center;
     color: white;
     margin-bottom: 22px;
-    text-shadow: 0px 0px 10px rgba(black, 0.7);
   }
 </style>

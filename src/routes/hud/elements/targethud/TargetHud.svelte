@@ -85,7 +85,6 @@
         border-radius: 12px;
         overflow: hidden;
         height: 66px;
-        box-shadow: 0 0 10px rgba($shadow-color, 0.5);
         border: solid 1px $border-thing;
         font-family: "sf-pro";
     }

@@ -34,11 +34,9 @@
     text-align: left;
     background-color: rgba($background-color, $opacity);
     padding: 5px 8px;
-    box-shadow: 0 0 10px rgba($shadow-color, 0.5);
     border-left: solid 1px $border-thing;
     border-right: solid 1px $border-thing;
     font-family: "sf-pro";
-    text-shadow: 0 0 10px rgba($shadow-color, 0.5);
 
     .duration {
       color: white;

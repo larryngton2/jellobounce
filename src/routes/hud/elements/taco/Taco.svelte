@@ -48,17 +48,6 @@
     text-shadow: 0px 0px 5px rgba($shadow-color, 0.5);
     font-family: "sf-pro";
     font-weight: 400;
-    background-image: linear-gradient(
-        45deg,
-            $gradient-color-1 0%,
-            $gradient-color-2 100%
-        );
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 300%;
-    animation: gradient 2s ease-in-out infinite;
-    -moz-animation: gradient 2s ease-in-out infinite;
-    -webkit-animation: gradient 2s ease-in-out infinite;
     font-size: 15px;
 
         .avatar {
@@ -69,11 +58,5 @@
             box-shadow: 0px 0px 5px rgba($shadow-color, 0.5);
             margin-right: 3px;
         }
-    }
-
-    @keyframes gradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
     }
 </style>

@@ -86,19 +86,9 @@
         font-weight: 400;
         margin-left: auto;
         text-shadow: 0 0 10px rgba($shadow-color, 0.5);
-        box-shadow: -5px 0px 10px rgba(black, 0.27), 5px 0px 10px rgba(black, 0.27);
-        //filter: drop-shadow(0px 0px 10px rgba($shadow-color, 1));
     }
 
     .tag {
         color: $arraylist-tag-color;
-    }
-
-    .module:first-child {
-        box-shadow: 0px -5px 10px rgba(black, 0.17), -5px 0px 10px rgba(black, 0.17), 5px 0px 10px rgba(black, 0.17);
-    }
-
-    .module:last-child {
-        box-shadow: 0px 5px 10px rgba(black, 0.17), -5px 0px 10px rgba(black, 0.17), 5px 0px 10px rgba(black, 0.17);
     }
 </style>

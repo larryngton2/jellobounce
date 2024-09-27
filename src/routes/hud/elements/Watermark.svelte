@@ -20,7 +20,6 @@
     {/if}
 
 <div class="watermark" transition:fly|global={{duration: 500, x: -50, easing: expoInOut}}>jello</div>
-<div class="shaderfix"></div>
 
 <style lang="scss">
     @import "../../../colors.scss";
@@ -33,7 +32,6 @@
         color: rgba(white, 1);
         font-size: 50px;
         z-index: 1;
-        text-shadow: 0px 0px 10px rgba($shadow-color, 0.3);
     }
 
     .fade {
@@ -44,15 +42,5 @@
         width: 100vw;
         height: 100vh;
         z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999; // just to be sure
-    }
-
-    .shaderfix {
-        top: -15px;
-        left: -15px;
-        position: absolute;
-        background-color: $shaderfix-color;
-        width: 100vw;
-        height: 100vh;
-        z-index: -2;
     }
 </style>
