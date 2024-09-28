@@ -20,7 +20,7 @@
             "a c";
     grid-template-columns: max-content 1fr;
     column-gap: 10px;
-    background: rgba(black, $opacity);
+    background: rgba($background-color, $opacity);
     border-radius: 12px;
     min-width: 250px;
     overflow: hidden;

@@ -5,7 +5,9 @@ $gradient-color-2: rgb(150, 150, 150);
 
 $healthprogress-neutral-1: white;
 $healthprogress-neutral-2: rgb(145, 145, 145);
-$healthprogress-gain: white;
+$healthprogress-gain: rgb(117, 117, 117);
+
+// the values here get darker by 0.2
 $healthprogress-lose-1: white;
 $healthprogress-lose-2: rgb(145, 145, 145);
 
