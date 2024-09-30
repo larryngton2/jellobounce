@@ -1,5 +1,6 @@
 <script>
     import {onMount} from "svelte";
+    import {fade} from "svelte/transition";
 
     let mouseX = 0;
     let mouseY = 0;
@@ -28,7 +29,7 @@
     });
 </script>
 
-<div class="dot" style="top: {mouseY}px; left: {mouseX}px;"></div>
+<div class="dot" style="top: {mouseY}px; left: {mouseX}px;" transition:fade={{duration: 150}}/>
 <div class="screen"/>
 
 <style lang="scss">
@@ -42,7 +43,6 @@
         background-color: rgba($dot-color, 0.5);
         border-radius: 100%;
         box-shadow: 0 0 10px rgba($dot-color, 0.7);
-        transition: 0.05s ease; 
         pointer-events: none;
         will-change: transform;
         z-index: 99999999999999999;

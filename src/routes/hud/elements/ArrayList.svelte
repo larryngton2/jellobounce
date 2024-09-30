@@ -22,7 +22,7 @@
 
                 return {
                     ...module,
-                    width: getTextWidth(fullName, "400 15px Inter")
+                    width: getTextWidth(fullName, "400 15px sf-pro")
                 };
             }
         );
