@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Dot from "../menu/Dot.svelte";
+    import InvDot from "./InvDot.svelte";
 </script>
 
 <div class="logo">
@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<Dot/>
+<InvDot/>
 
 <style lang="scss">
     @import "../../colors.scss";

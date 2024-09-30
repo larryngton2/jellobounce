@@ -30,6 +30,7 @@
 </script>
 
 <div class="dot" style="top: {mouseY}px; left: {mouseX}px;" transition:fade={{duration: 150}}/>
+<div class="screen"/>
 
 <style lang="scss">
     @import "../../colors.scss";
@@ -45,5 +46,16 @@
         pointer-events: none;
         will-change: transform;
         z-index: 99999999999999999;
+    }
+
+    .screen {
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        background: none;
+        z-index: 99999999999999999;
+        cursor: none;
     }
 </style>
