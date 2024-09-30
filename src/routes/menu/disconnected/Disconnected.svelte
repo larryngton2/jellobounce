@@ -14,6 +14,7 @@
     import {
         restoreSession,
     } from "../../../integration/rest.js";
+    import Dot from "../Dot.svelte";
 
     let premiumAccounts: Account[] = [];
 
@@ -38,6 +39,7 @@
     });
 </script>
 
+<Dot/>
 <div class="reconnect">
     <ButtonSetting title="Reconnect" on:click={() => reconnectToServer()}/>
     <ButtonSetting title="Restore initial session" on:click={restoreSession}/>

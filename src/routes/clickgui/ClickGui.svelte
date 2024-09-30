@@ -10,6 +10,7 @@
     import {listen} from "../../integration/ws";
     import type {ClickGuiScaleChangeEvent, ScaleFactorChangeEvent} from "../../integration/events";
     import {expoInOut} from "svelte/easing";
+    import Dot from "../menu/Dot.svelte";
 
     let categories: GroupedModules = {};
     let modules: Module[] = [];
@@ -38,6 +39,7 @@
     });
 </script>
 
+<Dot/>
 <div class="background" transition:fade|global={{duration: 700}}></div>
 <div class="clickgui" transition:fly|global={{duration: 700, y: 100, easing:expoInOut}}
      style="zoom: {zoom}%; width: {2 / scaleFactor * 100}vw; height: {2 / scaleFactor * 100}vh;">
@@ -65,5 +67,6 @@
     overflow: hidden;
     position: relative;
     will-change: opacity;
+    z-index: 1;
   }
 </style>

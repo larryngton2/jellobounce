@@ -14,6 +14,7 @@
     import {fly} from "svelte/transition";
     import {onMount} from "svelte";
     import {notification} from "../common/header/notification_store";
+    import Dot from "../Dot.svelte";
 
     let regularButtonsShown = true;
     let clientButtonsShown = false;
@@ -65,6 +66,7 @@
     updateTime();
 </script>
 
+<Dot/>
 <div class="shaderfix"></div>
 <Menu>
     <div class="content">

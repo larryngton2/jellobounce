@@ -4,6 +4,7 @@
     import "./menulist.scss";
     import {createEventDispatcher} from "svelte";
     import {expoInOut} from "svelte/easing";
+    import Dot from "../../Dot.svelte";
 
     export let sortable = false;
     export let elementCount = -1;

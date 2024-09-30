@@ -1,11 +1,14 @@
 <script lang="ts">
     import {fade} from "svelte/transition";
+    import Dot from "../menu/Dot.svelte";
 </script>
 
 <div class="logo">
     <div class="one">jello<span class="two" transition:fade|global={{duration: 500}}>bounce</span>
     </div>
 </div>
+
+<Dot/>
 
 <style lang="scss">
     @import "../../colors.scss";

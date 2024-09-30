@@ -34,6 +34,7 @@
         ProxyCheckResultEvent,
         ProxyEditResultEvent
     } from "../../../integration/events.js";
+    import Dot from "../Dot.svelte";
 
     $: {
         let filteredProxies = proxies;
@@ -198,6 +199,7 @@
     }
 </script>
 
+<Dot/>
 <AddProxyModal bind:visible={addProxyModalVisible}/>
 {#if currentEditProxy}
     <EditProxyModal bind:visible={editProxyModalVisible} id={currentEditProxy.id}

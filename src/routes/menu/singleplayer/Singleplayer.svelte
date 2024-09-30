@@ -21,6 +21,7 @@
     import MultiSelect from "../common/setting/select/MultiSelect.svelte";
     import {REST_BASE} from "../../../integration/host";
     import dateFormat from "dateformat";
+    import Dot from "../Dot.svelte";
 
     let gameModes = ["Survival", "Creative", "Adventure", "Spectator"];
     let difficulties = ["Peaceful", "Easy", "Normal", "Hard"];
@@ -67,6 +68,7 @@
     }
 </script>
 
+<Dot/>
 <Menu>
     <OptionBar>
         <Search on:search={handleSearch}/>
