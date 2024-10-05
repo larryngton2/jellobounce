@@ -5,9 +5,9 @@ $gradient-color-2: rgb(150, 150, 150);
 
 $healthprogress-neutral-1: white;
 $healthprogress-neutral-2: rgb(145, 145, 145);
-$healthprogress-gain: rgb(117, 117, 117);
 
 // the values here get darker by 0.2
+$healthprogress-gain: rgb(117, 117, 117);
 $healthprogress-lose-1: white;
 $healthprogress-lose-2: rgb(145, 145, 145);
 
@@ -24,7 +24,10 @@ $opacity: 0.55;
 
 $border-thing: rgba(white, 0.1);
 
-$shadow-color: black;
+$primary-box-shadow: 0 0 10px rgba(black, 0.5);
+$misc-box-shadow: 0 0 10px rgba(black, 0.3);
+$userinfo-box-shadow: 0 0 5px rgba(black, 0.5);
+$arraylist-shadow-color: black;
 
 $targethud-winning: green;
 $targethud-losing: red;
@@ -33,5 +36,6 @@ $targethud-draw: orange;
 $arraylist-tag-color: #AAAAAA;
 
 $shaderfix-color: rgba(black, 0.1); // idk why someone would fucking want this, but sure
+$fade-color: black;
 
 $dot-color: white;

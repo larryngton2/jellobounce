@@ -61,7 +61,7 @@
     transition: ease background-color .15s;
     align-items: center;
     cursor: grab;
-    box-shadow: 0px 0px 10px rgba($shadow-color, 0.3);
+    box-shadow: $primary-box-shadow;
     margin-left: -14px;
     margin-right: -14px;
     font-family: "sf-pro";

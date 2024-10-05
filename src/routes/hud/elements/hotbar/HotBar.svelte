@@ -195,7 +195,7 @@
     background-color: rgba($background-color, $opacity);
     position: relative;
     border-radius: 12px;
-    box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+    box-shadow: $primary-box-shadow;
     border: solid 1px $border-thing;
 
     .slider {
@@ -205,7 +205,7 @@
       position: absolute;
       border-radius: 12px;
       transition: ease 0.15s;
-      box-shadow: 0 0 10px rgba($shadow-color, 0.3);
+      box-shadow: $misc-box-shadow;
       background-color: rgba($background-color, 0.2);
       scale: 90%;
     }
@@ -228,7 +228,7 @@
     position: absolute;
     bottom: 0;
     left: -65px;
-    box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+    box-shadow: $primary-box-shadow;
     border: solid 1px $border-thing;
   }
 

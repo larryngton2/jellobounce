@@ -26,7 +26,7 @@
     background-position: 20px center;
     padding: 15px 15px 15px 55px;
     flex: 1;
-    box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+    box-shadow: $primary-box-shadow;
     margin-left: -10px;
     z-index: 1;
   }

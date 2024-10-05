@@ -66,7 +66,7 @@
     border-radius: 50%;
     grid-area: a;
     margin-right: 10px;
-    box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+    box-shadow: $primary-box-shadow;
   }
 
   .username {
@@ -77,7 +77,7 @@
     grid-area: b;
     align-self: flex-end;
     margin-right: 7px;
-    text-shadow: 0px 0px 10px rgba($shadow-color, 0.5);
+    text-shadow: $primary-box-shadow;
   }
 
   .account-type {
@@ -89,12 +89,12 @@
 
     .premium {
       color: $account-online-color;
-      text-shadow: 0px 0px 10px rgba($shadow-color, 0.5);
+      text-shadow: $primary-box-shadow;
     }
 
     .offline {
       color: $text-dimmed-color;
-      text-shadow: 0px 0px 10px rgba($shadow-color, 0.5);
+      text-shadow: $primary-box-shadow;
     }
   }
 

@@ -45,7 +45,7 @@
 
   .userinfo {
     color: white;
-    text-shadow: 0px 0px 5px rgba($shadow-color, 0.5);
+    text-shadow: $userinfo-box-shadow;
     font-family: "sf-pro";
     font-weight: 400;
     background-image: linear-gradient(
@@ -66,7 +66,7 @@
             width: 18px;
             border-radius: 6px;
             margin-bottom: -3.5px;
-            box-shadow: 0px 0px 5px rgba($shadow-color, 0.5);
+            box-shadow: $userinfo-box-shadow;
             margin-right: 3px;
         }
     }

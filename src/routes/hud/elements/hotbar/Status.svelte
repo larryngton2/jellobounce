@@ -41,14 +41,14 @@
   left: 5px;
   top: 50%;
   transform: translateY(-50%);
-  filter: drop-shadow(0px 0px 10px rgba($shadow-color, 1));
+  filter: drop-shadow($misc-box-shadow);
 }
 
 .progress {
   position: relative;
   border-radius: 12px;
   background-color: rgba($background-color, $opacity);
-  box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+  box-shadow: $primary-box-shadow;
   border: solid 1px $border-thing;
 
   &.align-right {

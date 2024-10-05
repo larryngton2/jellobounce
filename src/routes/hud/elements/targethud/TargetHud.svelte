@@ -85,7 +85,7 @@
         border-radius: 12px;
         overflow: hidden;
         height: 66px;
-        box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+        box-shadow: $primary-box-shadow;
         border: solid 1px $border-thing;
         font-family: "sf-pro";
     }
@@ -107,7 +107,7 @@
         padding-top: 4px;
         font-size: 20px;
         padding-right: 12px;
-        text-shadow: 0 0 10px rgba($shadow-color, 0.5);
+        text-shadow: $primary-box-shadow;
     }
 
     .wl {
@@ -117,7 +117,7 @@
         top: 15.5px;
         padding-bottom: 9px;
         font-size: 16px;
-        text-shadow: 0 0 10px rgba($shadow-color, 0.5);
+        text-shadow: $primary-box-shadow;
 
         .winning {
             color: $targethud-winning;
@@ -148,7 +148,7 @@
         overflow: hidden;
         padding-left: 11px;
         padding-top: 11px;
-        box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+        box-shadow: $primary-box-shadow;
 
         img {
             position: absolute;

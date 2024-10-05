@@ -69,7 +69,7 @@
     justify-content: space-between;
     border-radius: 12px;
     transition: ease .2s;
-    box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+    box-shadow: $primary-box-shadow;
     font-family: "sf-pro";
     z-index: 1;
 

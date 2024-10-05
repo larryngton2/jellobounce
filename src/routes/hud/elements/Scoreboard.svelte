@@ -41,7 +41,7 @@
     //top: 550px;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+    box-shadow: $primary-box-shadow;
     border: solid 1px $border-thing;
   }
 

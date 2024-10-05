@@ -30,17 +30,17 @@
         //top: 15px;
         //left: 15px;
         font-family: "Borel";
-        color: rgba(white, 1);
+        color: $text-color;
         font-size: 50px;
         z-index: 1;
-        text-shadow: 0px 0px 10px rgba($shadow-color, 0.3);
+        text-shadow: $primary-box-shadow;
     }
 
     .fade {
         position: absolute;
         top: -15px;
         left: -15px;
-        background-color: black;
+        background-color: $fade-color;
         width: 100vw;
         height: 100vh;
         z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999; // just to be sure

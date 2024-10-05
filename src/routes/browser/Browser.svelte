@@ -57,7 +57,7 @@
         right: 10px;
         background-color: rgba($background-color, $opacity);
         border-radius: 12px;
-        box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+        box-shadow: $primary-box-shadow;
     }
 
     .address-bar {
@@ -73,7 +73,7 @@
         outline: none;
         font-size: 14px;
         background-color: rgba($accent-color, 0.7);
-        box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+        box-shadow: $primary-box-shadow;
         color: white;
     }
 
@@ -86,13 +86,13 @@
         border-radius: 6px;
         cursor: pointer;
         font-size: 14px;
-        box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+        box-shadow: $primary-box-shadow;
     }
 
     button:disabled {
         background-color: #6c757d;
         cursor: not-allowed;
-        box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+        box-shadow: $primary-box-shadow;
     }
 
     button:focus {

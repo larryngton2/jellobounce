@@ -35,7 +35,7 @@
     font-size: 20px;
     transition: ease background-color .2s, ease opacity .2s;
     font-weight: 600;
-    box-shadow: 0 0 10px rgba($shadow-color, 0.5);
+    box-shadow: $primary-box-shadow;
 
     &.inset {
       margin: 0 30px;
