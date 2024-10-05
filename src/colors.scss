@@ -1,41 +1,41 @@
-$accent-color: #2e2e2e;
+$accent-color: #2e2e2e; // accent color
 
-$gradient-color-1: rgb(255, 255, 255);
-$gradient-color-2: rgb(150, 150, 150);
+$gradient-color-1: rgb(255, 255, 255); // gradient color 1
+$gradient-color-2: rgb(150, 150, 150); // gradient color 2
 
-$healthprogress-neutral-1: white;
-$healthprogress-neutral-2: rgb(145, 145, 145);
+$healthprogress-neutral-1: white; // healthprogress neutral 1
+$healthprogress-neutral-2: rgb(145, 145, 145); // healthprogress neutral 2
 
 // the values here get darker by 0.2
-$healthprogress-gain: rgb(117, 117, 117);
-$healthprogress-lose-1: white;
-$healthprogress-lose-2: rgb(145, 145, 145);
+$healthprogress-gain: rgb(117, 117, 117); // healthprogress gain
+$healthprogress-lose-1: white; // healthprogress lose 1
+$healthprogress-lose-2: rgb(145, 145, 145); // healthprogress lose 2
 
-$text-color: white;
-$text-dimmed-color: rgba(211, 211, 211, 255);
-$background-color: black;
-$keystrokes-dimmed-color: rgb(75, 75, 75);
+$text-color: white; // text color
+$text-dimmed-color: rgba(211, 211, 211, 255); // text dimmed color
+$background-color: black; // background color
+$keystrokes-dimmed-color: rgb(75, 75, 75); // keystrokes dimmed color
 
-$account-online-color: #2e2e2e;
-$account-offline-color: rgb(100, 100, 100);
-$menu-error-color: red;
+$account-online-color: #2e2e2e; // account online color
+$account-offline-color: rgb(100, 100, 100); // account offline color
+$menu-error-color: red; // menu error color
 
-$opacity: 0.55;
+$opacity: 0.55; // opacity
 
-$border-thing: rgba(white, 0.1);
+$border-thing: rgba(white, 0.1); // border thing
 
-$primary-box-shadow: 0 0 10px rgba(black, 0.5);
-$misc-box-shadow: 0 0 10px rgba(black, 0.3);
-$userinfo-box-shadow: 0 0 5px rgba(black, 0.5);
-$arraylist-shadow-color: black;
+$primary-box-shadow: 0 0 10px rgba(black, 0.5); // primary box shadow
+$misc-box-shadow: 0 0 10px rgba(black, 0.3); // misc box shadow
+$userinfo-box-shadow: 0 0 5px rgba(black, 0.5); // userinfo box shadow
+$arraylist-shadow-color: black; // arraylist shadow color
 
-$targethud-winning: green;
-$targethud-losing: red;
-$targethud-draw: orange;
+$targethud-winning: green; // targethud winnine
+$targethud-losing: red; // targethud losing
+$targethud-draw: orange; // targethud draw
 
-$arraylist-tag-color: #AAAAAA;
+$arraylist-tag-color: #AAAAAA; // arraylist tag color
 
-$shaderfix-color: rgba(black, 0.1); // idk why someone would fucking want this, but sure
-$fade-color: black;
+$shaderfix-color: rgba(black, 0.1); // idk why someone would fucking want this, but sure // shaderfix color
+$fade-color: black; // fade color
 
-$dot-color: white;
+$dot-color: white; // dot color
