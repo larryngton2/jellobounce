@@ -19,13 +19,13 @@
             "a b"
             "a c";
     grid-template-columns: max-content 1fr;
-    column-gap: 10px;
+    column-gap: 7px;
     background: rgba($background-color, $opacity);
     border-radius: 12px;
     min-width: 250px;
     overflow: hidden;
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 7px;
+    margin-bottom: 7px;
     box-shadow: $primary-shadow;
     border: $border-thing;
     text-shadow: $primary-shadow;
