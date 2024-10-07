@@ -84,6 +84,7 @@
         padding: 5px;
         border-radius: 6px;
         height: 28px;
+        border: $border-thing;
 
         .avatar {
             height: 18px;
