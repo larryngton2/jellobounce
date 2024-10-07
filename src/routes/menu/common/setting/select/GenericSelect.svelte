@@ -70,7 +70,6 @@
     border-radius: 12px;
     transition: ease .2s;
     box-shadow: $primary-shadow;
-    font-family: "sf-pro";
     z-index: 1;
 
     .title {
@@ -93,7 +92,7 @@
     overflow: auto;
     background-color: rgba($background-color, $opacity);
     margin-top: 10px;
-    border: solid 1px $border-thing;
+    border: $border-thing;
     backdrop-filter: blur(64);
   }
 </style>

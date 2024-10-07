@@ -59,7 +59,7 @@
 
     .watermark {
         grid-area: a;
-        font-family: "sf-pro";
+        font-family: "urbanist-variable";
         color: $text-color;
         font-size: 40px;
         z-index: 1;
@@ -69,6 +69,7 @@
         padding: 0 7px;
         box-shadow: $primary-shadow;
         border-radius: 12px;
+        border: $border-thing;
     }
 
     .userinfo {
@@ -76,10 +77,9 @@
         color: white;
         text-shadow: $primary-shadow;
         box-shadow: $primary-shadow;
-        font-family: "sf-pro";
         font-weight: 400;
         font-size: 15px;
-        margin-left: 5px;
+        margin-left: 7px;
         background-color: rgba($background-color, 0.5);
         padding: 5px;
         border-radius: 6px;

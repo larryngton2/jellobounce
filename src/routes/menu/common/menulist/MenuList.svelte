@@ -54,7 +54,7 @@
     border-radius: 12px;
     margin-bottom: -125px;
     position: relative;
-    border: solid 1px $border-thing;
+    border: $border-thing;
     z-index: 1;
   }
 </style>

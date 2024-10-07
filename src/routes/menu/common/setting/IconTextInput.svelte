@@ -27,7 +27,6 @@
   .icon-text-input {
     display: grid;
     grid-template-columns: max-content 1fr max-content;
-    font-family: "sf-pro";
   }
 
   .icon {

@@ -222,7 +222,6 @@
     cursor: grab;
     text-align: center;
     text-shadow: 0px 0px 20px rgba(150,150,150);
-    font-family: "sf-pro";
 
     .category {
       font-size: 15px;

@@ -35,9 +35,8 @@
     background-color: rgba($background-color, $opacity);
     padding: 5px 8px;
     box-shadow: $primary-shadow;
-    border-left: solid 1px $border-thing;
-    border-right: solid 1px $border-thing;
-    font-family: "sf-pro";
+    border-left: $border-thing;
+    border-right: $border-thing;
     text-shadow: $primary-shadow;
 
     .duration {
@@ -48,12 +47,12 @@
   .effect:first-child {
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
-    border-bottom: solid 1px $border-thing;
+    border-bottom: $border-thing;
   }
 
   .effect:last-child {
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
-    border-top: solid 1px $border-thing;
+    border-top: $border-thing;
   }
 </style>

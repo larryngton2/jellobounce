@@ -46,7 +46,6 @@
   .userinfo {
     color: white;
     text-shadow: $userinfo-box-shadow;
-    font-family: "sf-pro";
     font-weight: 400;
     background-image: linear-gradient(
         45deg,

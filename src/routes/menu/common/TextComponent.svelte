@@ -150,7 +150,6 @@
         display: inline;
 
         &.allow-preformatting {
-            font-family: "sf-pro";
             white-space: pre;
         }
 

@@ -173,7 +173,6 @@
     //bottom: 15px;
     //left: 50%;
     //transform: translateX(-50%);
-    font-family: "sf-pro";
   }
 
   .pair {
@@ -196,7 +195,7 @@
     position: relative;
     border-radius: 12px;
     box-shadow: $primary-shadow;
-    border: solid 1px $border-thing;
+    border: $border-thing;
 
     .slider {
       height: 45px;
@@ -229,7 +228,7 @@
     bottom: 0;
     left: -65px;
     box-shadow: $primary-shadow;
-    border: solid 1px $border-thing;
+    border: $border-thing;
   }
 
   .item-name {

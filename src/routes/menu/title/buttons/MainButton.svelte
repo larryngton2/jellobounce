@@ -39,7 +39,6 @@
   grid-template-columns: max-content 1fr max-content;
   align-items: center;
   cursor: pointer;
-  font-family: "sf-pro";
   font-weight: normal;
   margin-right: 25px;
   scale: 70%;
@@ -59,7 +58,7 @@
   transition: ease background-color 0.2s;
   position: relative;
   align-items: center;
-  border: solid 1px $border-thing;
+  border: $border-thing;
   box-shadow: $primary-shadow;
 
     .title {

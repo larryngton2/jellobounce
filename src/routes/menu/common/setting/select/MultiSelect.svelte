@@ -48,7 +48,6 @@
     font-size: 20px;
     padding: 15px 20px;
     transition: ease color .2s;
-    font-family: "sf-pro";
     z-index: 1;
 
     &:hover {

@@ -172,7 +172,7 @@
     overflow: hidden;
     transition: ease border-radius 0.2s;
     box-shadow: 0 0 10px rgba($background-color, 0.5);
-    border: solid 1px $border-thing;
+    border: $border-thing;
 
     &.has-results {
       border-radius: 10px;

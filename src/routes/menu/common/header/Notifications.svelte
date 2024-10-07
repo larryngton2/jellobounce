@@ -63,8 +63,7 @@
     overflow: hidden;
     padding-right: 10px;
     min-width: 350px;
-    border: solid 1px $border-thing;
-    font-family: "sf-pro";
+    border: $border-thing;
 
     .title {
       color: $text-color;

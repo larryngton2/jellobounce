@@ -37,9 +37,8 @@
     transition: ease scale 0.1s, ease background-color 0.2s;
     position: relative;
     text-align: center;
-    font-family: "sf-pro";
     box-shadow: $primary-shadow;
-    border: solid 1px $border-thing;
+    border: $border-thing;
     text-shadow: $primary-shadow;
 
     &.active {

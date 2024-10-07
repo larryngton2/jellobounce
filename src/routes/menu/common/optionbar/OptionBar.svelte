@@ -17,8 +17,7 @@
       align-items: center;
       column-gap: 30px;
       margin-bottom: 25px;
-      border: solid 1px $border-thing;
-      font-family: "sf-pro";
+      border: $border-thing;
       margin-top: -60px;
     }
 </style>

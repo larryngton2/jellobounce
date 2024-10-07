@@ -28,9 +28,8 @@
       overflow: hidden;
       background-size: 200% 100%;
       transition: ease .2s background-color;
-      font-family: "sf-pro";
       height: 55px;
-      border: solid 1px $border-thing;
+      border: $border-thing;
 
       &:not([disabled]):hover {
         &:hover {

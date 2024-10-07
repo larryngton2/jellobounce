@@ -127,7 +127,6 @@
       font-weight: 500;
       position: relative;
       padding: 10px;
-      font-family: "sf-pro";
       align-items: center;
       position: relative;
       left: 50%;

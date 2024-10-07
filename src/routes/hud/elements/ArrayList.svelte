@@ -80,7 +80,6 @@
         background-color: rgba($background-color, $opacity);
         color: $text-color;
         font-size: 15px;
-        font-family: "sf-pro";
         padding: 5px 8px;
         width: max-content;
         font-weight: 400;
