@@ -66,7 +66,7 @@
     border-radius: 50%;
     grid-area: a;
     margin-right: 10px;
-    box-shadow: $primary-box-shadow;
+    box-shadow: $primary-shadow;
   }
 
   .username {
@@ -77,7 +77,7 @@
     grid-area: b;
     align-self: flex-end;
     margin-right: 7px;
-    text-shadow: $primary-box-shadow;
+    text-shadow: $primary-shadow;
   }
 
   .account-type {
@@ -89,12 +89,12 @@
 
     .premium {
       color: $account-online-color;
-      text-shadow: $primary-box-shadow;
+      text-shadow: $primary-shadow;
     }
 
     .offline {
       color: $text-dimmed-color;
-      text-shadow: $primary-box-shadow;
+      text-shadow: $primary-shadow;
     }
   }
 

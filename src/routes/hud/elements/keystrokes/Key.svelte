@@ -38,9 +38,9 @@
     position: relative;
     text-align: center;
     font-family: "sf-pro";
-    box-shadow: $primary-box-shadow;
+    box-shadow: $primary-shadow;
     border: solid 1px $border-thing;
-    text-shadow: $primary-box-shadow;
+    text-shadow: $primary-shadow;
 
     &.active {
       background-color: rgba($accent-color, 0.7);

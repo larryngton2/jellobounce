@@ -85,7 +85,7 @@
         width: max-content;
         font-weight: 400;
         margin-left: auto;
-        text-shadow: $primary-box-shadow;
+        text-shadow: $primary-shadow;
         box-shadow: -5px 0px 10px rgba($arraylist-shadow-color, 0.27), 5px 0px 10px rgba($arraylist-shadow-color, 0.27);
         //filter: drop-shadow(0px 0px 10px rgba($arraylist-shadow-color, 1));
     }

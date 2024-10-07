@@ -34,11 +34,11 @@
     text-align: left;
     background-color: rgba($background-color, $opacity);
     padding: 5px 8px;
-    box-shadow: $primary-box-shadow;
+    box-shadow: $primary-shadow;
     border-left: solid 1px $border-thing;
     border-right: solid 1px $border-thing;
     font-family: "sf-pro";
-    text-shadow: $primary-box-shadow;
+    text-shadow: $primary-shadow;
 
     .duration {
       color: white;

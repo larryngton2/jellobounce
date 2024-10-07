@@ -60,7 +60,7 @@
   position: relative;
   align-items: center;
   border: solid 1px $border-thing;
-  box-shadow: $primary-box-shadow;
+  box-shadow: $primary-shadow;
 
     .title {
       position: fixed;

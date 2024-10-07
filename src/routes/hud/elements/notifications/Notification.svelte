@@ -26,10 +26,10 @@
     overflow: hidden;
     padding: 10px;
     margin-bottom: 10px;
-    box-shadow: $primary-box-shadow;
+    box-shadow: $primary-shadow;
     border: solid 1px $border-thing;
     font-family: "sf-pro";
-    text-shadow: $primary-box-shadow;
+    text-shadow: $primary-shadow;
   }
 
   .icon {

@@ -48,7 +48,7 @@
   position: relative;
   border-radius: 12px;
   background-color: rgba($background-color, $opacity);
-  box-shadow: $primary-box-shadow;
+  box-shadow: $primary-shadow;
   border: solid 1px $border-thing;
 
   &.align-right {
