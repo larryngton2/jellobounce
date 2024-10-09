@@ -38,13 +38,7 @@
     {/if}
 
 <div class="main-wrapper">
-    <div class="text" transition:fly|global={{duration: 500, x: -50, easing: expoInOut}}>knox</div>
-        <div class="userinfo" transition:fly|global={{duration: 500, y: 50, easing: expoInOut}}>
-            <object data={avatar} type="image/png" class="avatar" aria-label="avatar">
-                <img src="img/steve.png" alt=avatar class="avatar">
-            </object>
-        <span class="username">{username}</span>
-    </div>
+    <div class="text" transition:fly|global={{duration: 500, x: -50, easing: expoInOut}}>jello</div>
 </div>
 
 <div class="shaderfix"></div>
@@ -54,7 +48,9 @@
 
     .main-wrapper {
         display: grid;
-        grid-template-areas: "a b";
+        grid-template-areas: 
+        "a"
+        "b";
     }
 
     .text {
@@ -66,32 +62,6 @@
         text-shadow: $primary-shadow;
         font-weight: 400;
         padding: 0 7px;
-        border-radius: 12px;
-        background-color: rgba($background-color, $opacity2);
-        border: $border-thing;
-    }
-
-    .userinfo {
-        grid-area: b;
-        color: white;
-        text-shadow: $primary-shadow;
-        box-shadow: $primary-shadow;
-        font-weight: 400;
-        font-size: 15px;
-        margin-left: 7px;
-        background-color: rgba($background-color, $opacity2);
-        padding: 4px 5px;
-        border-radius: 6px;
-        height: 28px;
-        border: $border-thing;
-
-        .avatar {
-            height: 18px;
-            width: 18px;
-            border-radius: 100%;
-            margin-bottom: -3.5px;
-            box-shadow: $userinfo-box-shadow;
-        }
     }
 
     .fade {

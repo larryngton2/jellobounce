@@ -80,7 +80,7 @@
         background-color: rgba($background-color, $opacity);
         color: $text-color;
         font-size: 15px;
-        padding: 5px 8px;
+        padding: 5px 7px;
         width: max-content;
         font-weight: 400;
         margin-left: auto;
