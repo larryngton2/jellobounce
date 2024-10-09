@@ -51,7 +51,7 @@
 }
 
 .icon {
-  background-color: rgba($background-color, 0.5);
+  background-color: rgba($background-color, $opacity2);
   width: 90px;
   height: 90px;
   border-radius: 50%;

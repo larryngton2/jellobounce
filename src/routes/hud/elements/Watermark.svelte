@@ -38,14 +38,15 @@
     {/if}
 
 <div class="main-wrapper">
-    <div class="watermark" transition:fly|global={{duration: 500, x: -50, easing: expoInOut}}>demise</div>
-        <span class="userinfo" transition:fly|global={{duration: 500, y: -50, easing: expoInOut}}>
+    <div class="text" transition:fly|global={{duration: 500, x: -50, easing: expoInOut}}>knox</div>
+        <div class="userinfo" transition:fly|global={{duration: 500, y: 50, easing: expoInOut}}>
             <object data={avatar} type="image/png" class="avatar" aria-label="avatar">
                 <img src="img/steve.png" alt=avatar class="avatar">
             </object>
-            <span class="username">{username}</span>
-      </span>
+        <span class="username">{username}</span>
+    </div>
 </div>
+
 <div class="shaderfix"></div>
 
 <style lang="scss">
@@ -53,11 +54,10 @@
 
     .main-wrapper {
         display: grid;
-        grid-template-areas:
-            "a b";
+        grid-template-areas: "a b";
     }
 
-    .watermark {
+    .text {
         grid-area: a;
         font-family: "urbanist-variable";
         color: $text-color;
@@ -65,10 +65,9 @@
         z-index: 1;
         text-shadow: $primary-shadow;
         font-weight: 400;
-        background-color: rgba($background-color, 0.5);
         padding: 0 7px;
-        box-shadow: $primary-shadow;
         border-radius: 12px;
+        background-color: rgba($background-color, $opacity2);
         border: $border-thing;
     }
 
@@ -80,8 +79,8 @@
         font-weight: 400;
         font-size: 15px;
         margin-left: 7px;
-        background-color: rgba($background-color, 0.5);
-        padding: 5px;
+        background-color: rgba($background-color, $opacity2);
+        padding: 4px 5px;
         border-radius: 6px;
         height: 28px;
         border: $border-thing;

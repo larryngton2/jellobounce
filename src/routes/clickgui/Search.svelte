@@ -171,7 +171,7 @@
     border-radius: 50px;
     overflow: hidden;
     transition: ease border-radius 0.2s;
-    box-shadow: 0 0 10px rgba($background-color, 0.5);
+    box-shadow: 0 0 10px rgba($background-color, $opacity2);
     border: $border-thing;
 
     &.has-results {

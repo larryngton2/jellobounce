@@ -20,7 +20,7 @@
     @import "../../../../colors.scss";
 
     .icon-text-button {
-      background-color: rgba($background-color, 0.5);
+      background-color: rgba($background-color, $opacity2);
       display: flex;
       border: none;
       border-radius: 12px;
