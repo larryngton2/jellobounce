@@ -1,6 +1,6 @@
 <script lang="ts">
     import {fly} from "svelte/transition";
-    import {expoInOut} from "svelte/easing";
+    import {expoOut} from "svelte/easing";
     import {onMount} from 'svelte';
     import {fade} from 'svelte/transition';
     import {getSession} from "../../../integration/rest";
@@ -38,7 +38,7 @@
     {/if}
 
 <div class="main-wrapper">
-    <div class="text" transition:fly|global={{duration: 500, x: -50, easing: expoInOut}}>jello</div>
+    <div class="text" transition:fly|global={{duration: 500, x: -50, easing: expoOut}}>jello</div>
 </div>
 
 <div class="shaderfix"></div>

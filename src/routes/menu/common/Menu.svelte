@@ -2,7 +2,7 @@
     import Header from "./header/Header.svelte";
     import {scale} from "svelte/transition";
     import {onMount} from "svelte";
-    import {expoInOut} from "svelte/easing";
+    import {expoOut} from "svelte/easing";
 
     const transitionDuration = 700; // TODO: suboptimal
 
@@ -17,7 +17,7 @@
 
 <div class="menu">
     {#if ready}
-        <div transition:scale|global={{duration: 500, easing: expoInOut}}>
+        <div transition:scale|global={{duration: 500, easing: expoOut}}>
             <Header/>
         </div>
 

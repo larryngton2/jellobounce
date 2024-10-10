@@ -7,7 +7,7 @@
     import type {ClientPlayerDataEvent} from "../../../../integration/events";
     import {onMount} from "svelte";
     import {getPlayerData} from "../../../../integration/rest";
-    import {expoInOut} from "svelte/easing";
+    import {expoOut} from "svelte/easing";
     import HealthProgress from "./HealthProgress.svelte";
 
     let target: PlayerData | null = null;
@@ -53,7 +53,7 @@
 </script>
 
 {#if visible && target != null}
-    <div class="targethud" transition:scale={{duration: 500, easing: expoInOut}}>
+    <div class="targethud" transition:scale={{duration: 500, easing: expoOut}}>
         <div class="main-wrapper">
             <div class="avatar">
                 <img src="{REST_BASE}/api/v1/client/resource/skin?uuid={target.uuid}" alt="avatar" />

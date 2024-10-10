@@ -3,7 +3,7 @@
     import {SortableList} from "@jhubbardsf/svelte-sortablejs";
     import "./menulist.scss";
     import {createEventDispatcher} from "svelte";
-    import {expoInOut} from "svelte/easing";
+    import {expoOut} from "svelte/easing";
     import Dot from "../../Dot.svelte";
 
     export let sortable = false;

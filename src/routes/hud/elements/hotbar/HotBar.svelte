@@ -7,7 +7,7 @@
     import {fade, fly} from "svelte/transition";
     import TextComponent from "../../../menu/common/TextComponent.svelte";
     import type {ClientPlayerDataEvent, OverlayMessageEvent} from "../../../../integration/events";
-    import {expoInOut} from "svelte/easing";
+    import {expoOut} from "svelte/easing";
 
     let lastSlot = 0;
     let currentSlot = 0;
@@ -65,7 +65,7 @@
 </script>
 
 {#if playerData && playerData.gameMode !== "spectator"}
-    <div class="hotbar" transition:fly={{duration: 700, y: 50, easing: expoInOut}}>
+    <div class="hotbar" transition:fly={{duration: 700, y: 50, easing: expoOut}}>
         {#if overlayMessage !== null}
             <div class="overlay-message" transition:fade|global={{duration: 200}}
                  style="max-width: {slotsElement?.offsetWidth ?? 0}px">

@@ -9,7 +9,7 @@
     import {scale, fade, fly} from "svelte/transition";
     import {listen} from "../../integration/ws";
     import type {ClickGuiScaleChangeEvent, ScaleFactorChangeEvent} from "../../integration/events";
-    import {expoInOut} from "svelte/easing";
+    import {expoOut} from "svelte/easing";
     import Dot from "../menu/Dot.svelte";
 
     let categories: GroupedModules = {};
@@ -41,7 +41,7 @@
 
 <Dot/>
 <div class="background" transition:fade|global={{duration: 700}}></div>
-<div class="clickgui" transition:fly|global={{duration: 700, y: 100, easing:expoInOut}}
+<div class="clickgui" transition:fly|global={{duration: 700, y: 100, easing:expoOut}}
      style="zoom: {zoom}%; width: {2 / scaleFactor * 100}vw; height: {2 / scaleFactor * 100}vh;">
     <Description/>
     <Search modules={structuredClone(modules)}/>
