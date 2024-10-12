@@ -12,7 +12,7 @@
         } else if (value <= 64) {
             return `rgb(255, ${Math.floor(value * 255 / 60)}, 0)`;
         } else {
-            return 'rgb(255, 255, 255)';
+            return 'rgb(211, 211, 211)';
         }
     }
 

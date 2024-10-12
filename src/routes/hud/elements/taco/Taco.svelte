@@ -1,41 +1,69 @@
 <script lang="ts">
-  import {fly} from "svelte/transition";
-  import {expoOut} from "svelte/easing";
-  import {onMount} from 'svelte';
-  import {getSession} from "../../../../integration/rest";
-  import {listen} from "../../../../integration/ws";
+    import {fly} from "svelte/transition";
+    import {expoOut} from "svelte/easing";
+    import {onDestroy, onMount} from 'svelte';
+    import {getClientInfo, getSession} from "../../../../integration/rest";
+    import {listen} from "../../../../integration/ws";
+    import type {ClientInfo} from "../../../../integration/types";
   
-  let username = "";
-  let avatar = "";
+    let fps: number | null = null;
+    let clientVersion: string | null = null;
+    let clientInfo: ClientInfo | null = null;
+    let username = "";
+    let avatar = "";
+    let intervalId: number;
+  
+    async function refreshSession() {
+        const session = await getSession();
+        username = session.username;
+        avatar = session.avatar;
+    }
+  
+    // thanks to liquidsquid for this
+    async function getClientInfoData() {
+        clientInfo = await getClientInfo();
+    }
+  
+    onMount(async () => {
+        await refreshSession();
+        intervalId = setInterval(async () => {
+            await getClientInfoData();
+        }, 50);
+    });
+  
+    onDestroy(() => {
+        clearInterval(intervalId);
+    });
 
-  async function refreshSession() {
-      const session = await getSession();
-      username = session.username;
-      avatar = session.avatar;
-  }
-
-  onMount(async () => {
-      await refreshSession();
-  });
-
-  listen("session", async () => {
-      await refreshSession();
-  });
-</script>
-
-<div class="h">
-    <div class="userinfo" transition:fly|global={{duration: 500, y: 50, easing: expoOut}}>
-        <object data={avatar} type="image/png" class="avatar" aria-label="avatar">
-            <img src="img/steve.png" alt=avatar class="avatar">
-        </object>
-    <span class="username">{username}</span>
-    </div>
-</div>
+    listen("clientInfo", (data: ClientInfo) => {
+        fps = data.fps;
+        clientVersion = data.clientVersion
+    });
+  </script>
+  
+  <div class="main-wrapper">
+      {#if clientInfo !== null}
+          <div class="fps" transition:fly|global={{duration: 500, delay: 25 * 2, y: 50, easing: expoOut}}>{clientInfo.fps} FPS</div>
+          <div class="clientversion" transition:fly|global={{duration: 500, delay: 25 * 1, y: 50, easing: expoOut}}>Version: {clientInfo.clientVersion}</div>
+      {/if}
+      <div class="userinfo" transition:fly|global={{duration: 500, delay: 25 * 0, y: 50, easing: expoOut}}>
+          <object data={avatar} type="image/png" class="avatar" aria-label="avatar">
+              <img src="img/steve.png" alt=avatar class="avatar">
+          </object>
+          <span class="username">{username}</span>
+      </div>
+  </div>
 
 <style lang="scss">
-  @import "../../../../colors.scss";
+    @import "../../../../colors.scss";
 
-  .userinfo {
+    .main-wrapper {
+        display: grid;
+        grid-template-areas: "a b c";
+    }
+
+    .fps {
+        grid-area: a;
         color: white;
         text-shadow: $primary-shadow;
         box-shadow: $primary-shadow;
@@ -43,7 +71,37 @@
         font-size: 15px;
         margin-left: 7px;
         background-color: rgba($background-color, $opacity2);
-        padding: 4px 5px;
+        padding: 4px 6px;
+        border-radius: 6px;
+        height: 28px;
+        border: $border-thing;
+    }
+
+    .clientversion {
+        grid-area: b;
+        color: white;
+        text-shadow: $primary-shadow;
+        box-shadow: $primary-shadow;
+        font-weight: 400;
+        font-size: 15px;
+        margin-left: 7px;
+        background-color: rgba($background-color, $opacity2);
+        padding: 4px 6px;
+        border-radius: 6px;
+        height: 28px;
+        border: $border-thing;
+    }
+
+    .userinfo {
+        grid-area: c;
+        color: white;
+        text-shadow: $primary-shadow;
+        box-shadow: $primary-shadow;
+        font-weight: 400;
+        font-size: 15px;
+        margin-left: 7px;
+        background-color: rgba($background-color, $opacity2);
+        padding: 4px 6px;
         border-radius: 6px;
         height: 28px;
         border: $border-thing;

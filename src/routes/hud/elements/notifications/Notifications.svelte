@@ -4,7 +4,7 @@
     import {fly} from "svelte/transition";
     import Notification from "./Notification.svelte";
     import type {NotificationEvent} from "../../../../integration/events";
-    import {expoOut} from "svelte/easing";
+    import {expoIn, expoOut} from "svelte/easing";
 
     interface TNotification {
         animationKey: number;
@@ -53,8 +53,7 @@
         <div
                 animate:flip={{duration: 150}}
                 in:fly={{duration: 500, x: -50, easing: expoOut}}
-                out:fly|global={{duration: 500, x: -50, easing: expoOut}}
-    > 
+                out:fly|global={{duration: 500, x: -50}}> 
             <Notification {title} {message} {severity}/>
         </div>
     {/each}
