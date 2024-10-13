@@ -2,33 +2,51 @@
     import {fly} from "svelte/transition";
     import {expoOut} from "svelte/easing";
     import {onDestroy, onMount} from 'svelte';
-    import {getClientInfo, getSession} from "../../../../integration/rest";
+    import {getClientInfo, getProtocols, getSelectedProtocol, getSession} from "../../../../integration/rest";
     import {listen} from "../../../../integration/ws";
-    import type {ClientInfo} from "../../../../integration/types";
+    import type {ClientInfo, ClientUpdate, Protocol} from "../../../../integration/types";
   
     let fps: number | null = null;
+    let protocol: number | null = null;
     let clientVersion: string | null = null;
+    let clientInDev: boolean;
     let clientInfo: ClientInfo | null = null;
     let username = "";
     let avatar = "";
     let intervalId: number;
+    let protocols: Protocol[] = [];
+    let selectedProtocol: Protocol = {
+        name: "",
+        version: -1
+    };
   
     async function refreshSession() {
         const session = await getSession();
         username = session.username;
         avatar = session.avatar;
-    }
-  
-    // thanks to liquidsquid for this
+    };
+
     async function getClientInfoData() {
         clientInfo = await getClientInfo();
-    }
+    };
+
+    function clientDevStatus(): string {
+        if (clientInDev = true) {
+            return "Dev"
+        } else {
+            return "Release"
+        }
+    };
   
     onMount(async () => {
         await refreshSession();
         intervalId = setInterval(async () => {
             await getClientInfoData();
         }, 50);
+
+        await getSelectedProtocol();
+        protocols = await getProtocols();
+        selectedProtocol = await getSelectedProtocol();
     });
   
     onDestroy(() => {
@@ -39,13 +57,22 @@
         fps = data.fps;
         clientVersion = data.clientVersion
     });
+
+    listen("clientUpdate", (data: ClientUpdate) => {
+        clientInDev = data.development;
+    });
+
+    listen("clientProtocol", (data: Protocol) => {
+        protocol = data.version;
+    });
   </script>
   
   <div class="main-wrapper">
-      {#if clientInfo !== null}
-          <div class="fps" transition:fly|global={{duration: 500, delay: 25 * 2, y: 50, easing: expoOut}}>{clientInfo.fps} FPS</div>
-          <div class="clientversion" transition:fly|global={{duration: 500, delay: 25 * 1, y: 50, easing: expoOut}}>Version: {clientInfo.clientVersion}</div>
-      {/if}
+        {#if clientInfo && clientInfo.viaFabricPlus}
+          <div class="fps" transition:fly|global={{duration: 500, delay: 25 * 3, y: 50, easing: expoOut}}>{clientInfo.fps} FPS</div>
+          <div class="protocol" transition:fly|global={{duration: 500, delay: 25 * 2, y: 50, easing: expoOut}}>Version {selectedProtocol.name}</div>
+          <div class="clientversion" transition:fly|global={{duration: 500, delay: 25 * 1, y: 50, easing: expoOut}}>{clientDevStatus()} {clientInfo.clientVersion}</div>
+        {/if}
       <div class="userinfo" transition:fly|global={{duration: 500, delay: 25 * 0, y: 50, easing: expoOut}}>
           <object data={avatar} type="image/png" class="avatar" aria-label="avatar">
               <img src="img/steve.png" alt=avatar class="avatar">
@@ -59,7 +86,7 @@
 
     .main-wrapper {
         display: grid;
-        grid-template-areas: "a b c";
+        grid-template-areas: "a b c d";
     }
 
     .fps {
@@ -77,7 +104,7 @@
         border: $border-thing;
     }
 
-    .clientversion {
+    .protocol {
         grid-area: b;
         color: white;
         text-shadow: $primary-shadow;
@@ -92,8 +119,23 @@
         border: $border-thing;
     }
 
-    .userinfo {
+    .clientversion {
         grid-area: c;
+        color: white;
+        text-shadow: $primary-shadow;
+        box-shadow: $primary-shadow;
+        font-weight: 400;
+        font-size: 15px;
+        margin-left: 7px;
+        background-color: rgba($background-color, $opacity2);
+        padding: 4px 6px;
+        border-radius: 6px;
+        height: 28px;
+        border: $border-thing;
+    }
+
+    .userinfo {
+        grid-area: d;
         color: white;
         text-shadow: $primary-shadow;
         box-shadow: $primary-shadow;

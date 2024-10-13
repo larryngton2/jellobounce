@@ -69,13 +69,6 @@
         --gradient-color-2: #{$gradient-color-2};
     }
 
-    .arraylist {
-        //position: fixed;
-        //top: 0;
-        //right: 0;
-        //filter: drop-shadow(0px 0px 15px rgba($arraylist-shadow-color, 1));
-    }
-
     .module {
         background-color: rgba($background-color, $opacity);
         color: $text-color;
@@ -86,7 +79,6 @@
         margin-left: auto;
         text-shadow: $primary-shadow;
         box-shadow: -5px 0px 10px rgba($arraylist-shadow-color, 0.27), 5px 0px 10px rgba($arraylist-shadow-color, 0.27);
-        //filter: drop-shadow(0px 0px 10px rgba($arraylist-shadow-color, 1));
     }
 
     .tag {
