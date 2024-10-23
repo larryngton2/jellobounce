@@ -65,7 +65,6 @@
     border-radius: 50%;
     grid-area: a;
     margin-right: 10px;
-    box-shadow: $primary-shadow;
   }
 
   .username {

@@ -69,7 +69,6 @@
     justify-content: space-between;
     border-radius: 12px;
     transition: ease .2s;
-    box-shadow: $primary-shadow;
     z-index: 1;
 
     .title {

@@ -50,23 +50,29 @@
     });
 </script>
 
-<div class="arraylist" id="arraylist" transition:fly|global={{duration: 500, y: -50, easing: expoOut}}>
+<div class="arraylist" transition:fly|global={{duration: 500, y: -50, easing: expoOut}}>
     {#each enabledModules as {name, tag} (name)}
-        <div class="module" id="module" animate:flip={{duration: 350, easing: expoOut}} in:fly={{x: 50, duration: 250, easing: expoOut}} out:fly={{x: 50, duration: 250}}>
-            {$spaceSeperatedNames ? convertToSpacedString(name) : name}
-            {#if tag}
-                <span class="tag" id="tag"> {tag}</span>
-            {/if}
-        </div>
+            <div class="module" animate:flip={{duration: 200}} in:fly={{x: 50, duration: 250, easing: expoOut}} out:fly={{x: 50, duration: 250}}>
+                {$spaceSeperatedNames ? convertToSpacedString(name) : name}
+                {#if tag}
+                    <span class="tag" id="tag"> {tag}</span>
+                {/if}
+            </div>
     {/each}
 </div>
 
 <style lang="scss">
     @import "../../../colors.scss";
-    
+
     :root {
         --gradient-color-1: #{$gradient-color-1};
         --gradient-color-2: #{$gradient-color-2};
+    }
+
+    .arraylist {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
     }
 
     .module {
@@ -76,20 +82,22 @@
         padding: 5px 7px;
         width: max-content;
         font-weight: 400;
-        margin-left: auto;
         text-shadow: $primary-shadow;
-        box-shadow: -5px 0px 10px rgba($arraylist-shadow-color, 0.27), 5px 0px 10px rgba($arraylist-shadow-color, 0.27);
+        position: relative;
+        z-index: 1;
+        //box-shadow: -5px 0px 10px rgba($arraylist-shadow-color, 0.27), 5px 0px 10px rgba($arraylist-shadow-color, 0.27);
+        box-shadow: $primary-shadow;
     }
 
     .tag {
-        color: $arraylist-tag-color;
+       color: $arraylist-tag-color;
     }
 
     .module:first-child {
-        box-shadow: 0px -5px 10px rgba($arraylist-shadow-color, 0.17), -5px 0px 10px rgba($arraylist-shadow-color, 0.17), 5px 0px 10px rgba($arraylist-shadow-color, 0.17);
+        //box-shadow: 0px -5px 5px rgba($arraylist-shadow-color, 0.17), -5px 0px 5px rgba($arraylist-shadow-color, 0.17), 5px 0px 5px rgba($arraylist-shadow-color, 0.17);
     }
 
     .module:last-child {
-        box-shadow: 0px 5px 10px rgba($arraylist-shadow-color, 0.17), -5px 0px 10px rgba($arraylist-shadow-color, 0.17), 5px 0px 10px rgba($arraylist-shadow-color, 0.17);
+        //box-shadow: 0px 5px 5px rgba($arraylist-shadow-color, 0.17), -5px 0px 5px rgba($arraylist-shadow-color, 0.17), 5px 0px 5px rgba($arraylist-shadow-color, 0.17);
     }
 </style>

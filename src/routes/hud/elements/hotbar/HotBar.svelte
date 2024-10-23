@@ -204,7 +204,7 @@
       position: absolute;
       border-radius: 12px;
       transition: ease 0.15s;
-      box-shadow: $misc-box-shadow;
+      box-shadow: $primary-shadow;
       background-color: rgba($background-color, 0.2);
       scale: 90%;
     }

@@ -38,7 +38,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba($background-color, $opacity2);
+    background-color: rgba($background-color, $opacity);
     z-index: 99999;
   }
 

@@ -41,7 +41,6 @@
     transition: ease 0.4s;
     height: 14px;
     border-radius: 10px;
-    box-shadow: $primary-shadow;
 
     &::before {
       position: absolute;

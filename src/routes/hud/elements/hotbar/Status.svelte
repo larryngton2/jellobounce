@@ -41,7 +41,7 @@
   left: 5px;
   top: 50%;
   transform: translateY(-50%);
-  filter: drop-shadow($misc-box-shadow);
+  filter: drop-shadow($primary-shadow);
 }
 
 .progress {

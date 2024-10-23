@@ -24,7 +24,7 @@
         max-width: 169.5px;
         //max-width: 67.8%;
         background-color: rgba($background-color, 0.2);
-        box-shadow: $misc-box-shadow;
+        box-shadow: $primary-shadow;
     }
 
     .thumb {

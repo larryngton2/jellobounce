@@ -51,7 +51,7 @@
 }
 
 .icon {
-  background-color: rgba($background-color, $opacity2);
+  background-color: rgba($background-color, $opacity);
   width: 90px;
   height: 90px;
   border-radius: 50%;
@@ -59,7 +59,6 @@
   position: relative;
   align-items: center;
   border: $border-thing;
-  box-shadow: $primary-shadow;
 
     .title {
       position: fixed;
