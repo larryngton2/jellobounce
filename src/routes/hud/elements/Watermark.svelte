@@ -60,11 +60,12 @@
         await refreshSession();
     });
 </script>
+    {#if visible}
         <div class="fade" transition:fade={{duration: 1350}}></div>
         <div class="info">
             <div class="text" transition:fade={{delay: 1000, duration: 250}}>Logged in as {username} using {selectedProtocol.name} protocol.</div>
         </div>
-
+    {/if}
 <div class="main-wrapper">
     <div class="text" transition:fly|global={{duration: 500, x: -50, easing: expoOut}}>jello</div>
 </div>
@@ -102,7 +103,7 @@
         position: absolute;
         top: -15px;
         left: -15px;
-        //background-color: $fade-color;
+        background-color: $fade-color;
         width: 100vw;
         height: 100vh;
         z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999; // just to be sure
