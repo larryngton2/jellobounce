@@ -50,7 +50,7 @@
     background-color: rgba($background-color, .36);
     color: $text-color;
     padding: 10px;
-    border: solid 2px transparent;
+    border: solid 1px $accent-color;
     border-radius: 5px;
     flex-grow: 1;
     display: flex;
