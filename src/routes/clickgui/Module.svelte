@@ -140,6 +140,7 @@
         width: calc(100% - 4px);
         height: calc(100% - 4px);
         border: solid 2px $accent-color;
+        border-radius: 6px;
       }
 
       &:hover {
@@ -156,7 +157,6 @@
 
     .settings {
       background-color: rgba($background-color, 0.3);
-      border: solid 1px $accent-color;
       padding: 0 11px 0 7px;
     }
 
