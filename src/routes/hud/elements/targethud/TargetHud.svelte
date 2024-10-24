@@ -105,7 +105,7 @@
         padding-left: 56px;
         padding-top: 4px;
         font-size: 20px;
-        padding-right: 15px;
+        padding-right: 20px;
         text-shadow: $primary-shadow;
         overflow: hidden;
         white-space: nowrap;
