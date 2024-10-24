@@ -105,8 +105,11 @@
         padding-left: 56px;
         padding-top: 4px;
         font-size: 20px;
-        padding-right: 12px;
+        padding-right: 15px;
         text-shadow: $primary-shadow;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     .wl {
