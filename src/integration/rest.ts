@@ -6,7 +6,7 @@ import type {
     ClientUpdate,
     Component,
     ConfigurableSetting,
-    GameWindow, 
+    GameWindow,
     MinecraftKeybind,
     Module,
     PersistentStorageItem,
@@ -105,8 +105,8 @@ export async function getPlayerData(): Promise<PlayerData> {
     return data;
 }
 
-export async function getPrintableKeyName(code: number): Promise<PrintableKey> {
-    const searchParams = new URLSearchParams({code: code.toString()});
+export async function getPrintableKeyName(key: string): Promise<PrintableKey> {
+    const searchParams = new URLSearchParams({key});
 
     const response = await fetch(`${API_BASE}/client/input?${searchParams.toString()}`);
     const data: PrintableKey = await response.json();
@@ -289,16 +289,6 @@ export async function addAlteningAccount(token: string) {
     });
 }
 
-export async function addEasyMCAccount(token: string) {
-    await fetch(`${API_BASE}/client/accounts/new/easymc`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({token})
-    });
-}
-
 export async function addMicrosoftAccount() {
     await fetch(`${API_BASE}/client/accounts/new/microsoft`, {
         method: "POST",
@@ -370,17 +360,6 @@ export async function directLoginToSessionAccount(token: string) {
         body: JSON.stringify({token})
     });
 }
-
-export async function directLoginToEasyMCAccount(token: string) {
-    await fetch(`${API_BASE}/client/account/login/easymc`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({token})
-    });
-}
-
 
 export async function getAccounts(): Promise<Account[]> {
     const response = await fetch(`${API_BASE}/client/accounts`);

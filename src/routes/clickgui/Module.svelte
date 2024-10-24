@@ -139,7 +139,7 @@
         left: 0;
         width: calc(100% - 4px);
         height: calc(100% - 4px);
-        border: solid 2px $accent-color;
+        border: solid 2px transparent;
       }
 
       &:hover {
