@@ -86,7 +86,7 @@
         left: 50vw;
         transform: translateX(-50%);
         white-space: nowrap;
-        text-shadow: $watermark-text-shadow;
+        text-shadow: $text-shadow;
     }
 
     .text {
@@ -95,7 +95,7 @@
         color: $text-color;
         font-size: 40px;
         z-index: 1;
-        text-shadow: $watermark-text-shadow;
+        text-shadow: $text-shadow;
         font-weight: 400;
         padding: 0 7px;
     }

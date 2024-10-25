@@ -7,7 +7,6 @@
     import {flip} from "svelte/animate";
     import {fly} from "svelte/transition";
     import {convertToSpacedString, spaceSeperatedNames} from "../../../theme/theme_config";
-    import {arraylistGradient} from "../../../theme/arraylist"; // for some reason you need to keep the import even if its "unused", nice
     import {expoOut} from "svelte/easing";
 
     let enabledModules: Module[] = [];

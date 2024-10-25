@@ -128,10 +128,6 @@ void main(void) {
   {
     back_col = mix(hor_col, (hor_col * 0.3), vec_smootherstep(0.0, 0.25, rd.y));
     back_col = mix(back_col, bou_col, max((0.1 - rd.y), 0.0));
-    float sun_lightness = max(dot(rd, sun_dir), 0.0);
-    back_col = (back_col + (sun_col * pow(sun_lightness, 2000.0)));
-    back_col = (back_col + ((0.3 * sun_col) * pow(sun_lightness, 100.0)));
-    back_col = (back_col + (vec3(0.3, 0.2, 0.1) * pow(sun_lightness, 4.0)));
   }
   if(abs(coord.y) > 0.75) {
     col = vec3(0.0);
@@ -156,7 +152,6 @@ void main(void) {
   col = colorgrade_gamma_correction(col);
   col = colorgrade_tone_1(col, vec3(1.3, 0.9, 0.7), (vec3(0.5, 0.1, 0.1) * 0.1), vec3(3.0, 2.0, 1.2));
   col = colorgrade_saturate(col, 0.7);
-  col = colorgrade_vignette(col, uv, 0.25, 0.7);
   col = colorgrade_dither(col, gl_FragCoord.xy, 0.01);
 	
   float gray = dot(col, vec3(0.299, 0.587, 0.114));

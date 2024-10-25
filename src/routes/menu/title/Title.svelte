@@ -97,9 +97,11 @@
     </div>
 </Menu>
 
-<style>
+<style lang="scss">
+    @import "../../../colors.scss";
 
     .clock {
+        font-family: "inter";
         color: white;
         opacity: 0.8;
         font-size: 250px;
@@ -108,6 +110,7 @@
         left: 50%;
         transform: translateX(-50%);
         z-index: 1;
+        text-shadow: $primary-shadow;
     }
 
     .account {

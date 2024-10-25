@@ -67,6 +67,7 @@
       color: rgba(white, 0.8);
       left: 50%;
       transform: translateX(-50%);
+      text-shadow: $primary-shadow;
     }
 
   img {
