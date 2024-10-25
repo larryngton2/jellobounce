@@ -42,6 +42,7 @@
   font-weight: normal;
   margin-right: 25px;
   scale: 70%;
+  border-radius: 100%;
 
   &:hover {
     .icon {
@@ -54,7 +55,7 @@
   background-color: rgba($background-color, $opacity);
   width: 90px;
   height: 90px;
-  border-radius: 50%;
+  border-radius: 100%;
   transition: ease background-color 0.2s;
   position: relative;
   align-items: center;
