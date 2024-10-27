@@ -65,7 +65,7 @@
     updateTime();
 </script>
 
-<div class="shaderfix" transition:fade|global={{duration: 200}}></div>
+<div class="shaderfix" transition:fade|global={{duration: 500}}></div>
 <Menu>
     <div class="content">
         <div class="clock" transition:fly|global={{duration: 500, y: -100}}>{currentTime}</div>
@@ -99,7 +99,6 @@
     @import "../../../colors.scss";
 
     .clock {
-        font-family: "inter";
         color: white;
         opacity: 0.8;
         font-size: 250px;
@@ -139,13 +138,13 @@
         transform: translateX(-50%);
     }
 
-  .shaderfix {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    background-color: rgba(black, 0.1);
-    width: 100vw;
-    height: 100vh;  
-    z-index: -9999999999999999;
-  }
+    .shaderfix {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        background-color: rgba(black, 0.1);
+        width: 100vw;
+        height: 100vh;  
+        z-index: -9999999999999999;
+    }
 </style>
