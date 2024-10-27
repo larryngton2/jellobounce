@@ -7,6 +7,7 @@ import type {
     Component,
     ConfigurableSetting,
     GameWindow,
+    HitResult,
     MinecraftKeybind,
     Module,
     PersistentStorageItem,
@@ -101,6 +102,13 @@ export async function confirmVirtualScreen(name: string) {
 export async function getPlayerData(): Promise<PlayerData> {
     const response = await fetch(`${API_BASE}/client/player`);
     const data: PlayerData = await response.json();
+
+    return data;
+}
+
+export async function getCrosshairData(): Promise<HitResult> {
+    const response = await fetch(`${API_BASE}/client/crosshair`);
+    const data: HitResult = await response.json();
 
     return data;
 }
@@ -534,7 +542,7 @@ export async function reconnectToServer() {
 }
 
 export async function toggleBackgroundShaderEnabled() {
-    await fetch(`${API_BASE}/client/theme/shader/switch`, {
+    await fetch(`${API_BASE}/client/shader`, {
         method: "POST",
     });
 }

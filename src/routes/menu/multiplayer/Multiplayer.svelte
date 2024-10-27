@@ -34,7 +34,6 @@
     import type {ServerPingedEvent} from "../../../integration/events";
     import ButtonSetting from "../common/setting/ButtonSetting.svelte";
     import Divider from "../common/optionbar/Divider.svelte";
-    import Dot from "../Dot.svelte";
 
     let onlineOnly = false;
     let searchQuery = "";
@@ -146,7 +145,6 @@
     }
 </script>
 
-<Dot/>
 <AddServerModal bind:visible={addServerModalVisible} on:serverAdd={refreshServers}/>
 {#if currentEditServer}
     <EditServerModal bind:visible={editServerModalVisible} address={currentEditServer.address}
