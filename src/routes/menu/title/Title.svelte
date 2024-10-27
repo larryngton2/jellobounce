@@ -67,7 +67,7 @@
 </script>
 
 <Dot/>
-<div class="shaderfix"></div>
+<div class="shaderfix" transition:fade|global={{duration: 200}}></div>
 <Menu>
     <div class="content">
         <div class="clock" transition:fly|global={{duration: 500, y: -100}}>{currentTime}</div>
