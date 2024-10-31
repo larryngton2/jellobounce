@@ -1,6 +1,7 @@
 <script lang="ts">
-    import {fade, fly} from "svelte/transition";
+    import {fade, fly, scale} from "svelte/transition";
     import {createEventDispatcher} from "svelte";
+    import { expoOut } from "svelte/easing";
 
     export let title: string;
     export let visible: boolean;
@@ -14,8 +15,8 @@
 </script>
 
 {#if visible}
-    <div class="modal-wrapper" transition:fade|global={{duration: 150}}>
-        <div class="modal" in:fly|global={{duration: 300, y: -100}} out:fly|global={{duration: 300, y: -100}}>
+    <div class="modal-wrapper" transition:fade|global={{duration: 250}}>
+        <div class="modal" transition:scale={{duration: 500, easing: expoOut}}>
             <button class="button-modal-close" on:click={handleClick}>
                 <img src="img/menu/icon-close.svg" alt="close">
             </button>
@@ -40,19 +41,21 @@
     height: 100vh;
     background-color: rgba($background-color, $opacity);
     z-index: 99999;
+    backdrop-filter: blur(10px);
   }
 
   .modal {
-    background-color: rgba($background-color, 0.7);
+    background-color: rgba($background-color, $opacity);
     min-width: 500px;
     position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    padding: 40px;
+    padding: 25px;
     display: flex;
     flex-direction: column;
-    border-radius: 5px;
+    border-radius: 12px;
+    box-shadow: $primary-shadow;
   }
 
   .title {
@@ -67,10 +70,10 @@
       content: "";
       position: absolute;
       display: block;
-      height: 8px;
-      width: calc(90%);
-      background-color: rgba($accent-color, 0.7);
-      bottom: -25px;
+      height: 5px;
+      width: calc(95%);
+      background-color: $accent-color;
+      bottom: -15px;
       left: 50%;
       transform: translateX(-50%);
       border-radius: 10px;

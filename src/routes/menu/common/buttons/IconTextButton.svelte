@@ -30,16 +30,17 @@
       transition: ease .2s background-color;
       height: 55px;
       border: $border-thing;
+      box-shadow: $primary-shadow;
 
       &:not([disabled]):hover {
         &:hover {
           cursor: pointer;
-          background-color: $accent-color;
+          background-color: rgba($accent-color, 0.7);
         }
       }
 
       &[disabled] {
-        opacity: .6;
+        opacity: $opacity;
       }
     }
 

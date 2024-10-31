@@ -54,16 +54,19 @@
         "a b c"
         "a d c";
     grid-template-columns: max-content 1fr max-content;
-    background-color: rgba($background-color, .35);
-    padding: 10px 20px;
+    background-color: rgba($background-color, .36);
+    padding-left: 15px;
+    padding-bottom: 5px;
+    padding-top: 10px;
+    padding-right: 20px;
     column-gap: 15px;
-    border-radius: 6px;
-    transition: ease background-color .15s;
+    border-radius: 12px;
+    margin-left: -13.5px;
+    margin-right: -13.5px;
+    transition: ease background-color .25s;
     align-items: center;
     cursor: grab;
     box-shadow: $primary-shadow;
-    margin-left: -14px;
-    margin-right: -14px;
     z-index: 1;
 
     &:hover {

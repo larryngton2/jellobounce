@@ -250,40 +250,6 @@
       height: 0px;
       width: 15.5px;
       position: relative;
-
-      &::before {
-        content: "";
-        position: absolute;
-        background-color: none;
-        transition: transform 0.4s ease-out;
-        top: 0;
-        left: 50%;
-        width: 2px;
-        height: 100%;
-        margin-left: -1px;
-      }
-
-      &::after {
-        content: "";
-        position: absolute;
-        background-color: none;
-        transition: transform 0.4s ease-out;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        margin-top: -1px;
-      }
-
-      &.expanded {
-        &::before {
-          transform: rotate(90deg);
-        }
-
-        &::after {
-          transform: rotate(180deg);
-        }
-      }
     }
   }
 </style>

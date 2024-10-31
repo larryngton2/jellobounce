@@ -31,6 +31,7 @@
     }
 </script>
 
+<div class="shaderfix" transition:fade|global={{duration: 500}}></div>
 <div class="menu-list" transition:fly|global={{duration: 500, x: 1000}}>
     {#if sortable && elementCount > -1}
         <SortableList class="menu-list-items" onSort={handleChange} forceFallback={true} animation={150}>
@@ -52,7 +53,18 @@
     border-radius: 12px;
     margin-bottom: -125px;
     position: relative;
+    z-index: -1;
+    box-shadow: $primary-shadow;
     border: $border-thing;
-    z-index: 1;
   }
+
+  .shaderfix {
+    top: -500px;
+    left: -500px;
+    position: absolute;
+    background-color: $shaderfix-color;
+    width: 99999px;
+    height: 99999px;
+    z-index: -9999999;
+    }
 </style>

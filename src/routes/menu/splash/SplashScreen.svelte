@@ -17,7 +17,8 @@
       <div class="inner" style="width: {$progress}%"></div>
     </div>
   </div>
-  <img class="logo" src="img/menu/splash.svg" alt="logo" out:fade|global={{duration: 500}}>
+  <div class="logo" out:fade|global={{duration: 500}}>j
+  </div>
 </div>
 
 <style lang="scss">
@@ -28,7 +29,7 @@
     position: fixed;
     top: 60%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
 
     .inner, .outer {
       height: 3px;
@@ -59,9 +60,12 @@
   }
 
   .logo {
-    position: fixed;
-    top: 50%;
+    font-family: borel;
+    font-size: 75px;
+    color: white;
+    position: absolute;
+    top: 43vh;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     }
 </style>

@@ -14,6 +14,7 @@
 </button>
 
 <style lang="scss">
+  @import "../../../../colors.scss";
   .button {
     background-color: transparent;
     border: none;
@@ -21,6 +22,7 @@
     position: relative;
     margin-left: 15px;
     z-index: 1;
+    box-shadow: $primary-shadow;
   }
 
   .icon {

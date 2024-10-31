@@ -105,7 +105,7 @@
         font-weight: 800;
         position: absolute;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translate(-50%);
         z-index: 1;
         text-shadow: $primary-shadow;
     }
