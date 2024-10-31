@@ -72,7 +72,7 @@
         padding: 4px 6px;
         border-radius: 6px;
         height: 28px;
-        border: $border-thing;
+        //border: $border-thing;
     }
 
     .userinfo {
@@ -87,7 +87,7 @@
         padding: 4px 6px;
         border-radius: 6px;
         height: 28px;
-        border: $border-thing;
+        //border: $border-thing;
 
         .avatar {
             height: 18px;

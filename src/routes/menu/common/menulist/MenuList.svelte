@@ -55,7 +55,7 @@
     position: relative;
     z-index: -1;
     box-shadow: $primary-shadow;
-    border: $border-thing;
+    //border: $border-thing;
   }
 
   .shaderfix {

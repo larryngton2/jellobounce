@@ -91,7 +91,7 @@
     overflow: auto;
     background-color: rgba($background-color, $opacity);
     margin-top: 10px;
-    border: $border-thing;
+    //border: $border-thing;
     backdrop-filter: blur(64);
   }
 </style>

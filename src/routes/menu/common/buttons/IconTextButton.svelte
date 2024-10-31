@@ -29,7 +29,7 @@
       background-size: 200% 100%;
       transition: ease .2s background-color;
       height: 55px;
-      border: $border-thing;
+      //border: $border-thing;
       box-shadow: $primary-shadow;
 
       &:not([disabled]):hover {

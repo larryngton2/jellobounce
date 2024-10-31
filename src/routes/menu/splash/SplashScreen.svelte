@@ -39,7 +39,7 @@
     .outer {
       width: 250px;
       background-color: rgba(#202020, 1);
-      border: $border-thing;
+      //border: $border-thing;
       margin: 0px auto;
     }
 

@@ -195,7 +195,7 @@
     position: relative;
     border-radius: 12px;
     box-shadow: $primary-shadow;
-    border: $border-thing;
+    //border: $border-thing;
 
     .slider {
       height: 45px;
@@ -228,7 +228,7 @@
     bottom: 0;
     left: -65px;
     box-shadow: $primary-shadow;
-    border: $border-thing;
+    //border: $border-thing;
   }
 
   .item-name {

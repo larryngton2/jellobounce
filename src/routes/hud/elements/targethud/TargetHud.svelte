@@ -86,7 +86,7 @@
         overflow: hidden;
         height: 66px;
         box-shadow: $primary-shadow;
-        border: $border-thing;
+        //border: $border-thing;
     }
 
     .main-wrapper {

@@ -49,7 +49,7 @@
   border-radius: 12px;
   background-color: rgba($background-color, $opacity);
   box-shadow: $primary-shadow;
-  border: $border-thing;
+  //border: $border-thing;
 
   &.align-right {
     .label {

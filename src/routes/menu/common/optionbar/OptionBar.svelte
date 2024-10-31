@@ -17,7 +17,7 @@
       align-items: center;
       column-gap: 30px;
       margin-bottom: 25px;
-      border: $border-thing;
+      //border: $border-thing;
       margin-top: -60px;
     }
 </style>

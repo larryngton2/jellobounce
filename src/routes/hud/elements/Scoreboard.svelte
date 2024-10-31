@@ -42,7 +42,7 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: $primary-shadow;
-    border: $border-thing;
+    //border: $border-thing;
   }
 
   .entries {

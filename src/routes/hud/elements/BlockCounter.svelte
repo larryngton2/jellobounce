@@ -35,7 +35,7 @@
         border-radius: 12px;
         padding: 5px 8px;
         font-weight: 500;
-        border: $border-thing;
+        //border: $border-thing;
         box-shadow: $primary-shadow;
         text-shadow: $primary-shadow;
 

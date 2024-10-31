@@ -38,7 +38,7 @@
     position: relative;
     text-align: center;
     box-shadow: $primary-shadow;
-    border: $border-thing;
+    //border: $border-thing;
     text-shadow: $primary-shadow;
 
     &.active {

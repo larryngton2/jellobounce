@@ -59,7 +59,7 @@
   transition: ease background-color 0.2s;
   position: relative;
   align-items: center;
-  border: $border-thing;
+  //border: $border-thing;
 
     .title {
       position: fixed;

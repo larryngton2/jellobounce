@@ -63,7 +63,7 @@
     overflow: hidden;
     padding-right: 10px;
     min-width: 350px;
-    border: $border-thing;
+    //border: $border-thing;
 
     .title {
       color: $text-color;
