@@ -69,7 +69,7 @@
         font-size: 15px;
         margin-left: 7px;
         background-color: rgba($background-color, $opacity);
-        padding: 4px 6px;
+        padding: 5px 6px;
         border-radius: 6px;
         height: 28px;
         //border: $border-thing;
@@ -84,7 +84,7 @@
         font-size: 15px;
         margin-left: 7px;
         background-color: rgba($background-color, $opacity);
-        padding: 4px 6px;
+        padding: 5px 6px;
         border-radius: 6px;
         height: 28px;
         //border: $border-thing;
