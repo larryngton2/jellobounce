@@ -84,7 +84,7 @@
         background-color: rgba($background-color, $opacity);
         border-radius: 12px;
         overflow: hidden;
-        height: 66px;
+        height: 64px;
         box-shadow: $primary-shadow;
         //border: $border-thing;
     }
