@@ -35,9 +35,8 @@
     background-color: rgba($background-color, $opacity);
     padding: 5px 8px;
     box-shadow: $primary-shadow;
-    border-left: $border-thing;
-    border-right: $border-thing;
     text-shadow: $primary-shadow;
+    //border: $border-thing;
 
     .duration {
       color: white;
@@ -47,12 +46,10 @@
   .effect:first-child {
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
-    border-bottom: $border-thing;
   }
 
   .effect:last-child {
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
-    border-top: $border-thing;
   }
 </style>
