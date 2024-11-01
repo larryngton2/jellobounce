@@ -12,6 +12,8 @@
     import {description as descriptionStore, highlightModuleName} from "./clickgui_store";
     import {setItem} from "../../integration/persistent_storage";
     import {convertToSpacedString, spaceSeperatedNames} from "../../theme/theme_config";
+    import {scaleFactor} from "./clickgui_store";
+    import {debounceAsync} from "../../integration/util";
 
     export let name: string;
     export let enabled: boolean;
@@ -64,14 +66,18 @@
             moduleDescription += ` (aka ${aliases.map(a => $spaceSeperatedNames ? convertToSpacedString(a) : a).join(", ")})`;
         }
         descriptionStore.set({
-            x,
-            y,
+            x: x * (2 / $scaleFactor),
+            y: y * (2 / $scaleFactor),
             description: moduleDescription
         });
     }
 
     async function toggleExpanded() {
-        expanded = !expanded;
+        await setExpanded(!expanded);
+    }
+
+    export async function setExpanded(value: boolean) {
+        expanded = value;
         await setItem(path, expanded.toString());
     }
 </script>
@@ -94,7 +100,7 @@
             bind:this={moduleNameElement}
             class:enabled
             class:highlight={name === $highlightModuleName}
-> 
+    >
         {#if $spaceSeperatedNames}
             {convertToSpacedString(name)}
         {:else}
@@ -105,7 +111,7 @@
     {#if expanded && configurable}
         <div class="settings">
             {#each configurable.value as setting (setting.name)}
-                <GenericSetting skipAnimationDelay={true} {path} bind:setting on:change={updateModuleSettings}/>
+                <GenericSetting skipAnimationDelay {path} bind:setting on:change={debounceAsync(updateModuleSettings)}/>
             {/each}
         </div>
     {/if}
@@ -141,6 +147,7 @@
         height: calc(100% - 4px);
         border: solid 2px $accent-color;
         border-radius: 6px;
+        box-shadow: 0 0 10px rgba($accent-color, 0.7);
       }
 
       &:hover {

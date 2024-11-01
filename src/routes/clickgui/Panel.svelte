@@ -1,23 +1,23 @@
 <script lang="ts">
-    import {afterUpdate, onMount} from "svelte";
+    import {onMount} from "svelte";
     import type {Module as TModule} from "../../integration/types";
     import {listen} from "../../integration/ws";
     import Module from "./Module.svelte";
     import type {ToggleModuleEvent} from "../../integration/events";
     import {fade} from "svelte/transition";
     import {quintOut} from "svelte/easing";
-    import {highlightModuleName, maxPanelZIndex} from "./clickgui_store";
+    import {highlightModuleName, maxPanelZIndex, scaleFactor} from "./clickgui_store";
     import {setItem} from "../../integration/persistent_storage";
+    import {debounceAsync} from "../../integration/util";
 
     export let category: string;
     export let modules: TModule[];
     export let panelIndex: number;
-    export let scaleFactor: number;
+
+    const allModuleElements: Record<string, Module> = {};
 
     let panelElement: HTMLElement;
     let modulesElement: HTMLElement;
-
-    let renderedModules: TModule[] = [];
 
     let moving = false;
     let prevX = 0;
@@ -61,24 +61,20 @@
                 $maxPanelZIndex = config.zIndex;
             }
 
-            if (config.expanded) {
-                renderedModules = modules;
-            }
-
             return config;
         }
     }
 
-    async function savePanelConfig() {
+    const savePanelConfig = debounceAsync(async () => {
         await setItem(
             `clickgui.panel.${category}`,
             JSON.stringify(panelConfig),
         );
-    }
+    });
 
     function fixPosition() {
-        panelConfig.left = clamp(panelConfig.left, 0, document.documentElement.clientWidth * (2 / scaleFactor) - panelElement.offsetWidth);
-        panelConfig.top = clamp(panelConfig.top, 0, document.documentElement.clientHeight * (2 / scaleFactor) - panelElement.offsetHeight);
+        panelConfig.left = clamp(panelConfig.left, 0, document.documentElement.clientWidth * (2 / $scaleFactor) - panelElement.offsetWidth);
+        panelConfig.top = clamp(panelConfig.top, 0, document.documentElement.clientHeight * (2 / $scaleFactor) - panelElement.offsetHeight);
     }
 
     function onMouseDown() {
@@ -89,8 +85,8 @@
 
     function onMouseMove(e: MouseEvent) {
         if (moving) {
-            panelConfig.left += (e.screenX - prevX) * (2 / scaleFactor);
-            panelConfig.top += (e.screenY - prevY) * (2 / scaleFactor);
+            panelConfig.left += (e.screenX - prevX) * (2 / $scaleFactor);
+            panelConfig.top += (e.screenY - prevY) * (2 / $scaleFactor);
         }
 
         prevX = e.screenX;
@@ -105,18 +101,10 @@
     }
 
     function toggleExpanded() {
-        if (panelConfig.expanded) {
-            renderedModules = [];
-        } else {
-            renderedModules = modules;
-        }
-
         panelConfig.expanded = !panelConfig.expanded;
 
-        setTimeout(() => {
-            fixPosition();
-            savePanelConfig();
-        }, 500);
+        fixPosition();
+        savePanelConfig();
     }
 
     function handleModulesScroll() {
@@ -131,7 +119,6 @@
         if (highlightModule) {
             panelConfig.zIndex = ++$maxPanelZIndex;
             panelConfig.expanded = true;
-            renderedModules = modules;
             savePanelConfig();
         }
     });
@@ -145,22 +132,17 @@
 
         mod.enabled = moduleEnabled;
         modules = modules;
-        if (panelConfig.expanded) {
-            renderedModules = modules;
-        }
     });
 
     onMount(() => {
-        setTimeout(() => {
-            if (!modulesElement) {
-                return;
-            }
+        if (!modulesElement) {
+            return;
+        }
 
-            modulesElement.scrollTo({
-                top: panelConfig.scrollTop,
-                behavior: "smooth"
-            })
-        }, 500);
+        modulesElement.scrollTo({
+            top: panelConfig.scrollTop,
+            behavior: "instant"
+        })
     });
 </script>
 
@@ -170,15 +152,15 @@
         class="panel"
         style="left: {panelConfig.left}px; top: {panelConfig.top}px; z-index: {panelConfig.zIndex};"
         bind:this={panelElement}
-        in:fade|global={{duration: 150, easing: quintOut}}
-        out:fade|global={{duration: 150, easing: quintOut}}
+        transition:fade|global={{duration: 200, easing: quintOut}}
 >
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
             class="title"
+            on:dblclick={() => Object.values(allModuleElements).forEach((it) => it.setExpanded(false))}
             on:mousedown={onMouseDown}
             on:contextmenu|preventDefault={toggleExpanded}
-> 
+    >
         <img
                 class="icon"
                 src="img/clickgui/icon-{category.toLowerCase()}.svg"
@@ -191,9 +173,10 @@
         </button>
     </div>
 
-    <div class="modules" on:scroll={handleModulesScroll} bind:this={modulesElement}>
-        {#each renderedModules as {name, enabled, description, aliases} (name)}
-            <Module {name} {enabled} {description} {aliases}/>
+    <div class="modules" style="max-height: {panelConfig.expanded ? '545px' : '0'}" on:scroll={handleModulesScroll}
+         bind:this={modulesElement}>
+        {#each modules as {name, enabled, description, aliases} (name)}
+            <Module {name} {enabled} {description} {aliases} bind:this={allModuleElements[name]}/>
         {/each}
     </div>
 </div>
@@ -231,7 +214,8 @@
   }
 
   .modules {
-    max-height: 545px;
+    transition: max-height 400ms ease-in-out;
+    scroll-behavior: smooth;
     overflow-y: auto;
     overflow-x: hidden;
     background-color: rgba($background-color, 0.7);

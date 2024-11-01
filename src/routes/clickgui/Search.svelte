@@ -1,8 +1,8 @@
 <script lang="ts">
     import type {Module} from "../../integration/types";
-    import {setModuleEnabled} from "../../integration/rest";
+    import {getModuleSettings, setModuleEnabled} from "../../integration/rest";
     import {listen} from "../../integration/ws";
-    import type {KeyboardKeyEvent, ToggleModuleEvent} from "../../integration/events";
+    import type {ToggleModuleEvent} from "../../integration/events";
     import {highlightModuleName} from "./clickgui_store";
     import {onMount} from "svelte";
     import {convertToSpacedString, spaceSeperatedNames} from "../../theme/theme_config";
@@ -11,6 +11,7 @@
 
     let resultElements: HTMLElement[] = [];
     let searchContainerElement: HTMLElement;
+    let autoFocus: boolean = true
     let searchInputElement: HTMLElement;
     let query: string;
     let filteredModules: Module[] = [];
@@ -28,55 +29,46 @@
             return;
         }
 
+        const pureQuery = query.toLowerCase().replaceAll(" ", "");
+
         selectedIndex = 0;
 
-        filteredModules = modules.filter((m) => m.name.toLowerCase().includes(query.toLowerCase().replaceAll(" ", ""))
-            || m.aliases.some(a => a.toLowerCase().includes(query.toLowerCase().replaceAll(" ", "")))
+        filteredModules = modules.filter((m) => m.name.toLowerCase().includes(pureQuery)
+            || m.aliases.some(a => a.toLowerCase().includes(pureQuery))
         );
     }
 
-    async function handleKeyDown(e: KeyboardKeyEvent) {
-        if (filteredModules.length === 0 || e.action === 0) {
+    async function handleBrowserKeyDown(e: KeyboardEvent) {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Tab") {
+            e.preventDefault();
+        }
+
+        if (filteredModules.length === 0) {
             return;
         }
 
-        switch (e.keyCode) {
-            case 264:
-                selectedIndex = (selectedIndex + 1) % filteredModules.length;
-                break;
-            case 265:
-                selectedIndex =
-                    (selectedIndex - 1 + filteredModules.length) %
-                    filteredModules.length;
-                break;
-            case 257:
-                await toggleModule(
-                    filteredModules[selectedIndex].name,
-                    !filteredModules[selectedIndex].enabled,
-                );
-                break;
-            case 258:
-                const m = filteredModules[selectedIndex]?.name;
-                if (m) {
-                    $highlightModuleName = m;
-                }
-                break;
+        if (e.key === "ArrowDown") {
+            selectedIndex = (selectedIndex + 1) % filteredModules.length;
+        } else if (e.key === "ArrowUp") {
+            selectedIndex =
+                (selectedIndex - 1 + filteredModules.length) %
+                filteredModules.length;
+        } else if (e.key === "Enter") {
+            await setModuleEnabled(
+                filteredModules[selectedIndex].name,
+                !filteredModules[selectedIndex].enabled,
+            );
+        } else if (e.key === "Tab") {
+            const m = filteredModules[selectedIndex]?.name;
+            if (m) {
+                $highlightModuleName = m;
+            }
         }
 
         resultElements[selectedIndex]?.scrollIntoView({
             behavior: "smooth",
             block: "nearest",
         });
-    }
-
-    function handleBrowserKeyDown(e: KeyboardEvent) {
-        if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Tab") {
-            e.preventDefault();
-        }
-    }
-
-    async function toggleModule(name: string, enabled: boolean) {
-        await setModuleEnabled(name, enabled);
     }
 
     function handleWindowClick(e: MouseEvent) {
@@ -90,11 +82,17 @@
             return;
         }
 
-        //searchInputElement.focus();
+        if (autoFocus) {
+            searchInputElement.focus();
+        }
     }
 
-    onMount(() => {
-        //searchInputElement.focus();
+    onMount(async () => {
+        const clickGuiSettings = await getModuleSettings("ClickGUI");
+        autoFocus = clickGuiSettings.value.find(v => v.name === "SearchBarAutoFocus")?.value as boolean ?? true
+        if (autoFocus) {
+            searchInputElement.focus();
+        }
     });
 
     listen("toggleModule", (e: ToggleModuleEvent) => {
@@ -105,8 +103,6 @@
         mod.enabled = e.enabled;
         filteredModules = filteredModules;
     });
-
-    listen("keyboardKey", handleKeyDown);
 </script>
 
 <svelte:window on:click={handleWindowClick} on:keydown={handleWindowKeyDown} on:contextmenu={handleWindowClick}/>
@@ -136,11 +132,11 @@
                     <div
                             class="result"
                             class:enabled
-                            on:click={() => toggleModule(name, !enabled)}
+                            on:click={() => setModuleEnabled(name, !enabled).then(() => enabled = true)}
                             on:contextmenu|preventDefault={() => $highlightModuleName = name}
                             class:selected={selectedIndex === index}
                             bind:this={resultElements[index]}
-                > 
+                    >
                         <div class="module-name">
                             {$spaceSeperatedNames ? convertToSpacedString(name) : name}
                         </div>
@@ -190,9 +186,28 @@
     overflow: auto;
 
     .result {
+      font-size: 16px;
+      padding: 10px 0;
+      transition: ease padding-left 0.2s;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: max-content 1fr max-content;
+
       .module-name {
+        position: relative;
         color: $text-dimmed-color;
-        transition: ease color 0.2s;
+        transition: color 0.2s ease;
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: -4px;
+          bottom: 0;
+          height: 1px;
+          width: 0;
+          background-color: $accent-color;
+          transition: width 0.3s ease;
+        }
       }
 
       &.enabled {
@@ -215,6 +230,10 @@
 
       &.selected {
         padding-left: 10px;
+      }
+
+      .module-name::after {
+        width: calc(100% + 8px);
       }
 
       &:hover {
