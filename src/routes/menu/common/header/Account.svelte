@@ -4,6 +4,7 @@
     import {onMount} from "svelte";
     import {listen} from "../../../../integration/ws";
     import {fly} from "svelte/transition";
+    import { expoOut } from "svelte/easing";
 
     let username = "";
     let avatar = "";
@@ -25,7 +26,7 @@
     });
 </script>
 
-<div class="account" transition:fly|global={{duration: 500, y: 50}}>
+<div class="account" transition:fly|global={{duration: 500, y: 100, easing: expoOut}}>
     <object data={avatar} type="image/png" class="avatar" aria-label="avatar">
         <img src="img/steve.png" alt=avatar class="avatar">
     </object>

@@ -3,7 +3,7 @@
     import MenuList from "../common/menulist/MenuList.svelte";
     import BottomButtonWrapper from "../common/buttons/BottomButtonWrapper.svelte";
     import ButtonContainer from "../common/buttons/ButtonContainer.svelte";
-    import IconTextButton from "../common/buttons/IconTextButton.svelte";
+    import TextButton from "../common/buttons/TextButton.svelte";
     import Menu from "../common/Menu.svelte";
     import Search from "../common/Search.svelte";
     import SwitchSetting from "../common/setting/SwitchSetting.svelte";
@@ -202,13 +202,13 @@
 
     <BottomButtonWrapper>
         <ButtonContainer>
-            <IconTextButton title="Add" on:click={() => addServerModalVisible = true}/>
-            <IconTextButton title="Direct" on:click={() => directConnectModalVisible = true}/>
-            <IconTextButton title="Refresh" on:click={refreshServers}/>
+            <TextButton title="Add" on:click={() => addServerModalVisible = true}/>
+            <TextButton title="Direct" on:click={() => directConnectModalVisible = true}/>
+            <TextButton title="Refresh" on:click={refreshServers}/>
         </ButtonContainer>
 
         <ButtonContainer>
-            <IconTextButton title="Back" on:click={() => openScreen("title")}/>
+            <TextButton title="Back" on:click={() => openScreen("title")}/>
         </ButtonContainer>
     </BottomButtonWrapper>
 </Menu>

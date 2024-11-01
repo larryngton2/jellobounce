@@ -3,7 +3,7 @@
 </script>
 <div class="header">
       <div class="notifications">
-        <Notifications />
+        <Notifications/>
       </div>
 </div>
 
@@ -13,14 +13,15 @@
   .header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 60px;
     align-items: center;
     z-index: 1;
 
     .notifications {
-      position: absolute;
+      position: fixed;
       left: 50%;
+      bottom: 50px;
       transform: translateX(-50%);
+      z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
     }
   }
 </style>

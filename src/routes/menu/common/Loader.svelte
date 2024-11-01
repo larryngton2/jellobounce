@@ -5,7 +5,7 @@
 
   .lds-ripple {
     /* change color here */
-    color: $accent-color;
+    color: white;
   }
 
   .lds-ripple,

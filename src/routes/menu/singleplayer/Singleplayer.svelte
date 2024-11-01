@@ -13,7 +13,7 @@
     import ButtonContainer from "../common/buttons/ButtonContainer.svelte";
     import MenuListItemTag from "../common/menulist/MenuListItemTag.svelte";
     import MenuList from "../common/menulist/MenuList.svelte";
-    import IconTextButton from "../common/buttons/IconTextButton.svelte";
+    import TextButton from "../common/buttons/TextButton.svelte";
     import Search from "../common/Search.svelte";
     import MenuListItemButton from "../common/menulist/MenuListItemButton.svelte";
     import type {World} from "../../../integration/types";
@@ -108,11 +108,11 @@
 
     <BottomButtonWrapper>
         <ButtonContainer>
-            <IconTextButton title="Add" on:click={() => openScreen("create_world")}/>
+            <TextButton title="Add" on:click={() => openScreen("create_world")}/>
         </ButtonContainer>
 
         <ButtonContainer>
-            <IconTextButton title="Back" on:click={() => openScreen("title")}/>
+            <TextButton title="Back" on:click={() => openScreen("title")}/>
         </ButtonContainer>
     </BottomButtonWrapper>
 </Menu>

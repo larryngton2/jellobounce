@@ -15,7 +15,7 @@
     import ButtonContainer from "../common/buttons/ButtonContainer.svelte";
     import MenuListItemTag from "../common/menulist/MenuListItemTag.svelte";
     import MenuList from "../common/menulist/MenuList.svelte";
-    import IconTextButton from "../common/buttons/IconTextButton.svelte";
+    import TextButton from "../common/buttons/TextButton.svelte";
     import Search from "../common/Search.svelte";
     import MenuListItemButton from "../common/menulist/MenuListItemButton.svelte";
     import type {Account} from "../../../integration/types";
@@ -197,15 +197,15 @@
 
     <BottomButtonWrapper>
         <ButtonContainer>
-            <IconTextButton title="Add" on:click={() => addAccountModalVisible = true}/>
-            <IconTextButton title="Direct" on:click={() => directLoginModalVisible = true}/>
-            <IconTextButton disabled={renderedAccounts.length === 0} title="Random"
+            <TextButton title="Add" on:click={() => addAccountModalVisible = true}/>
+            <TextButton title="Direct" on:click={() => directLoginModalVisible = true}/>
+            <TextButton disabled={renderedAccounts.length === 0} title="Random"
                             on:click={loginToRandomAccount}/>
-            <IconTextButton title="Restore" on:click={restoreSession}/>
+            <TextButton title="Restore" on:click={restoreSession}/>
         </ButtonContainer>
 
         <ButtonContainer>
-            <IconTextButton title="Back" on:click={() => openScreen("title")}/>
+            <TextButton title="Back" on:click={() => openScreen("title")}/>
         </ButtonContainer>
     </BottomButtonWrapper>
 </Menu>

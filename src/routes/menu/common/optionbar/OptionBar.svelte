@@ -1,9 +1,10 @@
 <script lang="ts">
-    import {fly} from "svelte/transition";
+    import { expoOut } from "svelte/easing";
+import {fly} from "svelte/transition";
 </script>
 
-<div class="option-bar" transition:fly|global={{duration: 500, x: 1000}}>
-    <slot />
+<div class="option-bar" transition:fly|global={{duration: 500, y: -100, easing: expoOut}}>
+    <slot/>
 </div>
 
 <style lang="scss">
@@ -18,6 +19,5 @@
       column-gap: 30px;
       margin-bottom: 25px;
       //border: $border-thing;
-      margin-top: -60px;
     }
 </style>

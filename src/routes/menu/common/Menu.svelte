@@ -1,10 +1,10 @@
 <script lang="ts">
     import Header from "./header/Header.svelte";
-    import {scale} from "svelte/transition";
+    import {fade, scale} from "svelte/transition";
     import {onMount} from "svelte";
     import {expoOut} from "svelte/easing";
 
-    const transitionDuration = 700; // TODO: suboptimal
+    const transitionDuration = 550; // TODO: suboptimal
 
     let ready = false;
 
@@ -15,6 +15,7 @@
     });
 </script>
 
+<div class="shaderfix"></div>
 <div class="menu">
     {#if ready}
         <div transition:scale|global={{duration: 500, easing: expoOut}}>
@@ -28,12 +29,24 @@
 </div>
 
 <style lang="scss">
+  @import "../../../colors.scss";
+
   .menu {
-    padding: 50px;
+    padding: 45px;
     display: flex;
     flex-direction: column;
     height: 100vh;
   }
+
+  .shaderfix {
+    top: -500px;
+    left: -500px;
+    position: absolute;
+    background-color: $shaderfix-color;
+    width: 99999px;
+    height: 99999px;
+    z-index: -9999999;
+    }
 
   .menu-wrapper {
     flex: 1;

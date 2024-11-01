@@ -1,8 +1,9 @@
 <script lang="ts">
-    import {fade, fly} from "svelte/transition";
+    import {scale} from "svelte/transition";
     import {SortableList} from "@jhubbardsf/svelte-sortablejs";
     import "./menulist.scss";
     import {createEventDispatcher} from "svelte";
+    import {expoOut} from "svelte/easing";
 
     export let sortable = false;
     export let elementCount = -1;
@@ -31,8 +32,7 @@
     }
 </script>
 
-<div class="shaderfix" transition:fade|global={{duration: 500}}></div>
-<div class="menu-list" transition:fly|global={{duration: 500, x: 1000}}>
+<div class="menu-list" transition:scale|global={{duration: 500, easing: expoOut}}>
     {#if sortable && elementCount > -1}
         <SortableList class="menu-list-items" onSort={handleChange} forceFallback={true} animation={150}>
             <slot/>
@@ -51,20 +51,9 @@
     background-color: rgba($background-color, $opacity);
     flex: 1;
     border-radius: 12px;
-    margin-bottom: -125px;
     position: relative;
     z-index: -1;
     box-shadow: $primary-shadow;
     //border: $border-thing;
   }
-
-  .shaderfix {
-    top: -500px;
-    left: -500px;
-    position: absolute;
-    background-color: $shaderfix-color;
-    width: 99999px;
-    height: 99999px;
-    z-index: -9999999;
-    }
 </style>

@@ -14,6 +14,7 @@
     import {fly} from "svelte/transition";
     import {onMount} from "svelte";
     import {notification} from "../common/header/notification_store";
+    import {expoOut} from "svelte/easing";
 
     let regularButtonsShown = true;
     let clientButtonsShown = false;
@@ -21,7 +22,6 @@
     onMount(() => {
         setTimeout(async () => {
             const update = await getClientUpdate();
-
             if (update.updateAvailable) {
                 notification.set({
                     title: `LiquidBounce ${update.newestVersion?.clientVersion} has been released!`,
@@ -30,7 +30,7 @@
                     delay: 99999999
                 });
             }
-        }, 2000);
+        }, 1500);
     });
 
     function toggleButtons() {
@@ -38,12 +38,12 @@
             clientButtonsShown = false;
             setTimeout(() => {
                 regularButtonsShown = true;
-            }, 750);
+            }, 700);
         } else {
             regularButtonsShown = false;
             setTimeout(() => {
                 clientButtonsShown = true;
-            }, 750);
+            }, 500);
         }
     }
 
@@ -65,10 +65,9 @@
     updateTime();
 </script>
 
-<div class="shaderfix" transition:fade|global={{duration: 500}}></div>
 <Menu>
     <div class="content">
-        <div class="clock" transition:fly|global={{duration: 500, y: -100}}>{currentTime}</div>
+        <div class="clock" transition:fly|global={{duration: 500, y: -250, easing: expoOut}}>{currentTime}</div>
         <div class="account"><Account/></div>
         <div class="main-buttons">
             {#if regularButtonsShown}
@@ -99,13 +98,14 @@
     @import "../../../colors.scss";
 
     .clock {
+        font-family: "inter";
         color: white;
         opacity: 0.8;
         font-size: 250px;
         font-weight: 800;
-        position: absolute;
+        position: fixed;
         left: 50%;
-        transform: translate(-50%);
+        transform: translateX(-50%);
         z-index: 1;
         text-shadow: $primary-shadow;
     }
@@ -136,15 +136,5 @@
         bottom: 25px;
         left: 50.5%;
         transform: translateX(-50%);
-    }
-
-    .shaderfix {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        background-color: rgba(black, 0.1);
-        width: 100vw;
-        height: 100vh;  
-        z-index: -9999999999999999;
     }
 </style>

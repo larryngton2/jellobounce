@@ -1,5 +1,3 @@
-// Forked from: https://www.shadertoy.com/view/NsS3Dt
-
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -136,7 +134,7 @@ void main(void) {
     col = mix(col, back_col, decay);
   } else {
     col = back_col;
-    float clouds_altitude = 1000.0;
+    float clouds_altitude = 0.0;
     float clouds_dist = ((1.0 - (ro.y / clouds_altitude)) / rd.y);
     if(clouds_dist > 0.0) {
       float clouds_zoom = 1.0;
@@ -148,14 +146,10 @@ void main(void) {
     }
     col = clamp(col, 0.0, 1.0);
   }
-  col = colorgrade_tonemap_aces(col);
-  col = colorgrade_gamma_correction(col);
   col = colorgrade_tone_1(col, vec3(1.3, 0.9, 0.7), (vec3(0.5, 0.1, 0.1) * 0.1), vec3(3.0, 2.0, 1.2));
-  col = colorgrade_saturate(col, 0.7);
-  col = colorgrade_dither(col, gl_FragCoord.xy, 0.01);
-	
-  float gray = dot(col, vec3(0.299, 0.587, 0.114));
-  col = vec3(gray, gray, gray);
+
+  float gray = dot(col, vec3(0.0, 1, 1));
+  col = vec3(gray);
 
   gl_FragColor = vec4(col, 1.0);
 }

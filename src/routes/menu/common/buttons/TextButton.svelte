@@ -1,5 +1,6 @@
 <script lang="ts">
     import {createEventDispatcher} from "svelte";
+    import { expoOut } from "svelte/easing";
        import {fly} from "svelte/transition";
 
     export let title: string;
@@ -10,7 +11,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<button class="icon-text-button" on:click={() => dispatch("click")} {disabled} transition:fly|global={{duration: 350, y: 100}}>
+<button class="icon-text-button" on:click={() => dispatch("click")} {disabled} transition:fly|global={{duration: 500, y: 100, easing: expoOut}}>
     <div class="icon">
     </div>
     <div class="title">{title}</div>
@@ -26,9 +27,7 @@
       border-radius: 12px;
       align-items: center;
       overflow: hidden;
-      background-size: 200% 100%;
       transition: ease .2s background-color;
-      height: 55px;
       //border: $border-thing;
       box-shadow: $primary-shadow;
 
@@ -48,7 +47,7 @@
       font-size: 21px;
       font-weight: 400;
       color: rgba($text-color, 0.8);
-      padding: 30px 30px;
+      padding: 10px 25px;
       text-align: center;
   }
 </style>

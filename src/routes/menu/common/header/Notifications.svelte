@@ -32,7 +32,7 @@
 
 <div class="notifications">
     {#each notifications as n (n.id)}
-        <div class="notification" transition:fly|global={{duration: 500, y: -100}}>
+        <div class="notification" transition:fly|global={{duration: 500, y: 100}}>
             <div class="icon" class:error={n.notification.error}>
                 <img src="img/hud/notification/icon-info.svg" alt="info">
             </div>
@@ -48,6 +48,7 @@
   .notifications {
     display: grid;
     grid-template-columns: 1fr;
+    z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
   }
 
   .notification {
@@ -61,9 +62,10 @@
         "a c";
     grid-template-columns: max-content 1fr;
     overflow: hidden;
-    padding-right: 10px;
-    min-width: 350px;
+    padding-right: 7px;
     //border: $border-thing;
+    box-shadow: $primary-shadow;
+    text-shadow: $primary-shadow;
 
     .title {
       color: $text-color;
@@ -81,13 +83,12 @@
 
     .icon {
       grid-area: a;
-      height: 65px;
-      width: 65px;
-      background-color: rgba($accent-color, 0.7);
+      height: 55px;
+      width: 55px;
+      //background-color: rgba($accent-color, 0.5);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-right: 10px;
 
       &.error {
         background-color: $menu-error-color;

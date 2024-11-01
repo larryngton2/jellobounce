@@ -17,7 +17,7 @@
     import ButtonContainer from "../common/buttons/ButtonContainer.svelte";
     import MenuListItemTag from "../common/menulist/MenuListItemTag.svelte";
     import MenuList from "../common/menulist/MenuList.svelte";
-    import IconTextButton from "../common/buttons/IconTextButton.svelte";
+    import TextButton from "../common/buttons/TextButton.svelte";
     import Search from "../common/Search.svelte";
     import MenuListItemButton from "../common/menulist/MenuListItemButton.svelte";
     import type {Proxy} from "../../../integration/types";
@@ -246,16 +246,16 @@
 
     <BottomButtonWrapper>
         <ButtonContainer>
-            <IconTextButton title="Add" on:click={() => addProxyModalVisible = true}/>
-            <IconTextButton title="Add Clipboard" on:click={() => addProxyFromClipboard()}/>
-            <IconTextButton disabled={renderedProxies.length === 0} title="Random"
+            <TextButton title="Add" on:click={() => addProxyModalVisible = true}/>
+            <TextButton title="Add Clipboard" on:click={() => addProxyFromClipboard()}/>
+            <TextButton disabled={renderedProxies.length === 0} title="Random"
                             on:click={connectToRandomProxy}/>
-            <IconTextButton disabled={!isConnectedToProxy} title="Disconnect"
+            <TextButton disabled={!isConnectedToProxy} title="Disconnect"
                             on:click={disconnectFromProxy}/>
         </ButtonContainer>
 
         <ButtonContainer>
-            <IconTextButton title="Back" on:click={() => openScreen("title")}/>
+            <TextButton title="Back" on:click={() => openScreen("title")}/>
         </ButtonContainer>
     </BottomButtonWrapper>
 </Menu>
