@@ -1,10 +1,10 @@
 <script lang="ts">
     import {listen} from "../../../integration/ws";
-    import {fly} from "svelte/transition";
+    import {scale} from "svelte/transition";
     import type {BlockCountChangeEvent} from "../../../integration/events";
     import {expoOut} from "svelte/easing";
 
-    let count: number | null = null;
+    let count: number | undefined = undefined;
 
     function mapToColor(value: number): string {
         if (value <= 0) {
@@ -21,8 +21,8 @@
     });
 </script>
 
-{#if count !== null && count !== undefined}
-    <div class="count" style="color: {mapToColor(count)}" transition:fly={{easing: expoOut, y: 50, duration: 500 }}>
+{#if count !== undefined}
+    <div class="count" style="color: {mapToColor(count)}" transition:scale={{easing: expoOut, duration: 500 }}>
         <span class="text">Blocks:</span> {count}
     </div>
 {/if}

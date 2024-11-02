@@ -91,12 +91,4 @@
     .tag {
        color: $arraylist-tag-color;
     }
-
-    .module:first-child {
-        //box-shadow: 0px -5px 5px rgba($arraylist-shadow-color, 0.17), -5px 0px 5px rgba($arraylist-shadow-color, 0.17), 5px 0px 5px rgba($arraylist-shadow-color, 0.17);
-    }
-
-    .module:last-child {
-        //box-shadow: 0px 5px 5px rgba($arraylist-shadow-color, 0.17), -5px 0px 5px rgba($arraylist-shadow-color, 0.17), 5px 0px 5px rgba($arraylist-shadow-color, 0.17);
-    }
 </style>
