@@ -1,7 +1,5 @@
 ![jellobounce-wide1](/.github/img/jellobounce-wide1.png)
 
-## <i>this branch will no longer receive updates, if you want the latest build download from</i> [v2](https://github.com/larryngton2/jellobounce/tree/v2)
-
 <p align="center">
     <img src="https://img.shields.io/github/downloads/larryngton2/jellobounce/total?label=Github%20Downloads" alt="Downloads">
 </p>
