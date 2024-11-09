@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "master", "v2" ]
+    branches: [ "v2" ]
   pull_request:
-    branches: [ "master", "v2" ]
+    branches: [ "v2" ]
 
 jobs:
   build:
@@ -35,8 +35,8 @@ jobs:
       uses: "0xDylan/action-auto-releases-n20@v1.1"
       with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
+          automatic_release_tag: "latestv2"
           prerelease: true
-          title: "Latest Build"
+          title: "Latest Build (v2)"
           files: |
-            ./jellobounce.zip
+            ./jellobouncev2.zip
