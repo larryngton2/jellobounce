@@ -9,7 +9,7 @@
     import SwitchSetting from "../common/setting/SwitchSetting.svelte";
     import MenuListItem from "../common/menulist/MenuListItem.svelte";
     import MenuListItemButton from "../common/menulist/MenuListItemButton.svelte";
-    import {onMount} from "svelte";
+    import { onMount } from "svelte";
     import {
         browse,
         connectToServer,
@@ -20,18 +20,22 @@
         openScreen,
         orderServers,
         removeServer as removeServerRest,
-        setSelectedProtocol
+        setSelectedProtocol,
     } from "../../../integration/rest";
-    import type {ClientInfo, Protocol, Server} from "../../../integration/types";
-    import {listen} from "../../../integration/ws";
+    import type {
+        ClientInfo,
+        Protocol,
+        Server,
+    } from "../../../integration/types";
+    import { listen } from "../../../integration/ws";
     import TextComponent from "../common/TextComponent.svelte";
     import MenuListItemTag from "../common/menulist/MenuListItemTag.svelte";
     import SingleSelect from "../common/setting/select/SingleSelect.svelte";
-    import {REST_BASE} from "../../../integration/host";
+    import { REST_BASE } from "../../../integration/host";
     import AddServerModal from "./AddServerModal.svelte";
     import DirectConnectModal from "./DirectConnectModal.svelte";
     import EditServerModal from "./EditServerModal.svelte";
-    import type {ServerPingedEvent} from "../../../integration/events";
+    import type { ServerPingedEvent } from "../../../integration/events";
     import ButtonSetting from "../common/setting/ButtonSetting.svelte";
     import Divider from "../common/optionbar/Divider.svelte";
 
@@ -46,10 +50,12 @@
     $: {
         let filteredServers = servers;
         if (onlineOnly) {
-            filteredServers = filteredServers.filter(s => s.ping >= 0);
+            filteredServers = filteredServers.filter((s) => s.ping >= 0);
         }
         if (searchQuery) {
-            filteredServers = filteredServers.filter(s => s.name.toLowerCase().includes(searchQuery.toLowerCase()));
+            filteredServers = filteredServers.filter((s) =>
+                s.name.toLowerCase().includes(searchQuery.toLowerCase()),
+            );
         }
         renderedServers = filteredServers;
     }
@@ -60,7 +66,7 @@
     let protocols: Protocol[] = [];
     let selectedProtocol: Protocol = {
         name: "",
-        version: -1
+        version: -1,
     };
 
     // The amount of times the server list has been sorted.
@@ -118,7 +124,7 @@
     }
 
     async function changeProtocolVersion(e: CustomEvent<{ value: string }>) {
-        const p = protocols.find(p => p.name == e.detail.value);
+        const p = protocols.find((p) => p.name == e.detail.value);
         if (!p) {
             return;
         }
@@ -132,7 +138,7 @@
         await refreshServers();
         renderedServers = servers;
         timesSorted++; // See declaration
-        console.log("sorted")
+        console.log("sorted");
     }
 
     function handleSearch(e: CustomEvent<{ query: string }>) {
@@ -145,55 +151,98 @@
     }
 </script>
 
-<AddServerModal bind:visible={addServerModalVisible} on:serverAdd={refreshServers}/>
+<AddServerModal
+    bind:visible={addServerModalVisible}
+    on:serverAdd={refreshServers}
+/>
 {#if currentEditServer}
-    <EditServerModal bind:visible={editServerModalVisible} address={currentEditServer.address}
-                     name={currentEditServer.name} on:serverEdit={refreshServers} id={currentEditServer.id}
-                     resourcePackPolicy={currentEditServer.resourcePackPolicy}/>
+    <EditServerModal
+        bind:visible={editServerModalVisible}
+        address={currentEditServer.address}
+        name={currentEditServer.name}
+        on:serverEdit={refreshServers}
+        id={currentEditServer.id}
+        resourcePackPolicy={currentEditServer.resourcePackPolicy}
+    />
 {/if}
-<DirectConnectModal bind:visible={directConnectModalVisible}/>
+<DirectConnectModal bind:visible={directConnectModalVisible} />
 <Menu>
     <OptionBar>
-        <Search on:search={handleSearch}/>
-        <SwitchSetting title="Online only" bind:value={onlineOnly}/>
-        <Divider/>
+        <Search on:search={handleSearch} />
+        <SwitchSetting title="Online only" bind:value={onlineOnly} />
+        <Divider />
         {#if clientInfo && clientInfo.viaFabricPlus}
-            <SingleSelect title="Version" value={selectedProtocol.name} options={protocols.map(p => p.name)}
-                          on:change={changeProtocolVersion}/>
-            <ButtonSetting title="ViaFabricPlus" on:click={() => openScreen("viafabricplus_protocol_selection")}/>
+            <SingleSelect
+                title="Version"
+                value={selectedProtocol.name}
+                options={protocols.map((p) => p.name)}
+                on:change={changeProtocolVersion}
+            />
+            <ButtonSetting
+                title="ViaFabricPlus"
+                on:click={() => openScreen("viafabricplus_protocol_selection")}
+            />
         {:else}
-            <ButtonSetting title="Install ViaFabricPlus" on:click={() => browse("VIAFABRICPLUS")}/>
+            <ButtonSetting
+                title="Install ViaFabricPlus"
+                on:click={() => browse("VIAFABRICPLUS")}
+            />
         {/if}
     </OptionBar>
 
-    <MenuList sortable={renderedServers.length === servers.length} elementCount={servers.length}
-              on:sort={handleServerSort}>
+    <MenuList
+        sortable={renderedServers.length === servers.length}
+        elementCount={servers.length}
+        on:sort={handleServerSort}
+    >
         {#key timesSorted}
             {#each renderedServers as server}
-                <MenuListItem imageText={server.ping > 0 ? `${server.ping}ms` : null}
-                              imageTextBackgroundColor={getPingColor(server.ping)}
-                              image={server.ping < 0 || !server.icon
-                            ? `${REST_BASE}/api/v1/client/resource?id=minecraft:textures/misc/unknown_server.png`
-                            :`data:image/png;base64,${server.icon}`}
-                              title={server.name}
-                              on:dblclick={() => connectToServer(server.address)}>
-                    <TextComponent slot="subtitle" fontSize={18}
-                                   textComponent={server.ping <= 0 ? "§CCan't connect to server" : server.label}/>
+                <MenuListItem
+                    imageText={server.ping > 0 ? `${server.ping}ms` : null}
+                    imageTextBackgroundColor={getPingColor(server.ping)}
+                    image={server.ping < 0 || !server.icon
+                        ? `${REST_BASE}/api/v1/client/resource?id=minecraft:textures/misc/unknown_server.png`
+                        : `data:image/png;base64,${server.icon}`}
+                    title={server.name}
+                    on:dblclick={() => connectToServer(server.address)}
+                >
+                    <TextComponent
+                        slot="subtitle"
+                        fontSize={18}
+                        textComponent={server.ping <= 0
+                            ? "§CCan't connect to server"
+                            : server.label}
+                    />
 
                     <svelte:fragment slot="tag">
                         {#if server.ping > 0}
-                            <MenuListItemTag text="{server.players.online}/{server.players.max} Players"/>
-                            <MenuListItemTag text={server.version}/>
+                            <MenuListItemTag
+                                text="{server.players.online}/{server.players
+                                    .max} Players"
+                            />
+                            <MenuListItemTag text={server.version} />
                         {/if}
                     </svelte:fragment>
 
                     <svelte:fragment slot="active-visible">
-                        <MenuListItemButton title="Remove" icon="trash" on:click={() => removeServer(server.id)}/>
-                        <MenuListItemButton title="Edit" icon="pen-2" on:click={() => editServer(server)}/>
+                        <MenuListItemButton
+                            title="Remove"
+                            icon="trash"
+                            on:click={() => removeServer(server.id)}
+                        />
+                        <MenuListItemButton
+                            title="Edit"
+                            icon="pen-2"
+                            on:click={() => editServer(server)}
+                        />
                     </svelte:fragment>
 
                     <svelte:fragment slot="always-visible">
-                        <MenuListItemButton title="Join" icon="play" on:click={() => connectToServer(server.address)}/>
+                        <MenuListItemButton
+                            title="Join"
+                            icon="play"
+                            on:click={() => connectToServer(server.address)}
+                        />
                     </svelte:fragment>
                 </MenuListItem>
             {/each}
@@ -202,13 +251,19 @@
 
     <BottomButtonWrapper>
         <ButtonContainer>
-            <TextButton title="Add" on:click={() => addServerModalVisible = true}/>
-            <TextButton title="Direct" on:click={() => directConnectModalVisible = true}/>
-            <TextButton title="Refresh" on:click={refreshServers}/>
+            <TextButton
+                title="Add"
+                on:click={() => (addServerModalVisible = true)}
+            />
+            <TextButton
+                title="Direct"
+                on:click={() => (directConnectModalVisible = true)}
+            />
+            <TextButton title="Refresh" on:click={refreshServers} />
         </ButtonContainer>
 
         <ButtonContainer>
-            <TextButton title="Back" on:click={() => openScreen("title")}/>
+            <TextButton title="Back" on:click={() => openScreen("title")} />
         </ButtonContainer>
     </BottomButtonWrapper>
 </Menu>

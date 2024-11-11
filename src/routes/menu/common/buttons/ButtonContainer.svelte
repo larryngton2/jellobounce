@@ -1,15 +1,15 @@
 <div class="button-container">
-    <slot/>
+  <slot />
 </div>
 
 <style lang="scss">
-    @import "../../../../colors.scss";
+  @import "../../../../colors.scss";
 
-    .button-container {
-      background: none;
-      display: flex;
-      column-gap: 15px;
-      width: max-content;
-      padding-top: 25px;
-    }
+  .button-container {
+    background: none;
+    display: flex;
+    column-gap: 15px;
+    width: max-content;
+    padding-top: 25px;
+  }
 </style>

@@ -3,8 +3,8 @@
     import SingleSelect from "../common/setting/select/SingleSelect.svelte";
     import ButtonSetting from "../common/setting/ButtonSetting.svelte";
     import IconTextInput from "../common/setting/IconTextInput.svelte";
-    import {addServer as restAddServer} from "../../../integration/rest";
-    import {createEventDispatcher} from "svelte";
+    import { addServer as restAddServer } from "../../../integration/rest";
+    import { createEventDispatcher } from "svelte";
 
     export let visible: boolean;
 
@@ -37,9 +37,19 @@
     }
 </script>
 
-<Modal bind:visible={visible} title="Add Server" on:close={cleanUp}>
-    <IconTextInput title="Name" icon="info" bind:value={name}/>
-    <IconTextInput title="Address" icon="server" bind:value={address}/>
-    <SingleSelect title="Server Resource Packs" options={["Prompt", "Enabled", "Disabled"]} bind:value={resourcePackPolicy}/>
-    <ButtonSetting title="Add Server" on:click={addServer} {disabled} listenForEnter={true} inset={true}/>
+<Modal bind:visible title="Add Server" on:close={cleanUp}>
+    <IconTextInput title="Name" icon="info" bind:value={name} />
+    <IconTextInput title="Address" icon="server" bind:value={address} />
+    <SingleSelect
+        title="Server Resource Packs"
+        options={["Prompt", "Enabled", "Disabled"]}
+        bind:value={resourcePackPolicy}
+    />
+    <ButtonSetting
+        title="Add Server"
+        on:click={addServer}
+        {disabled}
+        listenForEnter={true}
+        inset={true}
+    />
 </Modal>

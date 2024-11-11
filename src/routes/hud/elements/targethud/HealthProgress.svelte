@@ -2,8 +2,8 @@
     export let maxHealth: number;
     export let health: number;
 
-    let width = Math.ceil(health / maxHealth * 100);
-    $: width = Math.ceil(health / maxHealth * 100);
+    let width = Math.ceil((health / maxHealth) * 100);
+    $: width = Math.ceil((health / maxHealth) * 100);
 </script>
 
 <div class="health-progress">
@@ -32,7 +32,11 @@
         background-color: $accent-color;
         transition: ease-out width 0.3s;
         border-radius: 6px;
-        background-image: linear-gradient(to right, $healthprogress-neutral-1, $healthprogress-neutral-2);
+        background-image: linear-gradient(
+            to right,
+            $healthprogress-neutral-1,
+            $healthprogress-neutral-2
+        );
         z-index: 1;
 
         .thumb2 {
@@ -40,7 +44,11 @@
             height: 7px;
             transition: ease-out width 0.6s;
             border-radius: 6px;
-            background-image: linear-gradient(to right, $healthprogress-lose-1, $healthprogress-lose-2);
+            background-image: linear-gradient(
+                to right,
+                $healthprogress-lose-1,
+                $healthprogress-lose-2
+            );
             z-index: -1;
         }
 

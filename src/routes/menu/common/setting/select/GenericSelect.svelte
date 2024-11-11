@@ -1,48 +1,56 @@
 <script lang="ts">
-    import {quintOut} from "svelte/easing";
-    import {fade} from "svelte/transition";
+  import { quintOut } from "svelte/easing";
+  import { fade } from "svelte/transition";
 
-    export let closeOnInternalClick: boolean;
+  export let closeOnInternalClick: boolean;
 
-    let expanded = false;
-    let selectElement: HTMLElement;
-    let headerElement: HTMLElement;
+  let expanded = false;
+  let selectElement: HTMLElement;
+  let headerElement: HTMLElement;
 
-    function handleWindowClick(e: MouseEvent) {
-        if (!selectElement.contains(e.target as Node)) {
-            expanded = false;
-        }
+  function handleWindowClick(e: MouseEvent) {
+    if (!selectElement.contains(e.target as Node)) {
+      expanded = false;
     }
+  }
 
-    function handleSelectClick(e:MouseEvent) {
-        if (closeOnInternalClick) {
-            expanded = !expanded;
-        } else {
-            if (!expanded) {
-                expanded = true;
-            } else {
-                expanded = !headerElement.contains(e.target as Node);
-            }
-        }
+  function handleSelectClick(e: MouseEvent) {
+    if (closeOnInternalClick) {
+      expanded = !expanded;
+    } else {
+      if (!expanded) {
+        expanded = true;
+      } else {
+        expanded = !headerElement.contains(e.target as Node);
+      }
     }
+  }
 </script>
 
-<svelte:window on:click={handleWindowClick}/>
+<svelte:window on:click={handleWindowClick} />
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="select" class:expanded bind:this={selectElement} on:click={handleSelectClick}>
-    <div class="header" bind:this={headerElement}>
-        <span class="title">
-            <slot name="title"/>
-        </span>
-        <img src="img/menu/icon-select-arrow.svg" alt="expand">
+<div
+  class="select"
+  class:expanded
+  bind:this={selectElement}
+  on:click={handleSelectClick}
+>
+  <div class="header" bind:this={headerElement}>
+    <span class="title">
+      <slot name="title" />
+    </span>
+    <img src="img/menu/icon-select-arrow.svg" alt="expand" />
+  </div>
+  {#if expanded}
+    <div
+      class="options"
+      transition:fade|global={{ duration: 150, easing: quintOut }}
+    >
+      <slot name="options"></slot>
     </div>
-    {#if expanded}
-        <div class="options" transition:fade|global={{ duration: 150, easing: quintOut }}>
-            <slot name="options"></slot>
-        </div>
-    {/if}
+  {/if}
 </div>
 
 <style lang="scss">
@@ -68,7 +76,7 @@
     align-items: center;
     justify-content: space-between;
     border-radius: 12px;
-    transition: ease .2s;
+    transition: ease 0.2s;
     z-index: 1;
 
     .title {

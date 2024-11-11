@@ -1,4 +1,4 @@
-import {REST_BASE} from "./host";
+import { REST_BASE } from "./host";
 import type {
     Account,
     Browser,
@@ -32,7 +32,7 @@ export async function getModules(): Promise<Module[]> {
 }
 
 export async function getModuleSettings(name: string): Promise<ConfigurableSetting> {
-    const searchParams = new URLSearchParams({name});
+    const searchParams = new URLSearchParams({ name });
 
     const response = await fetch(`${API_BASE}/client/modules/settings?${searchParams.toString()}`);
     const data = await response.json();
@@ -41,7 +41,7 @@ export async function getModuleSettings(name: string): Promise<ConfigurableSetti
 }
 
 export async function setModuleSettings(name: string, settings: ConfigurableSetting) {
-    const searchParams = new URLSearchParams({name});
+    const searchParams = new URLSearchParams({ name });
 
     await fetch(`${API_BASE}/client/modules/settings?${searchParams.toString()}`, {
         method: "PUT",
@@ -78,7 +78,7 @@ export async function setPersistentStorageItems(items: PersistentStorageItem[]) 
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({items})
+        body: JSON.stringify({ items })
     })
 }
 
@@ -95,7 +95,7 @@ export async function confirmVirtualScreen(name: string) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({name})
+        body: JSON.stringify({ name })
     });
 }
 
@@ -114,7 +114,7 @@ export async function getCrosshairData(): Promise<HitResult> {
 }
 
 export async function getPrintableKeyName(key: string): Promise<PrintableKey> {
-    const searchParams = new URLSearchParams({key});
+    const searchParams = new URLSearchParams({ key });
 
     const response = await fetch(`${API_BASE}/client/input?${searchParams.toString()}`);
     const data: PrintableKey = await response.json();
@@ -149,7 +149,7 @@ export async function browse(target: string) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({target})
+        body: JSON.stringify({ target })
     });
 }
 
@@ -165,7 +165,7 @@ export async function openScreen(name: string) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({name})
+        body: JSON.stringify({ name })
     });
 }
 
@@ -182,7 +182,7 @@ export async function connectToServer(address: string) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({address})
+        body: JSON.stringify({ address })
     });
 }
 
@@ -192,7 +192,7 @@ export async function removeServer(id: number) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({id})
+        body: JSON.stringify({ id })
     });
 }
 
@@ -202,7 +202,7 @@ export async function addServer(name: string, address: string, serverResourcePac
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({name, address, serverResourcePacks})
+        body: JSON.stringify({ name, address, serverResourcePacks })
     });
 }
 
@@ -212,7 +212,7 @@ export async function editServer(id: number, name: string, address: string, reso
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({id, name, address, resourcePackPolicy})
+        body: JSON.stringify({ id, name, address, resourcePackPolicy })
     });
 }
 
@@ -222,7 +222,7 @@ export async function orderServers(order: number[]) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({order})
+        body: JSON.stringify({ order })
     });
 }
 
@@ -246,7 +246,7 @@ export async function setSelectedProtocol(protocol: Protocol) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({version: protocol.version})
+        body: JSON.stringify({ version: protocol.version })
     });
 }
 
@@ -262,7 +262,7 @@ export async function orderAccounts(order: number[]) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({order})
+        body: JSON.stringify({ order })
     });
 }
 
@@ -273,7 +273,7 @@ export async function addCrackedAccount(username: string, online: boolean) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({username, online})
+        body: JSON.stringify({ username, online })
     });
 }
 
@@ -283,7 +283,7 @@ export async function addSessionAccount(token: string) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({token})
+        body: JSON.stringify({ token })
     });
 }
 
@@ -293,7 +293,7 @@ export async function addAlteningAccount(token: string) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({token})
+        body: JSON.stringify({ token })
     });
 }
 
@@ -316,7 +316,7 @@ export async function setAccountFavorite(id: number, favorite: boolean) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({id})
+            body: JSON.stringify({ id })
         });
     } else {
         await fetch(`${API_BASE}/client/account/favorite`, {
@@ -324,7 +324,7 @@ export async function setAccountFavorite(id: number, favorite: boolean) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({id})
+            body: JSON.stringify({ id })
         });
     }
 }
@@ -335,7 +335,7 @@ export async function removeAccount(id: number) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({id})
+        body: JSON.stringify({ id })
     });
 }
 
@@ -345,7 +345,7 @@ export async function loginToAccount(id: number) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({id})
+        body: JSON.stringify({ id })
     });
 }
 
@@ -355,7 +355,7 @@ export async function directLoginToCrackedAccount(username: string, online: bool
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({username, online})
+        body: JSON.stringify({ username, online })
     });
 }
 
@@ -365,7 +365,7 @@ export async function directLoginToSessionAccount(token: string) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({token})
+        body: JSON.stringify({ token })
     });
 }
 
@@ -389,7 +389,7 @@ export async function openWorld(name: string) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({name})
+        body: JSON.stringify({ name })
     });
 }
 
@@ -399,7 +399,7 @@ export async function editWorld(name: string) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({name})
+        body: JSON.stringify({ name })
     });
 }
 
@@ -409,7 +409,7 @@ export async function removeWorld(name: string) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({name})
+        body: JSON.stringify({ name })
     });
 }
 
@@ -426,7 +426,7 @@ export async function checkProxy(id: number) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({id})
+        body: JSON.stringify({ id })
     });
 }
 
@@ -450,7 +450,7 @@ export async function setProxyFavorite(id: number, favorite: boolean) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({id})
+            body: JSON.stringify({ id })
         });
     } else {
         await fetch(`${API_BASE}/client/proxies/favorite`, {
@@ -458,7 +458,7 @@ export async function setProxyFavorite(id: number, favorite: boolean) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({id})
+            body: JSON.stringify({ id })
         });
     }
 }
@@ -469,7 +469,7 @@ export async function addProxy(host: string, port: number, username: string, pas
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({host, port, username, password})
+        body: JSON.stringify({ host, port, username, password })
     });
 }
 
@@ -479,7 +479,7 @@ export async function editProxy(id: number, host: string, port: number, username
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({id, host, port, username, password})
+        body: JSON.stringify({ id, host, port, username, password })
     })
 }
 
@@ -495,7 +495,7 @@ export async function removeProxy(id: number) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({id})
+        body: JSON.stringify({ id })
     });
 }
 
@@ -505,7 +505,7 @@ export async function connectToProxy(id: number) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({id})
+        body: JSON.stringify({ id })
     });
 }
 
@@ -560,7 +560,7 @@ export async function browserNavigate(url: string) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({url})
+        body: JSON.stringify({ url })
     })
 }
 

@@ -40,6 +40,6 @@ export async function updatePersistentData() {
 }
 
 export async function setItem(name: string, value: string) {
-    localStorage.setItem(name ,value);
+    localStorage.setItem(name, value);
     await updatePersistentData();
 }

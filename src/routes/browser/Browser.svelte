@@ -1,22 +1,22 @@
 <script lang="ts">
-    import type {Browser} from "../../integration/types.js";
-    import {onMount} from "svelte";
+    import type { Browser } from "../../integration/types.js";
+    import { onMount } from "svelte";
     import {
         browserForceReload,
         browserGoBack,
         browserGoForward,
         browserNavigate,
         browserReload,
-        getBrowser
+        getBrowser,
     } from "../../integration/rest.js";
-    import {listen} from "../../integration/ws.js";
-    import type {BrowserUrlChangeEvent} from "../../integration/events.js";
+    import { listen } from "../../integration/ws.js";
+    import type { BrowserUrlChangeEvent } from "../../integration/events.js";
     let browser: Browser;
     async function loadBrowser() {
         browser = await getBrowser();
     }
     onMount(async () => {
-        await new Promise(resolve => setTimeout(resolve, 250));
+        await new Promise((resolve) => setTimeout(resolve, 250));
         await loadBrowser();
     });
     async function onKeyPress(event: KeyboardEvent) {
@@ -44,7 +44,25 @@
     });
 </script>
 
-<style lang=scss>
+{#if browser}
+    <div class="browser-controls">
+        <button on:click={handleBack}>&larr;</button>
+        <button on:click={handleForward}>&rarr;</button>
+        <button on:click={handleReload}>&#x21bb;</button>
+        <div class="address-bar">
+            <input
+                id="url"
+                bind:value={browser.url}
+                on:keypress={onKeyPress}
+                placeholder="Enter URL"
+            />
+        </div>
+        <button on:click={handleGo}>Go</button>
+        <button on:click={handleForceReload}>Force Reload</button>
+    </div>
+{/if}
+
+<style lang="scss">
     @import "../../colors.scss";
 
     .browser-controls {
@@ -99,16 +117,3 @@
         outline: none;
     }
 </style>
-
-{#if browser}
-    <div class="browser-controls">
-        <button on:click={handleBack}>&larr;</button>
-        <button on:click={handleForward}>&rarr;</button>
-        <button on:click={handleReload}>&#x21bb;</button>
-        <div class="address-bar">
-            <input id="url" bind:value={browser.url} on:keypress={onKeyPress} placeholder="Enter URL"/>
-        </div>
-        <button on:click={handleGo}>Go</button>
-        <button on:click={handleForceReload}>Force Reload</button>
-    </div>
-{/if}

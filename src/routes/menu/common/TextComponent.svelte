@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {TextComponent as TTextComponent} from "../../../integration/types";
+    import type { TextComponent as TTextComponent } from "../../../integration/types";
 
     export let textComponent: TTextComponent | string;
     export let allowPreformatting = false;
@@ -26,7 +26,7 @@
         red: "#ff5555",
         light_purple: "#ff55ff",
         yellow: "#ffff55",
-        white: "#ffffff"
+        white: "#ffffff",
     };
 
     function translateColor(color: string): string {
@@ -58,7 +58,9 @@
         }
 
         const components: TTextComponent[] = [];
-        const textParts = (text.startsWith("§") ? text : `§f${text}`).split("§");
+        const textParts = (text.startsWith("§") ? text : `§f${text}`).split(
+            "§",
+        );
 
         for (const p of textParts) {
             const code = p.charAt(0);
@@ -84,7 +86,9 @@
                     reset();
                     break;
                 default:
-                    color = colors[Object.keys(colors)[parseInt(code, 16)]] ?? colors.black;
+                    color =
+                        colors[Object.keys(colors)[parseInt(code, 16)]] ??
+                        colors.black;
                     break;
             }
 
@@ -100,42 +104,91 @@
         }
 
         return {
-            extra: components
+            extra: components,
         };
     }
 </script>
 
 <span class="text-component">
     {#if typeof textComponent === "string"}
-        <svelte:self {fontSize} {allowPreformatting} textComponent={convertLegacyCodes(textComponent)}/>
+        <svelte:self
+            {fontSize}
+            {allowPreformatting}
+            textComponent={convertLegacyCodes(textComponent)}
+        />
     {:else if textComponent}
         {#if textComponent.text}
             {#if !textComponent.text.includes("§")}
-                <span class="text" class:bold={textComponent.bold !== undefined ? textComponent.bold : inheritedBold}
-                      class:italic={textComponent.italic !== undefined ? textComponent.italic : inheritedItalic}
-                      class:underlined={textComponent.underlined !== undefined ? textComponent.underlined : inheritedUnderlined}
-                      class:strikethrough={textComponent.strikethrough !== undefined ? textComponent.strikethrough : inheritedStrikethrough}
-                      class:allow-preformatting={allowPreformatting}
-                      style="color: {textComponent.color !== undefined ? translateColor(textComponent.color) : translateColor(inheritedColor)}; font-size: {fontSize}px;">{textComponent.text}</span>
+                <span
+                    class="text"
+                    class:bold={textComponent.bold !== undefined
+                        ? textComponent.bold
+                        : inheritedBold}
+                    class:italic={textComponent.italic !== undefined
+                        ? textComponent.italic
+                        : inheritedItalic}
+                    class:underlined={textComponent.underlined !== undefined
+                        ? textComponent.underlined
+                        : inheritedUnderlined}
+                    class:strikethrough={textComponent.strikethrough !==
+                    undefined
+                        ? textComponent.strikethrough
+                        : inheritedStrikethrough}
+                    class:allow-preformatting={allowPreformatting}
+                    style="color: {textComponent.color !== undefined
+                        ? translateColor(textComponent.color)
+                        : translateColor(
+                              inheritedColor,
+                          )}; font-size: {fontSize}px;"
+                    >{textComponent.text}</span
+                >
             {:else}
-                <svelte:self {allowPreformatting} {fontSize}
-                             inheritedColor={textComponent.color !== undefined ? textComponent.color : inheritedColor}
-                             inheritedBold={textComponent.bold !== undefined ? textComponent.bold : inheritedBold}
-                             inheritedItalic={textComponent.italic !== undefined ? textComponent.italic : inheritedItalic}
-                             inheritedUnderlined={textComponent.underlined !== undefined ? textComponent.underlined : inheritedUnderlined}
-                             inheritedStrikethrough={textComponent.strikethrough !== undefined ? textComponent.strikethrough : inheritedStrikethrough}
-                             textComponent={convertLegacyCodes(textComponent.text)}/>
+                <svelte:self
+                    {allowPreformatting}
+                    {fontSize}
+                    inheritedColor={textComponent.color !== undefined
+                        ? textComponent.color
+                        : inheritedColor}
+                    inheritedBold={textComponent.bold !== undefined
+                        ? textComponent.bold
+                        : inheritedBold}
+                    inheritedItalic={textComponent.italic !== undefined
+                        ? textComponent.italic
+                        : inheritedItalic}
+                    inheritedUnderlined={textComponent.underlined !== undefined
+                        ? textComponent.underlined
+                        : inheritedUnderlined}
+                    inheritedStrikethrough={textComponent.strikethrough !==
+                    undefined
+                        ? textComponent.strikethrough
+                        : inheritedStrikethrough}
+                    textComponent={convertLegacyCodes(textComponent.text)}
+                />
             {/if}
         {/if}
         {#if textComponent.extra}
             {#each textComponent.extra as e}
-                <svelte:self {allowPreformatting} {fontSize}
-                             inheritedColor={textComponent.color !== undefined ? textComponent.color : inheritedColor}
-                             inheritedBold={textComponent.bold !== undefined ? textComponent.bold : inheritedBold}
-                             inheritedItalic={textComponent.italic !== undefined ? textComponent.italic : inheritedItalic}
-                             inheritedUnderlined={textComponent.underlined !== undefined ? textComponent.underlined : inheritedUnderlined}
-                             inheritedStrikethrough={textComponent.strikethrough !== undefined ? textComponent.strikethrough : inheritedStrikethrough}
-                             textComponent={e}/>
+                <svelte:self
+                    {allowPreformatting}
+                    {fontSize}
+                    inheritedColor={textComponent.color !== undefined
+                        ? textComponent.color
+                        : inheritedColor}
+                    inheritedBold={textComponent.bold !== undefined
+                        ? textComponent.bold
+                        : inheritedBold}
+                    inheritedItalic={textComponent.italic !== undefined
+                        ? textComponent.italic
+                        : inheritedItalic}
+                    inheritedUnderlined={textComponent.underlined !== undefined
+                        ? textComponent.underlined
+                        : inheritedUnderlined}
+                    inheritedStrikethrough={textComponent.strikethrough !==
+                    undefined
+                        ? textComponent.strikethrough
+                        : inheritedStrikethrough}
+                    textComponent={e}
+                />
             {/each}
         {/if}
     {/if}

@@ -1,19 +1,25 @@
 <script lang="ts">
-    import {onMount} from "svelte";
+    import { onMount } from "svelte";
     import {
         getModuleSettings,
         setModuleSettings,
         setModuleEnabled,
     } from "../../integration/rest";
-    import type {ConfigurableSetting} from "../../integration/types";
+    import type { ConfigurableSetting } from "../../integration/types";
     import GenericSetting from "./setting/common/GenericSetting.svelte";
-    import {slide} from "svelte/transition";
-    import {quintOut} from "svelte/easing";
-    import {description as descriptionStore, highlightModuleName} from "./clickgui_store";
-    import {setItem} from "../../integration/persistent_storage";
-    import {convertToSpacedString, spaceSeperatedNames} from "../../theme/theme_config";
-    import {scaleFactor} from "./clickgui_store";
-    import {debounceAsync} from "../../integration/util";
+    import { slide } from "svelte/transition";
+    import { quintOut } from "svelte/easing";
+    import {
+        description as descriptionStore,
+        highlightModuleName,
+    } from "./clickgui_store";
+    import { setItem } from "../../integration/persistent_storage";
+    import {
+        convertToSpacedString,
+        spaceSeperatedNames,
+    } from "../../theme/theme_config";
+    import { scaleFactor } from "./clickgui_store";
+    import { debounceAsync } from "../../integration/util";
 
     export let name: string;
     export let enabled: boolean;
@@ -29,7 +35,7 @@
         configurable = await getModuleSettings(name);
 
         setTimeout(() => {
-            expanded = localStorage.getItem(path) === "true"
+            expanded = localStorage.getItem(path) === "true";
         }, 500);
     });
 
@@ -59,16 +65,18 @@
     }
 
     function setDescription() {
-        const y = (moduleNameElement?.getBoundingClientRect().top ?? 0) + ((moduleNameElement?.clientHeight ?? 0) / 2);
+        const y =
+            (moduleNameElement?.getBoundingClientRect().top ?? 0) +
+            (moduleNameElement?.clientHeight ?? 0) / 2;
         const x = moduleNameElement?.getBoundingClientRect().right ?? 0;
         let moduleDescription = description;
         if (aliases.length > 0) {
-            moduleDescription += ` (aka ${aliases.map(a => $spaceSeperatedNames ? convertToSpacedString(a) : a).join(", ")})`;
+            moduleDescription += ` (aka ${aliases.map((a) => ($spaceSeperatedNames ? convertToSpacedString(a) : a)).join(", ")})`;
         }
         descriptionStore.set({
             x: x * (2 / $scaleFactor),
             y: y * (2 / $scaleFactor),
-            description: moduleDescription
+            description: moduleDescription,
         });
     }
 
@@ -84,22 +92,22 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-        class="module"
-        class:expanded
-        class:has-settings={configurable?.value.length > 2}
-        in:slide={{ duration: 500, easing: quintOut }}
-        out:slide={{ duration: 500, easing: quintOut }}
+    class="module"
+    class:expanded
+    class:has-settings={configurable?.value.length > 2}
+    in:slide={{ duration: 500, easing: quintOut }}
+    out:slide={{ duration: 500, easing: quintOut }}
 >
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div
-            class="name"
-            on:contextmenu|preventDefault={toggleExpanded}
-            on:click={toggleModule}
-            on:mouseenter={setDescription}
-            on:mouseleave={() => descriptionStore.set(null)}
-            bind:this={moduleNameElement}
-            class:enabled
-            class:highlight={name === $highlightModuleName}
+        class="name"
+        on:contextmenu|preventDefault={toggleExpanded}
+        on:click={toggleModule}
+        on:mouseenter={setDescription}
+        on:mouseleave={() => descriptionStore.set(null)}
+        bind:this={moduleNameElement}
+        class:enabled
+        class:highlight={name === $highlightModuleName}
     >
         {#if $spaceSeperatedNames}
             {convertToSpacedString(name)}
@@ -111,85 +119,92 @@
     {#if expanded && configurable}
         <div class="settings">
             {#each configurable.value as setting (setting.name)}
-                <GenericSetting skipAnimationDelay {path} bind:setting on:change={debounceAsync(updateModuleSettings)}/>
+                <GenericSetting
+                    skipAnimationDelay
+                    {path}
+                    bind:setting
+                    on:change={debounceAsync(updateModuleSettings)}
+                />
             {/each}
         </div>
     {/if}
 </div>
 
 <style lang="scss">
-  @import "../../colors.scss";
+    @import "../../colors.scss";
 
-  .module {
-    position: relative;
+    .module {
+        position: relative;
 
-    .name {
-      cursor: pointer;
-      transition: ease background-color 0.2s,
-      ease color 0.2s;
-      color: rgba(150,150,150);
-      text-align: center;
-      font-size: 13px;
-      font-weight: 500;
-      position: relative;
-      padding: 10px;
-      align-items: center;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
+        .name {
+            cursor: pointer;
+            transition:
+                ease background-color 0.2s,
+                ease color 0.2s;
+            color: rgba(150, 150, 150);
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            position: relative;
+            padding: 10px;
+            align-items: center;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
 
-      &.highlight::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: calc(100% - 4px);
-        height: calc(100% - 4px);
-        border: solid 2px $accent-color;
-        border-radius: 6px;
-        box-shadow: 0 0 10px rgba($accent-color, 0.7);
-      }
+            &.highlight::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: calc(100% - 4px);
+                height: calc(100% - 4px);
+                border: solid 2px $accent-color;
+                border-radius: 6px;
+                box-shadow: 0 0 10px rgba($accent-color, 0.7);
+            }
 
-      &:hover {
-        background: rgba($background-color, 0.2);
-        color: gray;
-      }
+            &:hover {
+                background: rgba($background-color, 0.2);
+                color: gray;
+            }
 
-      &.enabled {
-        background: rgba($background-color, 0.3);
-        color: white;
-        text-shadow: 0px 0px 20px gray;
-      }
+            &.enabled {
+                background: rgba($background-color, 0.3);
+                color: white;
+                text-shadow: 0px 0px 20px gray;
+            }
+        }
+
+        .settings {
+            background-color: rgba($background-color, 0.3);
+            padding: 0 11px 0 7px;
+        }
+
+        &.has-settings {
+            .name::after {
+                content: "";
+                display: block;
+                position: absolute;
+                height: 10px;
+                width: 10px;
+                right: 15px;
+                top: 50%;
+                background-image: url("");
+                background-position: center;
+                background-repeat: no-repeat;
+                opacity: 0.5;
+                transform-origin: 50% 50%;
+                transform: translateY(-50%) rotate(-90deg);
+                transition:
+                    ease opacity 0.2s,
+                    ease transform 0.4s;
+            }
+
+            &.expanded .name::after {
+                transform: translateY(-50%) rotate(0);
+                opacity: 1;
+            }
+        }
     }
-
-    .settings {
-      background-color: rgba($background-color, 0.3);
-      padding: 0 11px 0 7px;
-    }
-
-    &.has-settings {
-      .name::after {
-        content: "";
-        display: block;
-        position: absolute;
-        height: 10px;
-        width: 10px;
-        right: 15px;
-        top: 50%;
-        background-image: url("");
-        background-position: center;
-        background-repeat: no-repeat;
-        opacity: 0.5;
-        transform-origin: 50% 50%;
-        transform: translateY(-50%) rotate(-90deg);
-        transition: ease opacity 0.2s,
-        ease transform 0.4s;
-      }
-
-      &.expanded .name::after {
-        transform: translateY(-50%) rotate(0);
-        opacity: 1;
-      }
-    }
-  }
 </style>

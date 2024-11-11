@@ -1,9 +1,9 @@
 <!-- Adapted from https://github.com/sveltejs/svelte-virtual-list -->
 <script lang="js">
-    import {onMount, tick} from 'svelte';
+    import { onMount, tick } from "svelte";
     // props
     export let items;
-    export let height = '100%';
+    export let height = "100%";
     export let itemHeight = undefined;
     // read-only, but visible to consumers via bind:start
     export let start = 0;
@@ -36,7 +36,7 @@
                 await tick(); // render the newly visible row
                 row = rows[i - start];
             }
-            const row_height = height_map[i] = itemHeight || row.offsetHeight;
+            const row_height = (height_map[i] = itemHeight || row.offsetHeight);
             content_height += row_height;
             i += 1;
         }
@@ -83,7 +83,7 @@
             await tick();
             let expected_height = 0;
             let actual_height = 0;
-            for (let i = start; i < old_start; i +=1) {
+            for (let i = start; i < old_start; i += 1) {
                 if (rows[i - start]) {
                     expected_height += height_map[i];
                     actual_height += itemHeight || rows[i - start].offsetHeight;
@@ -98,35 +98,20 @@
     }
     // trigger initial refresh
     onMount(() => {
-        rows = contents.getElementsByTagName('svelte-virtual-list-row');
+        rows = contents.getElementsByTagName("svelte-virtual-list-row");
         mounted = true;
     });
 </script>
 
-<style>
-    svelte-virtual-list-viewport {
-        position: relative;
-        overflow-y: auto;
-        -webkit-overflow-scrolling:touch;
-        display: block;
-    }
-    svelte-virtual-list-contents, svelte-virtual-list-row {
-        display: block;
-    }
-    svelte-virtual-list-row {
-        overflow: hidden;
-    }
-</style>
-
 <svelte-virtual-list-viewport
-        bind:this={viewport}
-        bind:offsetHeight={viewport_height}
-        on:scroll={handle_scroll}
-        style="height: {height};"
+    bind:this={viewport}
+    bind:offsetHeight={viewport_height}
+    on:scroll={handle_scroll}
+    style="height: {height};"
 >
     <svelte-virtual-list-contents
-            bind:this={contents}
-            style="padding-top: {top}px; padding-bottom: {bottom}px;"
+        bind:this={contents}
+        style="padding-top: {top}px; padding-bottom: {bottom}px;"
     >
         {#each visible as row (row.index)}
             <svelte-virtual-list-row>
@@ -135,3 +120,19 @@
         {/each}
     </svelte-virtual-list-contents>
 </svelte-virtual-list-viewport>
+
+<style>
+    svelte-virtual-list-viewport {
+        position: relative;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        display: block;
+    }
+    svelte-virtual-list-contents,
+    svelte-virtual-list-row {
+        display: block;
+    }
+    svelte-virtual-list-row {
+        overflow: hidden;
+    }
+</style>

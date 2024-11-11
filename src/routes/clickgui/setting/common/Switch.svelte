@@ -1,19 +1,23 @@
 <script lang="ts">
-    import {createEventDispatcher} from "svelte";
+  import { createEventDispatcher } from "svelte";
 
-    export let value: boolean;
-    export let name: string;
+  export let value: boolean;
+  export let name: string;
 
-    const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 </script>
 
 <label class="switch-container">
-    <div class="switch">
-        <input type="checkbox" bind:checked={value} on:change={() => dispatch("change")}/>
-        <span class="slider"></span>
-    </div>
+  <div class="switch">
+    <input
+      type="checkbox"
+      bind:checked={value}
+      on:change={() => dispatch("change")}
+    />
+    <span class="slider"></span>
+  </div>
 
-    <div class="name">{name}</div>
+  <div class="name">{name}</div>
 </label>
 
 <style lang="scss">
@@ -71,8 +75,8 @@
 
     input:checked + .slider {
       background-color: color.scale(
-                      desaturate($accent-color, 60%),
-              $lightness: -15%
+        desaturate($accent-color, 60%),
+        $lightness: -15%
       );
     }
 

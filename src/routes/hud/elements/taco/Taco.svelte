@@ -1,10 +1,10 @@
 <script lang="ts">
-    import {fly} from "svelte/transition";
-    import {expoOut} from "svelte/easing";
-    import {onDestroy, onMount} from 'svelte';
-    import {getClientInfo, getSession} from "../../../../integration/rest";
-    import {listen} from "../../../../integration/ws";
-    import type {ClientInfo} from "../../../../integration/types";
+    import { fly } from "svelte/transition";
+    import { expoOut } from "svelte/easing";
+    import { onDestroy, onMount } from "svelte";
+    import { getClientInfo, getSession } from "../../../../integration/rest";
+    import { listen } from "../../../../integration/ws";
+    import type { ClientInfo } from "../../../../integration/types";
 
     let fps: number | null = null;
     let clientVersion: string | null = null;
@@ -17,11 +17,11 @@
         const session = await getSession();
         username = session.username;
         avatar = session.avatar;
-    };
+    }
 
     async function getClientInfoData() {
         clientInfo = await getClientInfo();
-    };
+    }
 
     onMount(async () => {
         await refreshSession();
@@ -36,21 +36,39 @@
 
     listen("clientInfo", (data: ClientInfo) => {
         fps = data.fps;
-        clientVersion = data.clientVersion
+        clientVersion = data.clientVersion;
     });
-  </script>
+</script>
 
-  <div class="main-wrapper">
-        {#if clientInfo}
-          <div class="fps" transition:fly|global={{duration: 500, delay: 25, y: 50, easing: expoOut}}>{clientInfo.fps} FPS</div>
-        {/if}
-      <div class="userinfo" transition:fly|global={{duration: 500, y: 50, easing: expoOut}}>
-          <object data={avatar} type="image/png" class="avatar" aria-label="avatar">
-              <img src="img/steve.png" alt=avatar class="avatar">
-          </object>
-          <span class="username">{username}</span>
-      </div>
-  </div>
+<div class="main-wrapper">
+    {#if clientInfo}
+        <div
+            class="fps"
+            transition:fly|global={{
+                duration: 500,
+                delay: 25,
+                y: 50,
+                easing: expoOut,
+            }}
+        >
+            {clientInfo.fps} FPS
+        </div>
+    {/if}
+    <div
+        class="userinfo"
+        transition:fly|global={{ duration: 500, y: 50, easing: expoOut }}
+    >
+        <object
+            data={avatar}
+            type="image/png"
+            class="avatar"
+            aria-label="avatar"
+        >
+            <img src="img/steve.png" alt="avatar" class="avatar" />
+        </object>
+        <span class="username">{username}</span>
+    </div>
+</div>
 
 <style lang="scss">
     @import "../../../../colors.scss";

@@ -1,11 +1,16 @@
 <script lang="ts">
-    import {fly} from "svelte/transition";
-    import {expoOut} from "svelte/easing";
-    import {onMount} from 'svelte';
-    import {fade} from 'svelte/transition';
-    import {listen} from "../../../integration/ws";
-    import type {Protocol, Server} from "../../../integration/types";
-    import {getProtocols, getSelectedProtocol, getServers, getSession} from "../../../integration/rest";
+    import { fly } from "svelte/transition";
+    import { expoOut } from "svelte/easing";
+    import { onMount } from "svelte";
+    import { fade } from "svelte/transition";
+    import { listen } from "../../../integration/ws";
+    import type { Protocol, Server } from "../../../integration/types";
+    import {
+        getProtocols,
+        getSelectedProtocol,
+        getServers,
+        getSession,
+    } from "../../../integration/rest";
 
     let visible = true;
     let username = "";
@@ -14,7 +19,7 @@
     let protocol: number | null = null;
     let selectedProtocol: Protocol = {
         name: "",
-        version: -1
+        version: -1,
     };
     let server: Server[] = [];
     let address: string | null = null;
@@ -28,7 +33,7 @@
 
     async function getServerData() {
         server = await getServers();
-    };
+    }
 
     listen("clientProtocol", (data: Protocol) => {
         protocol = data.version;
@@ -61,14 +66,21 @@
     });
 </script>
 
-    {#if visible}
-        <div class="fade" transition:fade={{duration: 1350}}></div>
-        <div class="info">
-            <div class="text" transition:fade={{delay: 1000, duration: 250}}>Logged in as {username} on version {selectedProtocol.name}.</div>
+{#if visible}
+    <div class="fade" transition:fade={{ duration: 1350 }}></div>
+    <div class="info">
+        <div class="text" transition:fade={{ delay: 1000, duration: 250 }}>
+            Logged in as {username} on version {selectedProtocol.name}.
         </div>
-    {/if}
+    </div>
+{/if}
 <div class="main-wrapper">
-    <div class="text" transition:fly|global={{duration: 500, x: -50, easing: expoOut}}>jello</div>
+    <div
+        class="text"
+        transition:fly|global={{ duration: 500, x: -50, easing: expoOut }}
+    >
+        jello
+    </div>
 </div>
 
 <div class="shaderfix"></div>

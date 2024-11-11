@@ -1,33 +1,33 @@
 <script lang="ts">
-    import {fade, fly, scale} from "svelte/transition";
-    import {createEventDispatcher} from "svelte";
-    import { expoOut } from "svelte/easing";
+  import { fade, fly, scale } from "svelte/transition";
+  import { createEventDispatcher } from "svelte";
+  import { expoOut } from "svelte/easing";
 
-    export let title: string;
-    export let visible: boolean;
+  export let title: string;
+  export let visible: boolean;
 
-    const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 
-    function handleClick() {
-        dispatch("close");
-        visible = false;
-    }
+  function handleClick() {
+    dispatch("close");
+    visible = false;
+  }
 </script>
 
 {#if visible}
-    <div class="modal-wrapper" transition:fade|global={{duration: 250}}>
-        <div class="modal" transition:scale={{duration: 500, easing: expoOut}}>
-            <button class="button-modal-close" on:click={handleClick}>
-                <img src="img/menu/icon-close.svg" alt="close">
-            </button>
+  <div class="modal-wrapper" transition:fade|global={{ duration: 250 }}>
+    <div class="modal" transition:scale={{ duration: 500, easing: expoOut }}>
+      <button class="button-modal-close" on:click={handleClick}>
+        <img src="img/menu/icon-close.svg" alt="close" />
+      </button>
 
-            <div class="title">{title}</div>
+      <div class="title">{title}</div>
 
-            <div class="content">
-                <slot />
-            </div>
-        </div>
+      <div class="content">
+        <slot />
+      </div>
     </div>
+  </div>
 {/if}
 
 <style lang="scss">
@@ -99,7 +99,7 @@
     top: 20px;
     right: 20px;
     position: fixed;
-    transition: ease background-color .15s;
+    transition: ease background-color 0.15s;
 
     &:hover {
       background-color: rgba($text-color, 0.1);

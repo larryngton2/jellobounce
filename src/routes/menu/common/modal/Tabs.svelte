@@ -1,39 +1,42 @@
 <script lang="ts">
-    import {type ComponentType, createEventDispatcher} from "svelte";
+  import { type ComponentType, createEventDispatcher } from "svelte";
 
-    let availableTabsElement: HTMLElement | undefined;
+  let availableTabsElement: HTMLElement | undefined;
 
-    export let tabs: {
-        title: string,
-        icon: string,
-        component: ComponentType,
-    }[];
-    export let activeTab = 0;
+  export let tabs: {
+    title: string;
+    icon: string;
+    component: ComponentType;
+  }[];
+  export let activeTab = 0;
 
-    const dispatch = createEventDispatcher<{
-        changeTab: { activeTab: number }
-    }>();
+  const dispatch = createEventDispatcher<{
+    changeTab: { activeTab: number };
+  }>();
 
-    function setActiveTab(i: number) {
-        activeTab = i;
-        dispatch("changeTab", {activeTab});
-    }
+  function setActiveTab(i: number) {
+    activeTab = i;
+    dispatch("changeTab", { activeTab });
+  }
 </script>
 
 <div class="tabs">
-    <div class="available-tabs" bind:this={availableTabsElement}>
-        {#each tabs as {title, icon}, index}
-            <button class="tab-button" class:active={tabs[activeTab].title === title}
-                    on:click={() => setActiveTab(index)}>
-                <img class="icon" src="img/menu/altmanager/{icon}" alt={title}>
-                <span>{title}</span>
-            </button>
-        {/each}
-    </div>
+  <div class="available-tabs" bind:this={availableTabsElement}>
+    {#each tabs as { title, icon }, index}
+      <button
+        class="tab-button"
+        class:active={tabs[activeTab].title === title}
+        on:click={() => setActiveTab(index)}
+      >
+        <img class="icon" src="img/menu/altmanager/{icon}" alt={title} />
+        <span>{title}</span>
+      </button>
+    {/each}
+  </div>
 
-    <div style="width: {availableTabsElement?.clientWidth}px">
-        <svelte:component this={tabs[activeTab].component}/>
-    </div>
+  <div style="width: {availableTabsElement?.clientWidth}px">
+    <svelte:component this={tabs[activeTab].component} />
+  </div>
 </div>
 
 <style lang="scss">
@@ -47,7 +50,7 @@
 
   .tab-button {
     font-family: "Inter", sans-serif;
-    background-color: rgba($background-color, .36);
+    background-color: rgba($background-color, 0.36);
     color: $text-color;
     padding: 10px;
     border: solid 1px transparent;
@@ -58,7 +61,7 @@
     align-items: center;
     row-gap: 10px;
     cursor: pointer;
-    transition: ease border-color .2s;
+    transition: ease border-color 0.2s;
 
     .icon {
       height: 30px;

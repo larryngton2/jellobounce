@@ -1,47 +1,67 @@
 <script lang="ts">
-    import type {ModuleSetting, TextArraySetting} from "../../../integration/types";
-    import {convertToSpacedString, spaceSeperatedNames} from "../../../theme/theme_config";
-    import {createEventDispatcher} from "svelte";
+  import type {
+    ModuleSetting,
+    TextArraySetting,
+  } from "../../../integration/types";
+  import {
+    convertToSpacedString,
+    spaceSeperatedNames,
+  } from "../../../theme/theme_config";
+  import { createEventDispatcher } from "svelte";
 
-    export let setting: ModuleSetting;
+  export let setting: ModuleSetting;
 
-    const cSetting = setting as TextArraySetting;
+  const cSetting = setting as TextArraySetting;
 
-    const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 
-    function handleChange() {
-        setting = {...cSetting};
-        dispatch("change");
-    }
+  function handleChange() {
+    setting = { ...cSetting };
+    dispatch("change");
+  }
 
-    function removeValueIndex(index: number) {
-        cSetting.value.splice(index, 1);
-        cSetting.value = cSetting.value;
-        handleChange();
-    }
+  function removeValueIndex(index: number) {
+    cSetting.value.splice(index, 1);
+    cSetting.value = cSetting.value;
+    handleChange();
+  }
 
-    function addValueIndex() {
-        cSetting.value = ["", ...cSetting.value];
-        handleChange();
-    }
+  function addValueIndex() {
+    cSetting.value = ["", ...cSetting.value];
+    handleChange();
+  }
 </script>
 
 <div class="setting">
-    <div class="name">{$spaceSeperatedNames ? convertToSpacedString(cSetting.name) : cSetting.name}</div>
-    <button class="button-add" on:click={addValueIndex}>Add value</button>
-    {#if cSetting.value.length > 0}
-        <div class="inputs">
-            {#each cSetting.value as _, index}
-                <div class="input-wrapper">
-                  <input type="text" class="value" spellcheck="false" placeholder={setting.name} bind:value={cSetting.value[index]}
-                  on:input={handleChange}>
-                    <button class="button-remove" title="Remove" on:click={() => removeValueIndex(index)}>
-                        <img src="img/clickgui/icon-cross.svg" alt="remove">
-                    </button>
-                </div>
-            {/each}
+  <div class="name">
+    {$spaceSeperatedNames
+      ? convertToSpacedString(cSetting.name)
+      : cSetting.name}
+  </div>
+  <button class="button-add" on:click={addValueIndex}>Add value</button>
+  {#if cSetting.value.length > 0}
+    <div class="inputs">
+      {#each cSetting.value as _, index}
+        <div class="input-wrapper">
+          <input
+            type="text"
+            class="value"
+            spellcheck="false"
+            placeholder={setting.name}
+            bind:value={cSetting.value[index]}
+            on:input={handleChange}
+          />
+          <button
+            class="button-remove"
+            title="Remove"
+            on:click={() => removeValueIndex(index)}
+          >
+            <img src="img/clickgui/icon-cross.svg" alt="remove" />
+          </button>
         </div>
-    {/if}
+      {/each}
+    </div>
+  {/if}
 </div>
 
 <style lang="scss">
@@ -88,7 +108,7 @@
     border-radius: 6px;
     width: 100%;
     cursor: pointer;
-    transition: ease background-color .15s;
+    transition: ease background-color 0.15s;
 
     &:hover {
       background-color: darken(desaturate($accent-color, 30%), 10%);
@@ -97,7 +117,7 @@
 
   .value {
     width: 100%;
-    background-color: rgba($background-color, .36);
+    background-color: rgba($background-color, 0.36);
     font-family: monospace;
     font-size: 12px;
     color: $text-color;
@@ -105,7 +125,7 @@
     border-bottom: solid 2px $accent-color;
     padding: 6px;
     border-radius: 6px;
-    transition: ease border-color .2s;
+    transition: ease border-color 0.2s;
 
     &::-webkit-scrollbar {
       background-color: transparent;

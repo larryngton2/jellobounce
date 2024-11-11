@@ -4,7 +4,7 @@
         getWorlds,
         openScreen,
         openWorld,
-        removeWorld as removeWorldRest
+        removeWorld as removeWorldRest,
     } from "../../../integration/rest.js";
     import BottomButtonWrapper from "../common/buttons/BottomButtonWrapper.svelte";
     import OptionBar from "../common/optionbar/OptionBar.svelte";
@@ -16,10 +16,10 @@
     import TextButton from "../common/buttons/TextButton.svelte";
     import Search from "../common/Search.svelte";
     import MenuListItemButton from "../common/menulist/MenuListItemButton.svelte";
-    import type {World} from "../../../integration/types";
-    import {onMount} from "svelte";
+    import type { World } from "../../../integration/types";
+    import { onMount } from "svelte";
     import MultiSelect from "../common/setting/select/MultiSelect.svelte";
-    import {REST_BASE} from "../../../integration/host";
+    import { REST_BASE } from "../../../integration/host";
     import dateFormat from "dateformat";
 
     let gameModes = ["Survival", "Creative", "Adventure", "Spectator"];
@@ -31,10 +31,16 @@
 
     $: {
         let filteredWorlds = worlds;
-        filteredWorlds = filteredWorlds.filter(w => gameModes.includes(capitalize(w.gameMode)));
-        filteredWorlds = filteredWorlds.filter(w => difficulties.includes(capitalize(w.difficulty)));
+        filteredWorlds = filteredWorlds.filter((w) =>
+            gameModes.includes(capitalize(w.gameMode)),
+        );
+        filteredWorlds = filteredWorlds.filter((w) =>
+            difficulties.includes(capitalize(w.difficulty)),
+        );
         if (searchQuery) {
-            filteredWorlds = filteredWorlds.filter(w => w.displayName.toLowerCase().includes(searchQuery.toLowerCase()));
+            filteredWorlds = filteredWorlds.filter((w) =>
+                w.displayName.toLowerCase().includes(searchQuery.toLowerCase()),
+            );
         }
 
         renderedWorlds = filteredWorlds;
@@ -57,9 +63,7 @@
         searchQuery = e.detail.query;
     }
 
-    function handleWorldSort() {
-
-    }
+    function handleWorldSort() {}
 
     async function removeWorld(name: string) {
         await removeWorldRest(name);
@@ -69,38 +73,63 @@
 
 <Menu>
     <OptionBar>
-        <Search on:search={handleSearch}/>
-        <MultiSelect title="Game Mode" options={["Survival", "Creative", "Adventure", "Spectator"]}
-                     bind:values={gameModes}/>
-        <MultiSelect title="Difficulty" options={["Peaceful", "Easy", "Normal", "Hard"]} bind:values={difficulties}/>
+        <Search on:search={handleSearch} />
+        <MultiSelect
+            title="Game Mode"
+            options={["Survival", "Creative", "Adventure", "Spectator"]}
+            bind:values={gameModes}
+        />
+        <MultiSelect
+            title="Difficulty"
+            options={["Peaceful", "Easy", "Normal", "Hard"]}
+            bind:values={difficulties}
+        />
     </OptionBar>
 
     <MenuList sortable={false} on:sort={handleWorldSort}>
         {#each renderedWorlds as world}
             <MenuListItem
-                    image={!world.icon ?
-                        `${REST_BASE}/api/v1/client/resource?id=minecraft:textures/misc/unknown_server.png` :
-                        `data:image/png;base64,${world.icon}`}
-                    title={world.displayName}
-                    on:dblclick={() => openWorld(world.name)}>
+                image={!world.icon
+                    ? `${REST_BASE}/api/v1/client/resource?id=minecraft:textures/misc/unknown_server.png`
+                    : `data:image/png;base64,${world.icon}`}
+                title={world.displayName}
+                on:dblclick={() => openWorld(world.name)}
+            >
                 <svelte:fragment slot="subtitle">
                     <span class="world-name">{world.name}</span>
-                    <span>({dateFormat(new Date(world.lastPlayed), "yyyy/mm/dd h:MM:ss TT")})</span>
+                    <span
+                        >({dateFormat(
+                            new Date(world.lastPlayed),
+                            "yyyy/mm/dd h:MM:ss TT",
+                        )})</span
+                    >
                 </svelte:fragment>
 
                 <svelte:fragment slot="tag">
-                    <MenuListItemTag text={capitalize(world.gameMode)}/>
-                    <MenuListItemTag text={capitalize(world.difficulty)}/>
-                    <MenuListItemTag text="Minecraft {world.version}"/>
+                    <MenuListItemTag text={capitalize(world.gameMode)} />
+                    <MenuListItemTag text={capitalize(world.difficulty)} />
+                    <MenuListItemTag text="Minecraft {world.version}" />
                 </svelte:fragment>
 
                 <svelte:fragment slot="active-visible">
-                    <MenuListItemButton title="Delete" icon="trash" on:click={() => removeWorld(world.name)}/>
-                    <MenuListItemButton title="Edit" icon="pen-2" on:click={() => editWorld(world.name)}/>
+                    <MenuListItemButton
+                        title="Delete"
+                        icon="trash"
+                        on:click={() => removeWorld(world.name)}
+                    />
+                    <MenuListItemButton
+                        title="Edit"
+                        icon="pen-2"
+                        on:click={() => editWorld(world.name)}
+                    />
                 </svelte:fragment>
 
                 <svelte:fragment slot="always-visible">
-                    <MenuListItemButton title="Open" icon="play" on:click={() => openWorld(world.name)}/>
+                    <MenuListItemButton
+                        title="Open"
+                        icon="play"
+                        on:click={() => openWorld(world.name)}
+                    />
                 </svelte:fragment>
             </MenuListItem>
         {/each}
@@ -108,17 +137,20 @@
 
     <BottomButtonWrapper>
         <ButtonContainer>
-            <TextButton title="Add" on:click={() => openScreen("create_world")}/>
+            <TextButton
+                title="Add"
+                on:click={() => openScreen("create_world")}
+            />
         </ButtonContainer>
 
         <ButtonContainer>
-            <TextButton title="Back" on:click={() => openScreen("title")}/>
+            <TextButton title="Back" on:click={() => openScreen("title")} />
         </ButtonContainer>
     </BottomButtonWrapper>
 </Menu>
 
 <style lang="scss">
-  .world-name {
-    font-weight: 400;
-  }
+    .world-name {
+        font-weight: 400;
+    }
 </style>

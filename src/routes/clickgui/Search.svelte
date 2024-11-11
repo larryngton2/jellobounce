@@ -1,157 +1,172 @@
 <script lang="ts">
-    import type {Module} from "../../integration/types";
-    import {getModuleSettings, setModuleEnabled} from "../../integration/rest";
-    import {listen} from "../../integration/ws";
-    import type {ToggleModuleEvent} from "../../integration/events";
-    import {highlightModuleName} from "./clickgui_store";
-    import {onMount} from "svelte";
-    import {convertToSpacedString, spaceSeperatedNames} from "../../theme/theme_config";
+  import type { Module } from "../../integration/types";
+  import { getModuleSettings, setModuleEnabled } from "../../integration/rest";
+  import { listen } from "../../integration/ws";
+  import type { ToggleModuleEvent } from "../../integration/events";
+  import { highlightModuleName } from "./clickgui_store";
+  import { onMount } from "svelte";
+  import {
+    convertToSpacedString,
+    spaceSeperatedNames,
+  } from "../../theme/theme_config";
 
-    export let modules: Module[];
+  export let modules: Module[];
 
-    let resultElements: HTMLElement[] = [];
-    let searchContainerElement: HTMLElement;
-    let autoFocus: boolean = true
-    let searchInputElement: HTMLElement;
-    let query: string;
-    let filteredModules: Module[] = [];
-    let selectedIndex = 0;
+  let resultElements: HTMLElement[] = [];
+  let searchContainerElement: HTMLElement;
+  let autoFocus: boolean = true;
+  let searchInputElement: HTMLElement;
+  let query: string;
+  let filteredModules: Module[] = [];
+  let selectedIndex = 0;
 
-    function reset() {
-        filteredModules = [];
-        query = "";
-        $highlightModuleName = null;
+  function reset() {
+    filteredModules = [];
+    query = "";
+    $highlightModuleName = null;
+  }
+
+  function filterModules() {
+    if (!query) {
+      reset();
+      return;
     }
 
-    function filterModules() {
-        if (!query) {
-            reset();
-            return;
-        }
+    const pureQuery = query.toLowerCase().replaceAll(" ", "");
 
-        const pureQuery = query.toLowerCase().replaceAll(" ", "");
+    selectedIndex = 0;
 
-        selectedIndex = 0;
+    filteredModules = modules.filter(
+      (m) =>
+        m.name.toLowerCase().includes(pureQuery) ||
+        m.aliases.some((a) => a.toLowerCase().includes(pureQuery)),
+    );
+  }
 
-        filteredModules = modules.filter((m) => m.name.toLowerCase().includes(pureQuery)
-            || m.aliases.some(a => a.toLowerCase().includes(pureQuery))
-        );
+  async function handleBrowserKeyDown(e: KeyboardEvent) {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Tab") {
+      e.preventDefault();
     }
 
-    async function handleBrowserKeyDown(e: KeyboardEvent) {
-        if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Tab") {
-            e.preventDefault();
-        }
-
-        if (filteredModules.length === 0) {
-            return;
-        }
-
-        if (e.key === "ArrowDown") {
-            selectedIndex = (selectedIndex + 1) % filteredModules.length;
-        } else if (e.key === "ArrowUp") {
-            selectedIndex =
-                (selectedIndex - 1 + filteredModules.length) %
-                filteredModules.length;
-        } else if (e.key === "Enter") {
-            await setModuleEnabled(
-                filteredModules[selectedIndex].name,
-                !filteredModules[selectedIndex].enabled,
-            );
-        } else if (e.key === "Tab") {
-            const m = filteredModules[selectedIndex]?.name;
-            if (m) {
-                $highlightModuleName = m;
-            }
-        }
-
-        resultElements[selectedIndex]?.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest",
-        });
+    if (filteredModules.length === 0) {
+      return;
     }
 
-    function handleWindowClick(e: MouseEvent) {
-        if (!searchContainerElement.contains(e.target as Node)) {
-            reset();
-        }
+    if (e.key === "ArrowDown") {
+      selectedIndex = (selectedIndex + 1) % filteredModules.length;
+    } else if (e.key === "ArrowUp") {
+      selectedIndex =
+        (selectedIndex - 1 + filteredModules.length) % filteredModules.length;
+    } else if (e.key === "Enter") {
+      await setModuleEnabled(
+        filteredModules[selectedIndex].name,
+        !filteredModules[selectedIndex].enabled,
+      );
+    } else if (e.key === "Tab") {
+      const m = filteredModules[selectedIndex]?.name;
+      if (m) {
+        $highlightModuleName = m;
+      }
     }
 
-    function handleWindowKeyDown() {
-        if (document.activeElement !== document.body) {
-            return;
-        }
-
-        if (autoFocus) {
-            searchInputElement.focus();
-        }
-    }
-
-    onMount(async () => {
-        const clickGuiSettings = await getModuleSettings("ClickGUI");
-        autoFocus = clickGuiSettings.value.find(v => v.name === "SearchBarAutoFocus")?.value as boolean ?? true
-        if (autoFocus) {
-            searchInputElement.focus();
-        }
+    resultElements[selectedIndex]?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
     });
+  }
 
-    listen("toggleModule", (e: ToggleModuleEvent) => {
-        const mod = filteredModules.find((m) => m.name === e.moduleName);
-        if (!mod) {
-            return;
-        }
-        mod.enabled = e.enabled;
-        filteredModules = filteredModules;
-    });
+  function handleWindowClick(e: MouseEvent) {
+    if (!searchContainerElement.contains(e.target as Node)) {
+      reset();
+    }
+  }
+
+  function handleWindowKeyDown() {
+    if (document.activeElement !== document.body) {
+      return;
+    }
+
+    if (autoFocus) {
+      searchInputElement.focus();
+    }
+  }
+
+  onMount(async () => {
+    const clickGuiSettings = await getModuleSettings("ClickGUI");
+    autoFocus =
+      (clickGuiSettings.value.find((v) => v.name === "SearchBarAutoFocus")
+        ?.value as boolean) ?? true;
+    if (autoFocus) {
+      searchInputElement.focus();
+    }
+  });
+
+  listen("toggleModule", (e: ToggleModuleEvent) => {
+    const mod = filteredModules.find((m) => m.name === e.moduleName);
+    if (!mod) {
+      return;
+    }
+    mod.enabled = e.enabled;
+    filteredModules = filteredModules;
+  });
 </script>
 
-<svelte:window on:click={handleWindowClick} on:keydown={handleWindowKeyDown} on:contextmenu={handleWindowClick}/>
+<svelte:window
+  on:click={handleWindowClick}
+  on:keydown={handleWindowKeyDown}
+  on:contextmenu={handleWindowClick}
+/>
 
 <div
-        class="search"
-        class:has-results={query}
-        bind:this={searchContainerElement}
+  class="search"
+  class:has-results={query}
+  bind:this={searchContainerElement}
 >
-    <input
-            type="text"
-            class="search-input"
-            placeholder="Search"
-            spellcheck="false"
-            bind:value={query}
-            bind:this={searchInputElement}
-            on:input={filterModules}
-            on:keydown={handleBrowserKeyDown}
-    />
+  <input
+    type="text"
+    class="search-input"
+    placeholder="Search"
+    spellcheck="false"
+    bind:value={query}
+    bind:this={searchInputElement}
+    on:input={filterModules}
+    on:keydown={handleBrowserKeyDown}
+  />
 
-    {#if query}
-        <div class="results">
-            {#if filteredModules.length > 0}
-                {#each filteredModules as {name, enabled, aliases}, index (name)}
-                    <!-- svelte-ignore a11y-click-events-have-key-events -->
-                    <!-- svelte-ignore a11y-no-static-element-interactions -->
-                    <div
-                            class="result"
-                            class:enabled
-                            on:click={() => setModuleEnabled(name, !enabled).then(() => enabled = true)}
-                            on:contextmenu|preventDefault={() => $highlightModuleName = name}
-                            class:selected={selectedIndex === index}
-                            bind:this={resultElements[index]}
-                    >
-                        <div class="module-name">
-                            {$spaceSeperatedNames ? convertToSpacedString(name) : name}
-                        </div>
-                        <div class="aliases">
-                            {#if aliases.length > 0}
-                                (aka {aliases.map(a => $spaceSeperatedNames ? convertToSpacedString(a) : a).join(", ")})
-                            {/if}
-                        </div>
-                    </div>
-                {/each}
-            {:else}
-                <div class="placeholder">No modules found</div>
-            {/if}
-        </div>
-    {/if}
+  {#if query}
+    <div class="results">
+      {#if filteredModules.length > 0}
+        {#each filteredModules as { name, enabled, aliases }, index (name)}
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <!-- svelte-ignore a11y-no-static-element-interactions -->
+          <div
+            class="result"
+            class:enabled
+            on:click={() =>
+              setModuleEnabled(name, !enabled).then(() => (enabled = true))}
+            on:contextmenu|preventDefault={() => ($highlightModuleName = name)}
+            class:selected={selectedIndex === index}
+            bind:this={resultElements[index]}
+          >
+            <div class="module-name">
+              {$spaceSeperatedNames ? convertToSpacedString(name) : name}
+            </div>
+            <div class="aliases">
+              {#if aliases.length > 0}
+                (aka {aliases
+                  .map((a) =>
+                    $spaceSeperatedNames ? convertToSpacedString(a) : a,
+                  )
+                  .join(", ")})
+              {/if}
+            </div>
+          </div>
+        {/each}
+      {:else}
+        <div class="placeholder">No modules found</div>
+      {/if}
+    </div>
+  {/if}
 </div>
 
 <style lang="scss">
@@ -199,7 +214,7 @@
         transition: color 0.2s ease;
 
         &::after {
-          content: '';
+          content: "";
           position: absolute;
           left: -4px;
           bottom: 0;
@@ -217,7 +232,7 @@
       }
 
       .aliases {
-        color: rgba($text-dimmed-color, .6);
+        color: rgba($text-dimmed-color, 0.6);
         margin-left: 10px;
       }
 

@@ -1,26 +1,33 @@
 <script lang="ts">
-    import {createEventDispatcher} from "svelte";
+  import { createEventDispatcher } from "svelte";
 
-    export let title: string;
-    export let disabled = false;
-    export let secondary = false;
-    export let inset = false;
-    export let listenForEnter = false;
+  export let title: string;
+  export let disabled = false;
+  export let secondary = false;
+  export let inset = false;
+  export let listenForEnter = false;
 
-    const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 
-    function handleKeyDown(e: KeyboardEvent) {
-        if (!listenForEnter) {
-            return;
-        }
-        if (e.key === "Enter") {
-            dispatch("click");
-        }
+  function handleKeyDown(e: KeyboardEvent) {
+    if (!listenForEnter) {
+      return;
     }
+    if (e.key === "Enter") {
+      dispatch("click");
+    }
+  }
 </script>
 
-<svelte:window on:keydown={handleKeyDown}/>
-<button class="button-setting" class:inset type="button" on:click={() => dispatch("click")} {disabled} class:secondary>{title}</button>
+<svelte:window on:keydown={handleKeyDown} />
+<button
+  class="button-setting"
+  class:inset
+  type="button"
+  on:click={() => dispatch("click")}
+  {disabled}
+  class:secondary>{title}</button
+>
 
 <style lang="scss">
   @import "../../../../colors.scss";
@@ -33,7 +40,9 @@
     padding: 15px;
     border-radius: 12px;
     font-size: 20px;
-    transition: ease background-color .2s, ease opacity .2s;
+    transition:
+      ease background-color 0.2s,
+      ease opacity 0.2s;
     font-weight: 600;
 
     &.inset {
@@ -41,7 +50,7 @@
     }
 
     &.secondary {
-      background-color: rgba($background-color, .36);
+      background-color: rgba($background-color, 0.36);
     }
 
     &:not([disabled]):hover {
@@ -54,7 +63,7 @@
     }
 
     &[disabled] {
-      opacity: .6;
+      opacity: 0.6;
     }
   }
 </style>

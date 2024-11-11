@@ -1,10 +1,10 @@
 <script lang="ts">
-    import {flip} from "svelte/animate";
-    import {listen} from "../../../../integration/ws";
-    import {fly} from "svelte/transition";
+    import { flip } from "svelte/animate";
+    import { listen } from "../../../../integration/ws";
+    import { fly } from "svelte/transition";
     import Notification from "./Notification.svelte";
-    import type {NotificationEvent} from "../../../../integration/events";
-    import {expoOut} from "svelte/easing";
+    import type { NotificationEvent } from "../../../../integration/events";
+    import { expoOut } from "svelte/easing";
 
     interface TNotification {
         animationKey: number;
@@ -22,7 +22,7 @@
 
         if (severity === "ENABLED" || severity === "DISABLED") {
             // Check if there still exists an enable/disable notification for the same module
-            const index = notifications.findIndex((n) => n.message === message)
+            const index = notifications.findIndex((n) => n.message === message);
             if (index !== -1) {
                 // Set the id of the new notification to the old notification's id.
                 // This will make svelte able to animate it correctly
@@ -34,10 +34,10 @@
         }
 
         notifications = [
-            {animationKey, id, title, message, severity},
+            { animationKey, id, title, message, severity },
             ...notifications,
         ];
-        
+
         setTimeout(() => {
             notifications = notifications.filter((n) => n.id !== id);
         }, 1000);
@@ -49,12 +49,13 @@
 </script>
 
 <div class="notifications">
-    {#each notifications as {title, message, severity, animationKey} (animationKey)}
+    {#each notifications as { title, message, severity, animationKey } (animationKey)}
         <div
-                animate:flip={{duration: 200}}
-                in:fly={{duration: 500, x: -50, easing: expoOut}}
-                out:fly|global={{duration: 500, x: -50}}> 
-            <Notification {title} {message} {severity}/>
+            animate:flip={{ duration: 200 }}
+            in:fly={{ duration: 500, x: -50, easing: expoOut }}
+            out:fly|global={{ duration: 500, x: -50 }}
+        >
+            <Notification {title} {message} {severity} />
         </div>
     {/each}
 </div>

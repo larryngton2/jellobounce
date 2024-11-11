@@ -1,24 +1,24 @@
 <script lang="ts">
-    import {listen} from "../../../../integration/ws";
-    import type {KeyEvent} from "../../../../integration/events";
-    import type {MinecraftKeybind} from "../../../../integration/types";
+  import { listen } from "../../../../integration/ws";
+  import type { KeyEvent } from "../../../../integration/events";
+  import type { MinecraftKeybind } from "../../../../integration/types";
 
-    export let gridArea: string;
-    export let key: MinecraftKeybind | undefined;
+  export let gridArea: string;
+  export let key: MinecraftKeybind | undefined;
 
-    let active = false;
+  let active = false;
 
-    listen("key", (e: KeyEvent) => {
-        if (e.key.name !== key?.key.translationKey) {
-            return;
-        }
+  listen("key", (e: KeyEvent) => {
+    if (e.key.name !== key?.key.translationKey) {
+      return;
+    }
 
-        active = e.action === 1 || e.action === 2;
-    });
+    active = e.action === 1 || e.action === 2;
+  });
 </script>
 
 <div class="key" style="grid-area: {gridArea};" class:active>
-    {key?.key.localized ?? "???"}
+  {key?.key.localized ?? "???"}
 </div>
 
 <style lang="scss">
@@ -34,7 +34,9 @@
     border-radius: 12px;
     font-size: 14px;
     font-weight: 500;
-    transition: ease scale 0.1s, ease background-color 0.2s;
+    transition:
+      ease scale 0.1s,
+      ease background-color 0.2s;
     position: relative;
     text-align: center;
     box-shadow: $primary-shadow;

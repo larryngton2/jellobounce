@@ -1,7 +1,7 @@
-import {listenAlways} from "../integration/ws";
-import {getModuleSettings} from "../integration/rest";
-import {writable} from "svelte/store";
-import type {SpaceSeperatedNamesChangeEvent} from "../integration/events";
+import { listenAlways } from "../integration/ws";
+import { getModuleSettings } from "../integration/rest";
+import { writable } from "svelte/store";
+import type { SpaceSeperatedNamesChangeEvent } from "../integration/events";
 
 export let spaceSeperatedNames = writable(false);
 
@@ -16,6 +16,6 @@ async function updateSettings() {
 }
 
 listenAlways("spaceSeperatedNamesChange", (e: SpaceSeperatedNamesChangeEvent) => {
-   spaceSeperatedNames.set(e.value);
+    spaceSeperatedNames.set(e.value);
 });
 updateSettings();

@@ -1,31 +1,31 @@
 <script lang="ts">
-    import Header from "./header/Header.svelte";
-    import {fade, scale} from "svelte/transition";
-    import {onMount} from "svelte";
-    import {expoOut} from "svelte/easing";
+  import Header from "./header/Header.svelte";
+  import { fade, scale } from "svelte/transition";
+  import { onMount } from "svelte";
+  import { expoOut } from "svelte/easing";
 
-    const transitionDuration = 550; // TODO: suboptimal
+  const transitionDuration = 550; // TODO: suboptimal
 
-    let ready = false;
+  let ready = false;
 
-    onMount(() => {
-        setTimeout(() => {
-            ready = true;
-        }, transitionDuration);
-    });
+  onMount(() => {
+    setTimeout(() => {
+      ready = true;
+    }, transitionDuration);
+  });
 </script>
 
 <div class="shaderfix"></div>
 <div class="menu">
-    {#if ready}
-        <div transition:scale|global={{duration: 500, easing: expoOut}}>
-            <Header/>
-        </div>
+  {#if ready}
+    <div transition:scale|global={{ duration: 500, easing: expoOut }}>
+      <Header />
+    </div>
 
-        <div class="menu-wrapper">
-            <slot/>
-        </div>
-    {/if}
+    <div class="menu-wrapper">
+      <slot />
+    </div>
+  {/if}
 </div>
 
 <style lang="scss">
@@ -46,7 +46,7 @@
     width: 99999px;
     height: 99999px;
     z-index: -9999999;
-    }
+  }
 
   .menu-wrapper {
     flex: 1;

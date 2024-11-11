@@ -1,9 +1,9 @@
 <script lang="ts">
-    export let text: string;
+  export let text: string;
 </script>
 
 <div class="tag">
-    {text}
+  {text}
 </div>
 
 <style lang="scss">
@@ -16,7 +16,9 @@
     padding: 3px 10px;
     border-radius: 20px;
     margin-left: 10px;
-    transition: ease color .2s, ease background-color .2s;
+    transition:
+      ease color 0.2s,
+      ease background-color 0.2s;
     transform: translateY(-3px);
     z-index: 1;
   }

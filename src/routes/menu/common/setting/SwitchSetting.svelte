@@ -1,20 +1,25 @@
 <script lang="ts">
-    import {createEventDispatcher} from "svelte";
+  import { createEventDispatcher } from "svelte";
 
-    export let value: boolean;
-    export let title: string;
+  export let value: boolean;
+  export let title: string;
 
-    const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 </script>
 
 <div class="switch-setting">
-    <label class="switch">
-        <input type="checkbox" bind:checked={value} on:change={() => dispatch("change")}/>
-        <span class="slider"></span>
-    </label>
+  <label class="switch">
+    <input
+      type="checkbox"
+      bind:checked={value}
+      on:change={() => dispatch("change")}
+    />
+    <span class="slider"></span>
+  </label>
 
-    <div class="title">{title}</div>
+  <div class="title">{title}</div>
 </div>
+
 <style lang="scss">
   @use "sass:color";
   @import "../../../../colors.scss";
@@ -70,8 +75,8 @@
 
     input:checked + .slider {
       background-color: color.scale(
-                      desaturate($accent-color, 60%),
-              $lightness: -15%
+        desaturate($accent-color, 60%),
+        $lightness: -15%
       );
     }
 

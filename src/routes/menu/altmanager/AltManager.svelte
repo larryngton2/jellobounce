@@ -2,10 +2,11 @@
     import {
         getAccounts,
         loginToAccount as loginToAccountRest,
-        openScreen, orderAccounts,
+        openScreen,
+        orderAccounts,
         removeAccount as restRemoveAccount,
         restoreSession,
-        setAccountFavorite
+        setAccountFavorite,
     } from "../../../integration/rest.js";
     import BottomButtonWrapper from "../common/buttons/BottomButtonWrapper.svelte";
     import SwitchSetting from "../common/setting/SwitchSetting.svelte";
@@ -18,16 +19,16 @@
     import TextButton from "../common/buttons/TextButton.svelte";
     import Search from "../common/Search.svelte";
     import MenuListItemButton from "../common/menulist/MenuListItemButton.svelte";
-    import type {Account} from "../../../integration/types";
-    import {onMount} from "svelte";
+    import type { Account } from "../../../integration/types";
+    import { onMount } from "svelte";
     import MultiSelect from "../common/setting/select/MultiSelect.svelte";
     import AddAccountModal from "./addaccount/AddAccountModal.svelte";
-    import {listen} from "../../../integration/ws";
-    import {notification} from "../common/header/notification_store";
+    import { listen } from "../../../integration/ws";
+    import { notification } from "../common/header/notification_store";
     import type {
         AccountManagerAdditionEvent,
         AccountManagerLoginEvent,
-        AccountManagerMessageEvent
+        AccountManagerMessageEvent,
     } from "../../../integration/events.js";
     import DirectLoginModal from "./directLogin/DirectLoginModal.svelte";
 
@@ -44,22 +45,32 @@
     $: {
         let filteredAccounts = accounts;
         if (premiumOnly) {
-            filteredAccounts = filteredAccounts.filter(a => a.type !== "Cracked");
+            filteredAccounts = filteredAccounts.filter(
+                (a) => a.type !== "Cracked",
+            );
         }
         if (favoritesOnly) {
-            filteredAccounts = filteredAccounts.filter(a => a.favorite);
+            filteredAccounts = filteredAccounts.filter((a) => a.favorite);
         }
         if (!accountTypes.includes("Mojang")) {
-            filteredAccounts = filteredAccounts.filter(a => a.type !== "Cracked" && a.type !== "Microsoft")
+            filteredAccounts = filteredAccounts.filter(
+                (a) => a.type !== "Cracked" && a.type !== "Microsoft",
+            );
         }
         if (!accountTypes.includes("TheAltening")) {
-            filteredAccounts = filteredAccounts.filter(a => a.type !== "TheAltening")
+            filteredAccounts = filteredAccounts.filter(
+                (a) => a.type !== "TheAltening",
+            );
         }
         if (!accountTypes.includes("EasyMC")) {
-            filteredAccounts = filteredAccounts.filter(a => a.type !== "EasyMC")
+            filteredAccounts = filteredAccounts.filter(
+                (a) => a.type !== "EasyMC",
+            );
         }
         if (searchQuery) {
-            filteredAccounts = filteredAccounts.filter(a => a.username.toLowerCase().includes(searchQuery.toLowerCase()));
+            filteredAccounts = filteredAccounts.filter((a) =>
+                a.username.toLowerCase().includes(searchQuery.toLowerCase()),
+            );
         }
         renderedAccounts = filteredAccounts;
     }
@@ -89,7 +100,10 @@
     }
 
     async function loginToRandomAccount() {
-        const account = renderedAccounts[Math.floor(Math.random() * renderedAccounts.length)];
+        const account =
+            renderedAccounts[
+                Math.floor(Math.random() * renderedAccounts.length)
+            ];
         if (account) {
             await loginToAccount(account.id);
         }
@@ -104,7 +118,7 @@
         notification.set({
             title: "AltManager",
             message: "Logging in...",
-            error: false
+            error: false,
         });
         await loginToAccountRest(id);
     }
@@ -117,13 +131,13 @@
             notification.set({
                 title: "AltManager",
                 message: `Successfully added account ${e.username}`,
-                error: false
+                error: false,
             });
         } else {
             notification.set({
                 title: "AltManager",
                 message: e.error,
-                error: true
+                error: true,
             });
         }
     });
@@ -132,7 +146,7 @@
         notification.set({
             title: "AltManager",
             message: e.message,
-            error: false
+            error: false,
         });
     });
 
@@ -142,53 +156,75 @@
             notification.set({
                 title: "AltManager",
                 message: `Successfully logged in to account ${e.username}`,
-                error: false
+                error: false,
             });
         } else {
             notification.set({
                 title: "AltManager",
                 message: e.error,
-                error: true
+                error: true,
             });
         }
     });
 </script>
 
-<DirectLoginModal bind:visible={directLoginModalVisible}/>
-<AddAccountModal bind:visible={addAccountModalVisible}/>
+<DirectLoginModal bind:visible={directLoginModalVisible} />
+<AddAccountModal bind:visible={addAccountModalVisible} />
 <Menu>
     <OptionBar>
-        <Search on:search={handleSearch}/>
-        <SwitchSetting title="Premium Only" bind:value={premiumOnly}/>
-        <SwitchSetting title="Favorites Only" bind:value={favoritesOnly}/>
-        <MultiSelect title="Account Type" options={["Mojang", "TheAltening", "EasyMC"]} bind:values={accountTypes}/>
+        <Search on:search={handleSearch} />
+        <SwitchSetting title="Premium Only" bind:value={premiumOnly} />
+        <SwitchSetting title="Favorites Only" bind:value={favoritesOnly} />
+        <MultiSelect
+            title="Account Type"
+            options={["Mojang", "TheAltening", "EasyMC"]}
+            bind:values={accountTypes}
+        />
     </OptionBar>
 
-    <MenuList sortable={accounts.length === renderedAccounts.length} elementCount={accounts.length}
-              on:sort={handleAccountSort}>
+    <MenuList
+        sortable={accounts.length === renderedAccounts.length}
+        elementCount={accounts.length}
+        on:sort={handleAccountSort}
+    >
         {#key accounts}
             {#each renderedAccounts as account}
                 <MenuListItem
-                        image={account.avatar}
-                        title={account.username}
-                        favorite={account.favorite}
-                        on:dblclick={() => loginToAccount(account.id)}>
+                    image={account.avatar}
+                    title={account.username}
+                    favorite={account.favorite}
+                    on:dblclick={() => loginToAccount(account.id)}
+                >
                     <svelte:fragment slot="subtitle">
                         <pre class="uuid">{account.uuid}</pre>
                     </svelte:fragment>
 
                     <svelte:fragment slot="tag">
-                        <MenuListItemTag text={account.type}/>
+                        <MenuListItemTag text={account.type} />
                     </svelte:fragment>
 
                     <svelte:fragment slot="active-visible">
-                        <MenuListItemButton title="Delete" icon="trash" on:click={() => removeAccount(account.id)}/>
-                        <MenuListItemButton title="Favorite" icon={account.favorite ? "favorite-filled" : "favorite" }
-                                            on:click={() => toggleFavorite(account.id, !account.favorite)}/>
+                        <MenuListItemButton
+                            title="Delete"
+                            icon="trash"
+                            on:click={() => removeAccount(account.id)}
+                        />
+                        <MenuListItemButton
+                            title="Favorite"
+                            icon={account.favorite
+                                ? "favorite-filled"
+                                : "favorite"}
+                            on:click={() =>
+                                toggleFavorite(account.id, !account.favorite)}
+                        />
                     </svelte:fragment>
 
                     <svelte:fragment slot="always-visible">
-                        <MenuListItemButton title="Login" icon="play" on:click={() => loginToAccount(account.id)}/>
+                        <MenuListItemButton
+                            title="Login"
+                            icon="play"
+                            on:click={() => loginToAccount(account.id)}
+                        />
                     </svelte:fragment>
                 </MenuListItem>
             {/each}
@@ -197,21 +233,30 @@
 
     <BottomButtonWrapper>
         <ButtonContainer>
-            <TextButton title="Add" on:click={() => addAccountModalVisible = true}/>
-            <TextButton title="Direct" on:click={() => directLoginModalVisible = true}/>
-            <TextButton disabled={renderedAccounts.length === 0} title="Random"
-                            on:click={loginToRandomAccount}/>
-            <TextButton title="Restore" on:click={restoreSession}/>
+            <TextButton
+                title="Add"
+                on:click={() => (addAccountModalVisible = true)}
+            />
+            <TextButton
+                title="Direct"
+                on:click={() => (directLoginModalVisible = true)}
+            />
+            <TextButton
+                disabled={renderedAccounts.length === 0}
+                title="Random"
+                on:click={loginToRandomAccount}
+            />
+            <TextButton title="Restore" on:click={restoreSession} />
         </ButtonContainer>
 
         <ButtonContainer>
-            <TextButton title="Back" on:click={() => openScreen("title")}/>
+            <TextButton title="Back" on:click={() => openScreen("title")} />
         </ButtonContainer>
     </BottomButtonWrapper>
 </Menu>
 
 <style lang="scss">
-  .uuid {
-    font-family: monospace;
-  }
+    .uuid {
+        font-family: monospace;
+    }
 </style>

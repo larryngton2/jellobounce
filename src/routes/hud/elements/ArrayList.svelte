@@ -1,30 +1,37 @@
 <script lang="ts">
-    import {onMount, tick} from "svelte";
-    import type {Module} from "../../../integration/types";
-    import {getModules} from "../../../integration/rest";
-    import {listen} from "../../../integration/ws";
-    import {getTextWidth} from "../../../integration/text_measurement";
-    import {flip} from "svelte/animate";
-    import {fly} from "svelte/transition";
-    import {convertToSpacedString, spaceSeperatedNames} from "../../../theme/theme_config";
-    import {expoOut} from "svelte/easing";
+    import { onMount, tick } from "svelte";
+    import type { Module } from "../../../integration/types";
+    import { getModules } from "../../../integration/rest";
+    import { listen } from "../../../integration/ws";
+    import { getTextWidth } from "../../../integration/text_measurement";
+    import { flip } from "svelte/animate";
+    import { fly } from "svelte/transition";
+    import {
+        convertToSpacedString,
+        spaceSeperatedNames,
+    } from "../../../theme/theme_config";
+    import { expoOut } from "svelte/easing";
 
     let enabledModules: Module[] = [];
 
     async function updateEnabledModules() {
         const modules = await getModules();
-        const visibleModules = modules.filter(m => m.enabled && !m.hidden);
+        const visibleModules = modules.filter((m) => m.enabled && !m.hidden);
 
-        const modulesWithWidths = visibleModules.map(module => {
-                let formattedName = $spaceSeperatedNames ? convertToSpacedString(module.name) : module.name;
-                let fullName = module.tag == null ? formattedName : formattedName + " " + module.tag;
+        const modulesWithWidths = visibleModules.map((module) => {
+            let formattedName = $spaceSeperatedNames
+                ? convertToSpacedString(module.name)
+                : module.name;
+            let fullName =
+                module.tag == null
+                    ? formattedName
+                    : formattedName + " " + module.tag;
 
-                return {
-                    ...module,
-                    width: getTextWidth(fullName, "400 15px sf-pro")
-                };
-            }
-        );
+            return {
+                ...module,
+                width: getTextWidth(fullName, "400 15px sf-pro"),
+            };
+        });
 
         modulesWithWidths.sort((a, b) => b.width - a.width);
 
@@ -49,14 +56,22 @@
     });
 </script>
 
-<div class="arraylist" transition:fly|global={{duration: 500, y: -50, easing: expoOut}}>
-    {#each enabledModules as {name, tag} (name)}
-            <div class="module" animate:flip={{duration: 200}} in:fly={{x: 50, duration: 250, easing: expoOut}} out:fly={{x: 50, duration: 250}}>
-                {$spaceSeperatedNames ? convertToSpacedString(name) : name}
-                {#if tag}
-                    <span class="tag" id="tag"> {tag}</span>
-                {/if}
-            </div>
+<div
+    class="arraylist"
+    transition:fly|global={{ duration: 500, y: -50, easing: expoOut }}
+>
+    {#each enabledModules as { name, tag } (name)}
+        <div
+            class="module"
+            animate:flip={{ duration: 200 }}
+            in:fly={{ x: 50, duration: 250, easing: expoOut }}
+            out:fly={{ x: 50, duration: 250 }}
+        >
+            {$spaceSeperatedNames ? convertToSpacedString(name) : name}
+            {#if tag}
+                <span class="tag" id="tag"> {tag}</span>
+            {/if}
+        </div>
     {/each}
 </div>
 
@@ -89,6 +104,6 @@
     }
 
     .tag {
-       color: $arraylist-tag-color;
+        color: $arraylist-tag-color;
     }
 </style>

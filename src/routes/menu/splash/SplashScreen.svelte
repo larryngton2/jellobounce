@@ -1,24 +1,23 @@
 <script lang="ts">
-    import {fade} from "svelte/transition";
-    import {tweened} from "svelte/motion";
-    import {cubicOut} from "svelte/easing";
+  import { fade } from "svelte/transition";
+  import { tweened } from "svelte/motion";
+  import { cubicOut } from "svelte/easing";
 
-    const progress = tweened(0, {
-      duration: 2500,
-      easing: cubicOut,
-    });
+  const progress = tweened(0, {
+    duration: 2500,
+    easing: cubicOut,
+  });
 
-    progress.set(100)
+  progress.set(100);
 </script>
 
-<div class="background" out:fade|global={{duration: 500}}>
-  <div class="progress" out:fade|global={{duration: 500}}>
+<div class="background" out:fade|global={{ duration: 500 }}>
+  <div class="progress" out:fade|global={{ duration: 500 }}>
     <div class="outer">
       <div class="inner" style="width: {$progress}%"></div>
     </div>
   </div>
-  <div class="logo" out:fade|global={{duration: 500}}>j
-  </div>
+  <div class="logo" out:fade|global={{ duration: 500 }}>j</div>
 </div>
 
 <style lang="scss">
@@ -31,7 +30,8 @@
     left: 50%;
     transform: translateX(-50%);
 
-    .inner, .outer {
+    .inner,
+    .outer {
       height: 3px;
       border-radius: 10px;
     }
@@ -67,5 +67,5 @@
     top: 43vh;
     left: 50%;
     transform: translateX(-50%);
-    }
+  }
 </style>

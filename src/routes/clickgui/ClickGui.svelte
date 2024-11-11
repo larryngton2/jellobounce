@@ -55,7 +55,7 @@
   @import "../../colors.scss";
 
   .background {
-    background-color: rgba($background-color, 0.6);
+    background-color: rgba($background-color, 0.5);
     width: 100%;
     height: 100%;
     position: absolute;

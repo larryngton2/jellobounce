@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {ModuleSetting} from "../../../../integration/types";
+    import type { ModuleSetting } from "../../../../integration/types";
     import BooleanSetting from "../BooleanSetting.svelte";
     import ChoiceSetting from "../ChoiceSetting.svelte";
     import ChooseSetting from "../ChooseSetting.svelte";
@@ -12,8 +12,8 @@
     import ColorSetting from "../ColorSetting.svelte";
     import TextSetting from "../TextSetting.svelte";
     import BlocksSetting from "../blocks/BlocksSetting.svelte";
-    import {slide} from "svelte/transition";
-    import {onMount} from "svelte";
+    import { slide } from "svelte/transition";
+    import { onMount } from "svelte";
     import TextArraySetting from "../TextArraySetting.svelte";
     import BindSetting from "../BindSetting.svelte";
     import VectorSetting from "../VectorSetting.svelte";
@@ -28,46 +28,61 @@
     onMount(() => {
         setTimeout(() => {
             ready = true;
-        }, 200)
+        }, 200);
     });
 </script>
 
-{#if ready}
-    <div in:slide|global={{duration: 200, axis: "y"}} out:slide|global={{duration: 200, axis: "y"}}>
-        {#if setting.valueType === "BOOLEAN"}
-            <BooleanSetting bind:setting={setting} on:change/>
-        {:else if setting.valueType === "CHOICE"}
-            <ChoiceSetting {path} bind:setting={setting} on:change/>
-        {:else if setting.valueType === "CHOOSE"}
-            <ChooseSetting bind:setting={setting} on:change/>
-        {:else if setting.valueType === "TOGGLEABLE"}
-            <TogglableSetting {path} bind:setting={setting} on:change/>
-        {:else if setting.valueType === "INT"}
-            <IntSetting bind:setting={setting} on:change/>
-        {:else if setting.valueType === "INT_RANGE"}
-            <IntRangeSetting bind:setting={setting} on:change/>
-        {:else if setting.valueType === "FLOAT"}
-            <FloatSetting bind:setting={setting} on:change/>
-        {:else if setting.valueType === "FLOAT_RANGE"}
-            <FloatRangeSetting bind:setting={setting} on:change/>
-        {:else if setting.valueType === "CONFIGURABLE"}
-            <ConfigurableSetting {path} bind:setting={setting} on:change/>
-        {:else if setting.valueType === "COLOR"}
-            <ColorSetting bind:setting={setting} on:change/>
-        {:else if setting.valueType === "TEXT"}
-            <TextSetting bind:setting={setting} on:change/>
-        {:else if setting.valueType === "BLOCKS"}
-            <BlocksSetting bind:setting={setting} on:change/>
-        {:else if setting.valueType === "TEXT_ARRAY"}
-            <TextArraySetting bind:setting={setting} on:change/>
-        {:else if setting.valueType === "BIND"}
-            <BindSetting bind:setting={setting} on:change/>
-        {:else if setting.valueType === "VECTOR_I" || setting.valueType === "VECTOR_D" }
-            <VectorSetting bind:setting={setting} on:change/>
-        {:else if setting.valueType === "KEY"}
-            <KeySetting bind:setting={setting} on:change/>
-        {:else}
-            <div style="color: white">Unsupported setting {setting.valueType}</div>
-        {/if}
-    </div>
-{/if}
+<!-- svelte-ignore a11y-missing-attribute -->
+<html>
+    {#if ready}
+        <div
+            in:slide|global={{ duration: 200, axis: "y" }}
+            out:slide|global={{ duration: 200, axis: "y" }}
+        >
+            {#if setting.valueType === "BOOLEAN"}
+                <BooleanSetting bind:setting on:change />
+            {:else if setting.valueType === "CHOICE"}
+                <ChoiceSetting {path} bind:setting on:change />
+            {:else if setting.valueType === "CHOOSE"}
+                <ChooseSetting bind:setting on:change />
+            {:else if setting.valueType === "TOGGLEABLE"}
+                <TogglableSetting {path} bind:setting on:change />
+            {:else if setting.valueType === "INT"}
+                <IntSetting bind:setting on:change />
+            {:else if setting.valueType === "INT_RANGE"}
+                <IntRangeSetting bind:setting on:change />
+            {:else if setting.valueType === "FLOAT"}
+                <FloatSetting bind:setting on:change />
+            {:else if setting.valueType === "FLOAT_RANGE"}
+                <FloatRangeSetting bind:setting on:change />
+            {:else if setting.valueType === "CONFIGURABLE"}
+                <ConfigurableSetting {path} bind:setting on:change />
+            {:else if setting.valueType === "COLOR"}
+                <ColorSetting bind:setting on:change />
+            {:else if setting.valueType === "TEXT"}
+                <TextSetting bind:setting on:change />
+            {:else if setting.valueType === "BLOCKS"}
+                <BlocksSetting bind:setting on:change />
+            {:else if setting.valueType === "TEXT_ARRAY"}
+                <TextArraySetting bind:setting on:change />
+            {:else if setting.valueType === "BIND"}
+                <BindSetting bind:setting on:change />
+            {:else if setting.valueType === "VECTOR_I" || setting.valueType === "VECTOR_D"}
+                <VectorSetting bind:setting on:change />
+            {:else if setting.valueType === "KEY"}
+                <KeySetting bind:setting on:change />
+            {:else}
+                <div style="color: white">
+                    {setting.valueType} is unrecognised you stupid fuck, try not
+                    writing shitcode next time
+                </div>
+            {/if}
+        </div>
+    {/if}
+</html>
+
+<style>
+    html {
+        opacity: 1;
+    }
+</style>

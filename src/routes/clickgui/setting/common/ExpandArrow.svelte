@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {createEventDispatcher} from "svelte";
+    import { createEventDispatcher } from "svelte";
 
     export let expanded: boolean;
 
@@ -11,8 +11,7 @@
     }
 </script>
 
-<button class="arrow" class:expanded on:click={handleClick}
-></button>
+<button class="arrow" class:expanded on:click={handleClick}></button>
 
 <style lang="scss">
     .arrow {

@@ -1,10 +1,13 @@
 <script lang="ts">
-    import type {KeySetting, ModuleSetting} from "../../../integration/types";
-    import {convertToSpacedString, spaceSeperatedNames} from "../../../theme/theme_config";
-    import {getPrintableKeyName} from "../../../integration/rest";
-    import {createEventDispatcher} from "svelte";
-    import {listen} from "../../../integration/ws";
-    import type {KeyboardKeyEvent} from "../../../integration/events";
+    import type { KeySetting, ModuleSetting } from "../../../integration/types";
+    import {
+        convertToSpacedString,
+        spaceSeperatedNames,
+    } from "../../../theme/theme_config";
+    import { getPrintableKeyName } from "../../../integration/rest";
+    import { createEventDispatcher } from "svelte";
+    import { listen } from "../../../integration/ws";
+    import type { KeyboardKeyEvent } from "../../../integration/events";
 
     export let setting: ModuleSetting;
 
@@ -18,10 +21,9 @@
 
     $: {
         if (cSetting.value !== UNKNOWN_KEY) {
-            getPrintableKeyName(cSetting.value)
-                .then(printableKey => {
-                    printableKeyName = printableKey.localized;
-                });
+            getPrintableKeyName(cSetting.value).then((printableKey) => {
+                printableKeyName = printableKey.localized;
+            });
         }
     }
 
@@ -32,7 +34,7 @@
 
         binding = !binding;
 
-        setting = {...cSetting};
+        setting = { ...cSetting };
 
         dispatch("change");
     }
@@ -50,7 +52,7 @@
             cSetting.value = UNKNOWN_KEY;
         }
 
-        setting = {...cSetting};
+        setting = { ...cSetting };
 
         dispatch("change");
     });
@@ -59,7 +61,11 @@
 <div class="setting">
     <button class="change-bind" on:click={toggleBinding}>
         {#if !binding}
-            <div class="name">{$spaceSeperatedNames ? convertToSpacedString(cSetting.name) : cSetting.name}:</div>
+            <div class="name">
+                {$spaceSeperatedNames
+                    ? convertToSpacedString(cSetting.name)
+                    : cSetting.name}:
+            </div>
 
             {#if cSetting.value === UNKNOWN_KEY}
                 <span class="none">None</span>
@@ -73,33 +79,33 @@
 </div>
 
 <style lang="scss">
-  @import "../../../colors.scss";
+    @import "../../../colors.scss";
 
-  .setting {
-    padding: 7px 0;
-  }
-
-  .change-bind {
-    background-color: transparent;
-    border: solid 2px $accent-color;
-    border-radius: 3px;
-    cursor: pointer;
-    padding: 4px;
-    font-weight: 500;
-    color: $text-color;
-    font-size: 12px;
-    font-family: "Inter", sans-serif;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    column-gap: 5px;
-
-    .name {
-      font-weight: 500;
+    .setting {
+        padding: 7px 0;
     }
 
-    .none {
-      color: $text-dimmed-color;
+    .change-bind {
+        background-color: transparent;
+        border: solid 2px $accent-color;
+        border-radius: 3px;
+        cursor: pointer;
+        padding: 4px;
+        font-weight: 500;
+        color: $text-color;
+        font-size: 12px;
+        font-family: "Inter", sans-serif;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        column-gap: 5px;
+
+        .name {
+            font-weight: 500;
+        }
+
+        .none {
+            color: $text-dimmed-color;
+        }
     }
-  }
 </style>

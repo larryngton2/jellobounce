@@ -1,4 +1,4 @@
-import type {Component, PlayerData, Proxy, Server, TextComponent} from "./types";
+import type { Component, PlayerData, Proxy, Server, TextComponent } from "./types";
 
 export interface ToggleModuleEvent {
     moduleName: string;

@@ -6,7 +6,7 @@ let ws: WebSocket;
 
 function connect() {
     ws = new WebSocket(WS_BASE);
-    
+
     ws.onopen = () => {
         console.log("[WS] Connected to server");
         if (alwaysListeners["socketReady"]) {
@@ -46,8 +46,8 @@ function connect() {
     }
 }
 
-const alwaysListeners: {[name: string]: Function[]} = {};
-let listeners: {[name: string]: Function[]}  = {};
+const alwaysListeners: { [name: string]: Function[] } = {};
+let listeners: { [name: string]: Function[] } = {};
 
 export function listenAlways(eventName: string, callback: Function) {
     if (!alwaysListeners[eventName]) alwaysListeners[eventName] = [];

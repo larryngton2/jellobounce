@@ -1,5 +1,5 @@
 <div class="tab">
-    <slot/>
+  <slot />
 </div>
 
 <style lang="scss">

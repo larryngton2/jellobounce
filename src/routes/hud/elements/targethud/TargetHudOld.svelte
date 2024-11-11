@@ -1,9 +1,9 @@
 <script lang="ts">
-    import {listen} from "../../../../integration/ws.js";
-    import type {PlayerData} from "../../../../integration/types";
-    import {REST_BASE} from "../../../../integration/host";
-    import {fade} from "svelte/transition";
-    import type {TargetChangeEvent} from "../../../../integration/events";
+    import { listen } from "../../../../integration/ws.js";
+    import type { PlayerData } from "../../../../integration/types";
+    import { REST_BASE } from "../../../../integration/host";
+    import { fade } from "svelte/transition";
+    import type { TargetChangeEvent } from "../../../../integration/events";
 
     let target: PlayerData | null = null;
     let visible = true;
@@ -27,20 +27,27 @@
 </script>
 
 {#if visible && target != null}
-    <div class="targethud" transition:fade|global={{duration: 200}}>
+    <div class="targethud" transition:fade|global={{ duration: 200 }}>
         <div class="main-wrapper">
             <div class="avatar">
-                <img src="{REST_BASE}/api/v1/client/resource/skin?uuid={target.uuid}" alt="avatar" />
+                <img
+                    src="{REST_BASE}/api/v1/client/resource/skin?uuid={target.uuid}"
+                    alt="avatar"
+                />
             </div>
-    
+
             <div class="name">{target.username}</div>
             <div class="health-stats">
                 <div class="stat">
-                    <div class="value">Health: {Math.floor(target.actualHealth + target.absorption)}</div>
+                    <div class="value">
+                        Health: {Math.floor(
+                            target.actualHealth + target.absorption,
+                        )}
+                    </div>
                     <img
-                            class="icon"
-                            src="img/hud/targethud/icon-health.svg"
-                            alt="health"
+                        class="icon"
+                        src="img/hud/targethud/icon-health.svg"
+                        alt="health"
                     />
                 </div>
             </div>
@@ -96,7 +103,7 @@
                 color: $text-dimmed-color;
                 font-size: 16px;
                 min-width: 18px;
-                display:inline-block;
+                display: inline-block;
                 text-align: right;
                 font-weight: 500;
             }

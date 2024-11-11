@@ -1,21 +1,27 @@
 <script lang="ts">
-    import {createEventDispatcher} from "svelte";
+  import { createEventDispatcher } from "svelte";
 
-    let value = "";
+  let value = "";
 
-    const dispatch = createEventDispatcher<{
-        search: { query: string }
-    }>();
+  const dispatch = createEventDispatcher<{
+    search: { query: string };
+  }>();
 </script>
 
-<input class="search" type="text" placeholder="Search..." bind:value={value}
-      on:input={() => dispatch("search", {query: value})} spellcheck="false">
+<input
+  class="search"
+  type="text"
+  placeholder="Search..."
+  bind:value
+  on:input={() => dispatch("search", { query: value })}
+  spellcheck="false"
+/>
 
 <style lang="scss">
   @import "../../../colors.scss";
 
   .search {
-    background-color: rgba($background-color, .36);
+    background-color: rgba($background-color, 0.36);
     border: none;
     color: $text-color;
     font-family: "sf-pro", sans-serif;

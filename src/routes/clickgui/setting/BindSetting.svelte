@@ -1,10 +1,16 @@
 <script lang="ts">
-    import {createEventDispatcher, onMount} from "svelte";
-    import type {BindSetting, ModuleSetting} from "../../../integration/types";
-    import {listen} from "../../../integration/ws";
-    import {getPrintableKeyName} from "../../../integration/rest";
-    import type {KeyboardKeyEvent} from "../../../integration/events";
-    import {convertToSpacedString, spaceSeperatedNames} from "../../../theme/theme_config";
+    import { createEventDispatcher, onMount } from "svelte";
+    import type {
+        BindSetting,
+        ModuleSetting,
+    } from "../../../integration/types";
+    import { listen } from "../../../integration/ws";
+    import { getPrintableKeyName } from "../../../integration/rest";
+    import type { KeyboardKeyEvent } from "../../../integration/events";
+    import {
+        convertToSpacedString,
+        spaceSeperatedNames,
+    } from "../../../theme/theme_config";
     import Dropdown from "./common/Dropdown.svelte";
 
     export let setting: ModuleSetting;
@@ -20,10 +26,11 @@
 
     $: {
         if (cSetting.value.boundKey !== UNKNOWN_KEY) {
-            getPrintableKeyName(cSetting.value.boundKey)
-                .then(printableKey => {
+            getPrintableKeyName(cSetting.value.boundKey).then(
+                (printableKey) => {
                     printableKeyName = printableKey.localized;
-                });
+                },
+            );
         }
     }
 
@@ -40,7 +47,7 @@
             cSetting.value.boundKey = UNKNOWN_KEY;
         }
 
-        setting = {...cSetting};
+        setting = { ...cSetting };
 
         dispatch("change");
     });
@@ -52,13 +59,13 @@
 
         binding = !binding;
 
-        setting = {...cSetting};
+        setting = { ...cSetting };
 
         dispatch("change");
     }
 
     function handleActionChange() {
-        setting = {...cSetting};
+        setting = { ...cSetting };
         dispatch("change");
     }
 </script>
@@ -66,7 +73,11 @@
 <div class="setting" class:has-value={cSetting.value.boundKey !== UNKNOWN_KEY}>
     <button class="change-bind" on:click={toggleBinding}>
         {#if !binding}
-            <div class="name">{$spaceSeperatedNames ? convertToSpacedString(cSetting.name) : cSetting.name}:</div>
+            <div class="name">
+                {$spaceSeperatedNames
+                    ? convertToSpacedString(cSetting.name)
+                    : cSetting.name}:
+            </div>
 
             {#if cSetting.value.boundKey === UNKNOWN_KEY}
                 <span class="none">None</span>
@@ -79,45 +90,49 @@
     </button>
 
     {#if cSetting.value.boundKey !== UNKNOWN_KEY}
-        <Dropdown name={null} options={["Toggle", "Hold"]} bind:value={cSetting.value.action}
-                  on:change={handleActionChange}/>
+        <Dropdown
+            name={null}
+            options={["Toggle", "Hold"]}
+            bind:value={cSetting.value.action}
+            on:change={handleActionChange}
+        />
     {/if}
 </div>
 
 <style lang="scss">
-  @import "../../../colors.scss";
+    @import "../../../colors.scss";
 
-  .setting {
-    padding: 7px 0px;
-    display: grid;
-    grid-template-columns: 1fr;
-    column-gap: 5px;
+    .setting {
+        padding: 7px 0px;
+        display: grid;
+        grid-template-columns: 1fr;
+        column-gap: 5px;
 
-    &.has-value {
-      grid-template-columns: 1fr max-content;
-    }
-  }
-
-  .change-bind {
-    background-color: transparent;
-    border: solid 1px $accent-color;
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 4px;
-    font-weight: 500;
-    color: $text-color;
-    font-size: 12px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    column-gap: 5px;
-
-    .name {
-      font-weight: 500;
+        &.has-value {
+            grid-template-columns: 1fr max-content;
+        }
     }
 
-    .none {
-      color: $text-dimmed-color;
+    .change-bind {
+        background-color: transparent;
+        border: solid 1px $accent-color;
+        border-radius: 6px;
+        cursor: pointer;
+        padding: 4px;
+        font-weight: 500;
+        color: $text-color;
+        font-size: 12px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        column-gap: 5px;
+
+        .name {
+            font-weight: 500;
+        }
+
+        .none {
+            color: $text-dimmed-color;
+        }
     }
-  }
 </style>

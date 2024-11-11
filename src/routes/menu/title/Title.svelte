@@ -1,20 +1,20 @@
 <script lang="ts">
     import MainButton from "./buttons/MainButton.svelte";
     import Account from "../common/header/Account.svelte";
-    import {fade} from "svelte/transition";
-    import {onDestroy} from 'svelte';
+    import { fade } from "svelte/transition";
+    import { onDestroy } from "svelte";
     import {
         browse,
         exitClient,
         getClientUpdate,
         openScreen,
-        toggleBackgroundShaderEnabled
+        toggleBackgroundShaderEnabled,
     } from "../../../integration/rest";
     import Menu from "../common/Menu.svelte";
-    import {fly} from "svelte/transition";
-    import {onMount} from "svelte";
-    import {notification} from "../common/header/notification_store";
-    import {expoOut} from "svelte/easing";
+    import { fly } from "svelte/transition";
+    import { onMount } from "svelte";
+    import { notification } from "../common/header/notification_store";
+    import { expoOut } from "svelte/easing";
 
     let regularButtonsShown = true;
     let clientButtonsShown = false;
@@ -27,7 +27,7 @@
                     title: `LiquidBounce ${update.newestVersion?.clientVersion} has been released!`,
                     message: `Download it from liquidbounce.net!`,
                     error: false,
-                    delay: 99999999
+                    delay: 99999999,
                 });
             }
         }, 1500);
@@ -53,7 +53,7 @@
         const now = new Date();
         const hours = now.getHours();
         const minutes = now.getMinutes();
-        currentTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+        currentTime = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
     }
 
     const interval = setInterval(updateTime, 10);
@@ -67,28 +67,73 @@
 
 <Menu>
     <div class="content">
-        <div class="clock" transition:fly|global={{duration: 500, y: -250, easing: expoOut}}>{currentTime}</div>
-        <div class="account"><Account/></div>
+        <div
+            class="clock"
+            transition:fly|global={{ duration: 500, y: -250, easing: expoOut }}
+        >
+            {currentTime}
+        </div>
+        <div class="account"><Account /></div>
         <div class="main-buttons">
             {#if regularButtonsShown}
-                <MainButton title="Singleplayer" icon="singleplayer" index={0}
-                            on:click={() => openScreen("singleplayer")}/>
+                <MainButton
+                    title="Singleplayer"
+                    icon="singleplayer"
+                    index={0}
+                    on:click={() => openScreen("singleplayer")}
+                />
 
-                <MainButton title="Multiplayer" icon="multiplayer" let:parentHovered
-                            on:click={() => openScreen("multiplayer")} index={1}>
-                </MainButton>
-                <MainButton title="Other" icon="other" on:click={toggleButtons} index={2}/>
+                <MainButton
+                    title="Multiplayer"
+                    icon="multiplayer"
+                    let:parentHovered
+                    on:click={() => openScreen("multiplayer")}
+                    index={1}
+                ></MainButton>
+                <MainButton
+                    title="Other"
+                    icon="other"
+                    on:click={toggleButtons}
+                    index={2}
+                />
             {:else if clientButtonsShown}
-                <MainButton title="Exit" icon="shutdown" on:click={exitClient}
-                            index={0}/>
-                <MainButton title="Toggle Shader" icon="pen-2" on:click={toggleBackgroundShaderEnabled}
-                            index={1}/>
-                <MainButton title="Proxies" icon="proxymanager" on:click={() => openScreen("proxymanager")}
-                            index={2}/>
-                <MainButton title="ClickGUI" icon="clickgui" on:click={() => openScreen("clickgui")} index={3}/>
-                    <MainButton title="Options" icon="options" on:click={() => openScreen("options")} index={4}/>
+                <MainButton
+                    title="Exit"
+                    icon="shutdown"
+                    on:click={exitClient}
+                    index={0}
+                />
+                <MainButton
+                    title="Toggle Shader"
+                    icon="pen-2"
+                    on:click={toggleBackgroundShaderEnabled}
+                    index={1}
+                />
+                <MainButton
+                    title="Proxies"
+                    icon="proxymanager"
+                    on:click={() => openScreen("proxymanager")}
+                    index={2}
+                />
+                <MainButton
+                    title="ClickGUI"
+                    icon="clickgui"
+                    on:click={() => openScreen("clickgui")}
+                    index={3}
+                />
+                <MainButton
+                    title="Options"
+                    icon="options"
+                    on:click={() => openScreen("options")}
+                    index={4}
+                />
                 <!-- <MainButton title="Scripts" icon="scripts" index={2}/> -->
-                <MainButton title="Back" icon="back-large" on:click={toggleButtons} index={5}/>
+                <MainButton
+                    title="Back"
+                    icon="back-large"
+                    on:click={toggleButtons}
+                    index={5}
+                />
             {/if}
         </div>
     </div>

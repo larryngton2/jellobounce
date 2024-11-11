@@ -1,28 +1,35 @@
 <script lang="ts">
-    import {listen} from "../../../integration/ws";
-    import type {ClientPlayerDataEvent} from "../../../integration/events";
-    import type {StatusEffect} from "../../../integration/types";
-    import {fly} from "svelte/transition";
-    import {expoOut} from "svelte/easing";
+  import { listen } from "../../../integration/ws";
+  import type { ClientPlayerDataEvent } from "../../../integration/events";
+  import type { StatusEffect } from "../../../integration/types";
+  import { fly } from "svelte/transition";
+  import { expoOut } from "svelte/easing";
 
-    let effects: StatusEffect[] = [];
+  let effects: StatusEffect[] = [];
 
-    listen("clientPlayerData", (event: ClientPlayerDataEvent) => {
-        effects = event.playerData.effects;
-    });
+  listen("clientPlayerData", (event: ClientPlayerDataEvent) => {
+    effects = event.playerData.effects;
+  });
 
-    function formatTime(duration: number): string {
-        return new Date(((duration / 20) | 0) * 1000).toISOString().substring(14, 19);
-    }
+  function formatTime(duration: number): string {
+    return new Date(((duration / 20) | 0) * 1000)
+      .toISOString()
+      .substring(14, 19);
+  }
 </script>
 
 <div class="effects">
-    {#each effects as e}
-        <div class="effect" transition:fly={{duration: 700, y: 50, easing: expoOut}}>
-            <span class="name" style="color: {'#' + e.color.toString(16)}">{e.localizedName} {e.amplifier + 1}</span>
-            <span class="duration">{formatTime(e.duration)}</span>
-        </div>
-    {/each}
+  {#each effects as e}
+    <div
+      class="effect"
+      transition:fly={{ duration: 700, y: 50, easing: expoOut }}
+    >
+      <span class="name" style="color: {'#' + e.color.toString(16)}"
+        >{e.localizedName} {e.amplifier + 1}</span
+      >
+      <span class="duration">{formatTime(e.duration)}</span>
+    </div>
+  {/each}
 </div>
 
 <style lang="scss">

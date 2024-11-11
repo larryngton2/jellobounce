@@ -1,4 +1,4 @@
-import {type Writable, writable} from "svelte/store";
+import { type Writable, writable } from "svelte/store";
 
 export interface TNotification {
     title: string;

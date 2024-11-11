@@ -2,10 +2,16 @@
     import "nouislider/dist/nouislider.css";
     import "./nouislider.scss";
     import { createEventDispatcher, onMount } from "svelte";
-    import noUiSlider, {type API} from "nouislider";
-    import type { ModuleSetting, IntRangeSetting } from "../../../integration/types";
+    import noUiSlider, { type API } from "nouislider";
+    import type {
+        ModuleSetting,
+        IntRangeSetting,
+    } from "../../../integration/types";
     import ValueInput from "./common/ValueInput.svelte";
-    import {convertToSpacedString, spaceSeperatedNames} from "../../../theme/theme_config";
+    import {
+        convertToSpacedString,
+        spaceSeperatedNames,
+    } from "../../../theme/theme_config";
 
     export let setting: ModuleSetting;
 
@@ -27,12 +33,14 @@
             step: 1,
         });
 
-        apiSlider.on("update", values => {
-            const newValue = values.map(v => v.toString()).map(v => parseInt(v));
+        apiSlider.on("update", (values) => {
+            const newValue = values
+                .map((v) => v.toString())
+                .map((v) => parseInt(v));
 
             cSetting.value = {
                 from: newValue[0],
-                to: newValue[1]
+                to: newValue[1],
             };
             setting = { ...cSetting };
             dispatch("change");
@@ -41,13 +49,25 @@
 </script>
 
 <div class="setting" class:has-suffix={cSetting.suffix !== ""}>
-    <div class="name">{$spaceSeperatedNames ? convertToSpacedString(cSetting.name) : cSetting.name}</div>
+    <div class="name">
+        {$spaceSeperatedNames
+            ? convertToSpacedString(cSetting.name)
+            : cSetting.name}
+    </div>
     <div class="value">
-        <ValueInput valueType="int" value={cSetting.value.from}
-                    on:change={(e) => apiSlider.set([e.detail.value, cSetting.value.to])}/>
+        <ValueInput
+            valueType="int"
+            value={cSetting.value.from}
+            on:change={(e) =>
+                apiSlider.set([e.detail.value, cSetting.value.to])}
+        />
         -
-        <ValueInput valueType="int" value={cSetting.value.to}
-                    on:change={(e) => apiSlider.set([cSetting.value.from, e.detail.value])}/>
+        <ValueInput
+            valueType="int"
+            value={cSetting.value.to}
+            on:change={(e) =>
+                apiSlider.set([cSetting.value.from, e.detail.value])}
+        />
     </div>
     {#if cSetting.suffix !== ""}
         <div class="suffix">{cSetting.suffix}</div>

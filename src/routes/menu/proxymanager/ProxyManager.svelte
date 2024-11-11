@@ -20,30 +20,34 @@
     import TextButton from "../common/buttons/TextButton.svelte";
     import Search from "../common/Search.svelte";
     import MenuListItemButton from "../common/menulist/MenuListItemButton.svelte";
-    import type {Proxy} from "../../../integration/types";
-    import {onMount} from "svelte";
+    import type { Proxy } from "../../../integration/types";
+    import { onMount } from "svelte";
     import AddProxyModal from "./AddProxyModal.svelte";
     import EditProxyModal from "./EditProxyModal.svelte";
     import SwitchSetting from "../common/setting/SwitchSetting.svelte";
     import MultiSelect from "../common/setting/select/MultiSelect.svelte";
-    import {notification} from "../common/header/notification_store";
+    import { notification } from "../common/header/notification_store";
     import lookup from "country-code-lookup";
-    import {listen} from "../../../integration/ws";
+    import { listen } from "../../../integration/ws";
     import type {
         ProxyAdditionResultEvent,
         ProxyCheckResultEvent,
-        ProxyEditResultEvent
+        ProxyEditResultEvent,
     } from "../../../integration/events.js";
 
     $: {
         let filteredProxies = proxies;
 
-        filteredProxies = filteredProxies.filter(p => countries.includes(convertCountryCode(p.ipInfo?.country)));
+        filteredProxies = filteredProxies.filter((p) =>
+            countries.includes(convertCountryCode(p.ipInfo?.country)),
+        );
         if (favoritesOnly) {
-            filteredProxies = filteredProxies.filter(a => a.favorite);
+            filteredProxies = filteredProxies.filter((a) => a.favorite);
         }
         if (searchQuery) {
-            filteredProxies = filteredProxies.filter(p => p.host.toLowerCase().includes(searchQuery.toLowerCase()));
+            filteredProxies = filteredProxies.filter((p) =>
+                p.host.toLowerCase().includes(searchQuery.toLowerCase()),
+            );
         }
 
         renderedProxies = filteredProxies;
@@ -95,9 +99,7 @@
         searchQuery = e.detail.query;
     }
 
-    function handleProxySort() {
-
-    }
+    function handleProxySort() {}
 
     async function removeProxy(id: number) {
         await removeProxyRest(id);
@@ -108,19 +110,20 @@
         notification.set({
             title: "ProxyManager",
             message: "Connecting to proxy...",
-            error: false
+            error: false,
         });
         await connectToProxyRest(id);
         notification.set({
             title: "ProxyManager",
             message: "Connected to proxy",
-            error: false
+            error: false,
         });
         await updateIsConnectedToProxy();
     }
 
     async function connectToRandomProxy() {
-        const proxy = renderedProxies[Math.floor(Math.random() * renderedProxies.length)];
+        const proxy =
+            renderedProxies[Math.floor(Math.random() * renderedProxies.length)];
         if (proxy) {
             await connectToProxy(proxy.id);
         }
@@ -136,13 +139,13 @@
             notification.set({
                 title: "ProxyManager",
                 message: "Couldn't connect to proxy",
-                error: true
+                error: true,
             });
         } else {
             notification.set({
                 title: "ProxyManager",
                 message: "Successfully added proxy",
-                error: false
+                error: false,
             });
 
             await refreshProxies();
@@ -154,13 +157,13 @@
             notification.set({
                 title: "ProxyManager",
                 message: "Couldn't connect to proxy",
-                error: true
+                error: true,
             });
         } else {
             notification.set({
                 title: "ProxyManager",
                 message: "Successfully edited proxy",
-                error: false
+                error: false,
             });
             await refreshProxies();
         }
@@ -171,13 +174,13 @@
             notification.set({
                 title: "ProxyManager",
                 message: "Could not connect to proxy",
-                error: true
+                error: true,
             });
         } else {
             notification.set({
                 title: "ProxyManager",
                 message: "Proxy is working",
-                error: false
+                error: false,
             });
         }
     });
@@ -188,7 +191,7 @@
         notification.set({
             title: "ProxyManager",
             message: "Disconnected from proxy",
-            error: false
+            error: false,
         });
     }
 
@@ -198,47 +201,81 @@
     }
 </script>
 
-<AddProxyModal bind:visible={addProxyModalVisible}/>
+<AddProxyModal bind:visible={addProxyModalVisible} />
 {#if currentEditProxy}
-    <EditProxyModal bind:visible={editProxyModalVisible} id={currentEditProxy.id}
-                    host={currentEditProxy.host}
-                    port={currentEditProxy.port}
-                    username={currentEditProxy.credentials?.username ?? ""}
-                    password={currentEditProxy.credentials?.password ?? ""}
-                    requiresAuthentication={currentEditProxy.credentials !== undefined}
-                    on:proxyEdit={refreshProxies}/>
+    <EditProxyModal
+        bind:visible={editProxyModalVisible}
+        id={currentEditProxy.id}
+        host={currentEditProxy.host}
+        port={currentEditProxy.port}
+        username={currentEditProxy.credentials?.username ?? ""}
+        password={currentEditProxy.credentials?.password ?? ""}
+        requiresAuthentication={currentEditProxy.credentials !== undefined}
+        on:proxyEdit={refreshProxies}
+    />
 {/if}
 <Menu>
     <OptionBar>
-        <Search on:search={handleSearch}/>
-        <SwitchSetting title="Favorites Only" bind:value={favoritesOnly}/>
-        <MultiSelect title="Country" options={allCountries} bind:values={countries}/>
+        <Search on:search={handleSearch} />
+        <SwitchSetting title="Favorites Only" bind:value={favoritesOnly} />
+        <MultiSelect
+            title="Country"
+            options={allCountries}
+            bind:values={countries}
+        />
     </OptionBar>
 
     <MenuList sortable={false} on:sort={handleProxySort}>
         {#each renderedProxies as proxy}
             <MenuListItem
-                    image="img/flags/{(proxy.ipInfo?.country ?? 'unknown').toLowerCase()}.svg"
-                    title="{proxy.host}:{proxy.port}"
-                    favorite={proxy.favorite}
-                    on:dblclick={() => connectToProxy(proxy.id)}>
+                image="img/flags/{(
+                    proxy.ipInfo?.country ?? 'unknown'
+                ).toLowerCase()}.svg"
+                title="{proxy.host}:{proxy.port}"
+                favorite={proxy.favorite}
+                on:dblclick={() => connectToProxy(proxy.id)}
+            >
                 <svelte:fragment slot="subtitle">
-                    <span class="subtitle">{proxy.ipInfo?.org ?? "Unknown"}</span>
+                    <span class="subtitle"
+                        >{proxy.ipInfo?.org ?? "Unknown"}</span
+                    >
                 </svelte:fragment>
 
                 <svelte:fragment slot="tag">
-                    <MenuListItemTag text={convertCountryCode(proxy.ipInfo?.country)}/>
+                    <MenuListItemTag
+                        text={convertCountryCode(proxy.ipInfo?.country)}
+                    />
                 </svelte:fragment>
 
                 <svelte:fragment slot="active-visible">
-                    <MenuListItemButton title="Delete" icon="trash" on:click={() => removeProxy(proxy.id)}/>
-                    <MenuListItemButton title="Check" icon="check" on:click={() => checkProxy(proxy.id)}/>
-                    <MenuListItemButton title="Favorite" icon={proxy.favorite ? "favorite-filled" : "favorite" }
-                                        on:click={() => toggleFavorite(proxy.id, !proxy.favorite)}/>
+                    <MenuListItemButton
+                        title="Delete"
+                        icon="trash"
+                        on:click={() => removeProxy(proxy.id)}
+                    />
+                    <MenuListItemButton
+                        title="Check"
+                        icon="check"
+                        on:click={() => checkProxy(proxy.id)}
+                    />
+                    <MenuListItemButton
+                        title="Favorite"
+                        icon={proxy.favorite ? "favorite-filled" : "favorite"}
+                        on:click={() =>
+                            toggleFavorite(proxy.id, !proxy.favorite)}
+                    />
                 </svelte:fragment>
-                <MenuListItemButton title="Edit" icon="pen-2" on:click={() => editProxy(proxy)}/>
+                <MenuListItemButton
+                    title="Edit"
+                    icon="pen-2"
+                    on:click={() => editProxy(proxy)}
+                />
                 <svelte:fragment slot="always-visible">
-                    <MenuListItemButton title="Connect" icon="play" on:click={() => connectToProxy(proxy.id)}/>
+                    <MenuListItemButton
+                        title="Connect"
+                        icon="play"
+                        on:click={() => connectToProxy(proxy.id)}
+                    />
                 </svelte:fragment>
             </MenuListItem>
         {/each}
@@ -246,16 +283,28 @@
 
     <BottomButtonWrapper>
         <ButtonContainer>
-            <TextButton title="Add" on:click={() => addProxyModalVisible = true}/>
-            <TextButton title="Add Clipboard" on:click={() => addProxyFromClipboard()}/>
-            <TextButton disabled={renderedProxies.length === 0} title="Random"
-                            on:click={connectToRandomProxy}/>
-            <TextButton disabled={!isConnectedToProxy} title="Disconnect"
-                            on:click={disconnectFromProxy}/>
+            <TextButton
+                title="Add"
+                on:click={() => (addProxyModalVisible = true)}
+            />
+            <TextButton
+                title="Add Clipboard"
+                on:click={() => addProxyFromClipboard()}
+            />
+            <TextButton
+                disabled={renderedProxies.length === 0}
+                title="Random"
+                on:click={connectToRandomProxy}
+            />
+            <TextButton
+                disabled={!isConnectedToProxy}
+                title="Disconnect"
+                on:click={disconnectFromProxy}
+            />
         </ButtonContainer>
 
         <ButtonContainer>
-            <TextButton title="Back" on:click={() => openScreen("title")}/>
+            <TextButton title="Back" on:click={() => openScreen("title")} />
         </ButtonContainer>
     </BottomButtonWrapper>
 </Menu>

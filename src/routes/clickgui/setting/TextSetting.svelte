@@ -1,25 +1,39 @@
 <script lang="ts">
-    import {createEventDispatcher} from "svelte";
-    import type {ModuleSetting, TextSetting,} from "../../../integration/types";
-    import {convertToSpacedString, spaceSeperatedNames} from "../../../theme/theme_config";
+  import { createEventDispatcher } from "svelte";
+  import type { ModuleSetting, TextSetting } from "../../../integration/types";
+  import {
+    convertToSpacedString,
+    spaceSeperatedNames,
+  } from "../../../theme/theme_config";
 
-    export let setting: ModuleSetting;
+  export let setting: ModuleSetting;
 
-    const cSetting = setting as TextSetting;
+  const cSetting = setting as TextSetting;
 
-    const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 
-    function handleChange() {
-        setting = {...cSetting};
-        dispatch("change");
-    }
+  function handleChange() {
+    setting = { ...cSetting };
+    dispatch("change");
+  }
 </script>
 
 <div class="setting">
-  <div class="name">{$spaceSeperatedNames ? convertToSpacedString(cSetting.name) : cSetting.name}</div>
-  <input type="text" class="value" spellcheck="false"
-         placeholder={$spaceSeperatedNames ? convertToSpacedString(setting.name) : setting.name}
-         bind:value={cSetting.value} on:input={handleChange}>
+  <div class="name">
+    {$spaceSeperatedNames
+      ? convertToSpacedString(cSetting.name)
+      : cSetting.name}
+  </div>
+  <input
+    type="text"
+    class="value"
+    spellcheck="false"
+    placeholder={$spaceSeperatedNames
+      ? convertToSpacedString(setting.name)
+      : setting.name}
+    bind:value={cSetting.value}
+    on:input={handleChange}
+  />
 </div>
 
 <style lang="scss">
@@ -38,7 +52,7 @@
 
   .value {
     width: 100%;
-    background-color: rgba($background-color, .36);
+    background-color: rgba($background-color, 0.36);
     font-family: monospace;
     font-size: 12px;
     color: $text-color;
@@ -46,7 +60,7 @@
     border-bottom: solid 2px $accent-color;
     padding: 5px;
     border-radius: 6px;
-    transition: ease border-color .2s;
+    transition: ease border-color 0.2s;
 
     &::-webkit-scrollbar {
       background-color: transparent;

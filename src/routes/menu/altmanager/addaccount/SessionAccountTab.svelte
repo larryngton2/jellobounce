@@ -2,7 +2,7 @@
     import Tab from "../../common/modal/Tab.svelte";
     import IconTextInput from "../../common/setting/IconTextInput.svelte";
     import ButtonSetting from "../../common/setting/ButtonSetting.svelte";
-    import {addSessionAccount} from "../../../../integration/rest";
+    import { addSessionAccount } from "../../../../integration/rest";
 
     let token = "";
     $: disabled = validateSessionId(token);
@@ -20,6 +20,12 @@
 </script>
 
 <Tab>
-    <IconTextInput icon="user" title="Session ID" bind:value={token}/>
-    <ButtonSetting title="Add Account" {disabled} on:click={addAccount} listenForEnter={true} inset={true} />
+    <IconTextInput icon="user" title="Session ID" bind:value={token} />
+    <ButtonSetting
+        title="Add Account"
+        {disabled}
+        on:click={addAccount}
+        listenForEnter={true}
+        inset={true}
+    />
 </Tab>

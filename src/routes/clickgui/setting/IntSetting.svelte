@@ -1,11 +1,14 @@
 <script lang="ts">
     import "nouislider/dist/nouislider.css";
     import "./nouislider.scss";
-    import {createEventDispatcher, onMount} from "svelte";
-    import noUiSlider, {type API} from "nouislider";
-    import type {IntSetting, ModuleSetting} from "../../../integration/types";
+    import { createEventDispatcher, onMount } from "svelte";
+    import noUiSlider, { type API } from "nouislider";
+    import type { IntSetting, ModuleSetting } from "../../../integration/types";
     import ValueInput from "./common/ValueInput.svelte";
-    import {convertToSpacedString, spaceSeperatedNames} from "../../../theme/theme_config";
+    import {
+        convertToSpacedString,
+        spaceSeperatedNames,
+    } from "../../../theme/theme_config";
 
     export let setting: ModuleSetting;
 
@@ -38,10 +41,17 @@
 </script>
 
 <div class="setting" class:has-suffix={cSetting.suffix !== ""}>
-    <div class="name">{$spaceSeperatedNames ? convertToSpacedString(cSetting.name) : cSetting.name}</div>
+    <div class="name">
+        {$spaceSeperatedNames
+            ? convertToSpacedString(cSetting.name)
+            : cSetting.name}
+    </div>
     <div class="value">
-        <ValueInput valueType="int" value={cSetting.value}
-                    on:change={(e) => apiSlider.set(e.detail.value)}/>
+        <ValueInput
+            valueType="int"
+            value={cSetting.value}
+            on:change={(e) => apiSlider.set(e.detail.value)}
+        />
     </div>
     {#if cSetting.suffix !== ""}
         <div class="suffix">{cSetting.suffix}</div>

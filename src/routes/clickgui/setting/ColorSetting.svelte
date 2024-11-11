@@ -1,10 +1,16 @@
 <script lang="ts">
     import "@simonwep/pickr/dist/themes/classic.min.css";
     import "./pickr.scss";
-    import {createEventDispatcher, onMount} from "svelte";
-    import type {ColorSetting, ModuleSetting,} from "../../../integration/types.js";
+    import { createEventDispatcher, onMount } from "svelte";
+    import type {
+        ColorSetting,
+        ModuleSetting,
+    } from "../../../integration/types.js";
     import Pickr from "@simonwep/pickr";
-    import {convertToSpacedString, spaceSeperatedNames} from "../../../theme/theme_config";
+    import {
+        convertToSpacedString,
+        spaceSeperatedNames,
+    } from "../../../theme/theme_config";
 
     export let setting: ModuleSetting;
 
@@ -88,13 +94,13 @@
 </script>
 
 <div class="setting">
-    <div class="name">{$spaceSeperatedNames ? convertToSpacedString(cSetting.name) : cSetting.name}</div>
+    <div class="name">
+        {$spaceSeperatedNames
+            ? convertToSpacedString(cSetting.name)
+            : cSetting.name}
+    </div>
     <div class="value-spot">
-        <input
-            class="value"
-            bind:value={hex}
-            on:input={handleValueInput}
-        />
+        <input class="value" bind:value={hex} on:input={handleValueInput} />
         <button
             class="color-pickr-button"
             on:click={() => (hidden = !hidden)}

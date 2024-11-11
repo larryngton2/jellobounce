@@ -9,7 +9,10 @@
     import GenericSetting from "./common/GenericSetting.svelte";
     import Switch from "./common/Switch.svelte";
     import { setItem } from "../../../integration/persistent_storage";
-    import {convertToSpacedString, spaceSeperatedNames} from "../../../theme/theme_config";
+    import {
+        convertToSpacedString,
+        spaceSeperatedNames,
+    } from "../../../theme/theme_config";
 
     export let setting: ModuleSetting;
     export let path: string;
@@ -42,18 +45,29 @@
 <div class="setting">
     {#if nestedSettings.length > 0}
         <!-- svelte-ignore a11y-no-static-element-interactions -->
-        <div class="head expand" class:expanded on:contextmenu|preventDefault={toggleExpanded}>
+        <div
+            class="head expand"
+            class:expanded
+            on:contextmenu|preventDefault={toggleExpanded}
+        >
             <Switch
-                name={$spaceSeperatedNames ? convertToSpacedString(cSetting.name) : cSetting.name}
+                name={$spaceSeperatedNames
+                    ? convertToSpacedString(cSetting.name)
+                    : cSetting.name}
                 bind:value={enabledSetting.value}
                 on:change={handleChange}
             />
-            <ExpandArrow bind:expanded on:click={() => skipAnimationDelay = true} />
+            <ExpandArrow
+                bind:expanded
+                on:click={() => (skipAnimationDelay = true)}
+            />
         </div>
     {:else}
         <div class="head" class:expanded>
             <Switch
-                name={$spaceSeperatedNames ? convertToSpacedString(cSetting.name) : cSetting.name}
+                name={$spaceSeperatedNames
+                    ? convertToSpacedString(cSetting.name)
+                    : cSetting.name}
                 bind:value={enabledSetting.value}
                 on:change={handleChange}
             />
@@ -63,7 +77,12 @@
     {#if expanded}
         <div class="nested-settings">
             {#each nestedSettings as setting (setting.name)}
-                <GenericSetting {skipAnimationDelay} path={thisPath} bind:setting on:change={handleChange} />
+                <GenericSetting
+                    {skipAnimationDelay}
+                    path={thisPath}
+                    bind:setting
+                    on:change={handleChange}
+                />
             {/each}
         </div>
     {/if}
@@ -77,11 +96,11 @@
     }
 
     .head {
-        transition: ease margin-bottom .2s;
+        transition: ease margin-bottom 0.2s;
 
         &.expand {
-          display: grid;
-          grid-template-columns: 1fr max-content;
+            display: grid;
+            grid-template-columns: 1fr max-content;
         }
 
         &.expanded {

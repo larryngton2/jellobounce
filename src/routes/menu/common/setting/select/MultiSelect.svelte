@@ -1,7 +1,7 @@
 <script lang="ts">
-    import {slide} from "svelte/transition";
-    import {quintOut} from "svelte/easing";
-    import {createEventDispatcher} from "svelte";
+    import { slide } from "svelte/transition";
+    import { quintOut } from "svelte/easing";
+    import { createEventDispatcher } from "svelte";
     import GenericSelect from "./GenericSelect.svelte";
 
     export let options: string[];
@@ -9,16 +9,16 @@
     export let title: string;
 
     const dispatch = createEventDispatcher<{
-        change: { values: string[] }
+        change: { values: string[] };
     }>();
 
     function handleOptionClick(o: string) {
         if (values.includes(o)) {
-            values = values.filter(v => v !== o);
+            values = values.filter((v) => v !== o);
         } else {
-            values = [...values, o]
+            values = [...values, o];
         }
-        dispatch("change", {values});
+        dispatch("change", { values });
     }
 </script>
 
@@ -31,8 +31,12 @@
 
     <svelte:fragment slot="options">
         {#each options as o}
-            <div on:click={() => handleOptionClick(o)} class="option" class:active={values.includes(o)}
-                 transition:slide|global={{ duration: 150, easing: quintOut }}>
+            <div
+                on:click={() => handleOptionClick(o)}
+                class="option"
+                class:active={values.includes(o)}
+                transition:slide|global={{ duration: 150, easing: quintOut }}
+            >
                 <span>{o}</span>
             </div>
         {/each}
@@ -40,24 +44,24 @@
 </GenericSelect>
 
 <style lang="scss">
-  @import "../../../../../colors.scss";
+    @import "../../../../../colors.scss";
 
-  .option {
-    font-weight: 400;
-    color: rgba(150,150,150);
-    font-size: 20px;
-    padding: 15px 20px;
-    transition: ease color .2s;
-    z-index: 1;
+    .option {
+        font-weight: 400;
+        color: rgba(150, 150, 150);
+        font-size: 20px;
+        padding: 15px 20px;
+        transition: ease color 0.2s;
+        z-index: 1;
 
-    &:hover {
-      background-color: rgba($background-color, 0.1);
-      color: gray;
+        &:hover {
+            background-color: rgba($background-color, 0.1);
+            color: gray;
+        }
+
+        &.active {
+            color: white;
+            text-shadow: 0px 0px 20px gray;
+        }
     }
-
-    &.active {
-      color: white;
-      text-shadow: 0px 0px 20px gray;
-    }
-  }
 </style>

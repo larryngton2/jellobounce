@@ -1,16 +1,16 @@
 <script lang="ts">
-    import ToolTip from "../ToolTip.svelte";
-    import {createEventDispatcher} from "svelte";
+  import ToolTip from "../ToolTip.svelte";
+  import { createEventDispatcher } from "svelte";
 
-    export let title: string;
-    export let icon: string;
+  export let title: string;
+  export let icon: string;
 
-    const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 </script>
 
 <button class="button" type="button" on:click={() => dispatch("click")}>
-    <ToolTip text={title} color="black"/>
-    <img class="icon" src="img/menu/icon-{icon}.svg" alt={icon}>
+  <ToolTip text={title} color="black" />
+  <img class="icon" src="img/menu/icon-{icon}.svg" alt={icon} />
 </button>
 
 <style lang="scss">

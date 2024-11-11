@@ -1,14 +1,18 @@
 <script lang="ts">
-    import {onMount} from "svelte";
-    import type {Module as TModule} from "../../integration/types";
-    import {listen} from "../../integration/ws";
+    import { onMount } from "svelte";
+    import type { Module as TModule } from "../../integration/types";
+    import { listen } from "../../integration/ws";
     import Module from "./Module.svelte";
-    import type {ToggleModuleEvent} from "../../integration/events";
-    import {fade} from "svelte/transition";
-    import {quintOut} from "svelte/easing";
-    import {highlightModuleName, maxPanelZIndex, scaleFactor} from "./clickgui_store";
-    import {setItem} from "../../integration/persistent_storage";
-    import {debounceAsync} from "../../integration/util";
+    import type { ToggleModuleEvent } from "../../integration/events";
+    import { fade } from "svelte/transition";
+    import { quintOut } from "svelte/easing";
+    import {
+        highlightModuleName,
+        maxPanelZIndex,
+        scaleFactor,
+    } from "./clickgui_store";
+    import { setItem } from "../../integration/persistent_storage";
+    import { debounceAsync } from "../../integration/util";
 
     export let category: string;
     export let modules: TModule[];
@@ -47,7 +51,7 @@
                 left: 20,
                 expanded: false,
                 scrollTop: 0,
-                zIndex: 0
+                zIndex: 0,
             };
         } else {
             const config: PanelConfig = JSON.parse(localStorageItem);
@@ -73,8 +77,18 @@
     });
 
     function fixPosition() {
-        panelConfig.left = clamp(panelConfig.left, 0, document.documentElement.clientWidth * (2 / $scaleFactor) - panelElement.offsetWidth);
-        panelConfig.top = clamp(panelConfig.top, 0, document.documentElement.clientHeight * (2 / $scaleFactor) - panelElement.offsetHeight);
+        panelConfig.left = clamp(
+            panelConfig.left,
+            0,
+            document.documentElement.clientWidth * (2 / $scaleFactor) -
+                panelElement.offsetWidth,
+        );
+        panelConfig.top = clamp(
+            panelConfig.top,
+            0,
+            document.documentElement.clientHeight * (2 / $scaleFactor) -
+                panelElement.offsetHeight,
+        );
     }
 
     function onMouseDown() {
@@ -141,99 +155,110 @@
 
         modulesElement.scrollTo({
             top: panelConfig.scrollTop,
-            behavior: "instant"
-        })
+            behavior: "instant",
+        });
     });
 </script>
 
-<svelte:window on:mouseup={onMouseUp} on:mousemove={onMouseMove}/>
+<svelte:window on:mouseup={onMouseUp} on:mousemove={onMouseMove} />
 
 <div
-        class="panel"
-        style="left: {panelConfig.left}px; top: {panelConfig.top}px; z-index: {panelConfig.zIndex};"
-        bind:this={panelElement}
-        transition:fade|global={{duration: 200, easing: quintOut}}
+    class="panel"
+    style="left: {panelConfig.left}px; top: {panelConfig.top}px; z-index: {panelConfig.zIndex};"
+    bind:this={panelElement}
+    transition:fade|global={{ duration: 200, easing: quintOut }}
 >
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
-            class="title"
-            on:dblclick={() => Object.values(allModuleElements).forEach((it) => it.setExpanded(false))}
-            on:mousedown={onMouseDown}
-            on:contextmenu|preventDefault={toggleExpanded}
+        class="title"
+        on:dblclick={() =>
+            Object.values(allModuleElements).forEach((it) =>
+                it.setExpanded(false),
+            )}
+        on:mousedown={onMouseDown}
+        on:contextmenu|preventDefault={toggleExpanded}
     >
         <img
-                class="icon"
-                src="img/clickgui/icon-{category.toLowerCase()}.svg"
-                alt="icon"
+            class="icon"
+            src="img/clickgui/icon-{category.toLowerCase()}.svg"
+            alt="icon"
         />
         <span class="category">{category}</span>
-
-        <button class="expand-toggle" on:click={toggleExpanded}>
-            <div class="icon" class:expanded={panelConfig.expanded}></div>
-        </button>
     </div>
 
-    <div class="modules" style="max-height: {panelConfig.expanded ? '545px' : '0'}" on:scroll={handleModulesScroll}
-         bind:this={modulesElement}>
-        {#each modules as {name, enabled, description, aliases} (name)}
-            <Module {name} {enabled} {description} {aliases} bind:this={allModuleElements[name]}/>
+    <div
+        class="modules"
+        style="max-height: {panelConfig.expanded ? '545px' : '0'}"
+        on:scroll={handleModulesScroll}
+        bind:this={modulesElement}
+    >
+        {#each modules as { name, enabled, description, aliases } (name)}
+            <Module
+                {name}
+                {enabled}
+                {description}
+                {aliases}
+                bind:this={allModuleElements[name]}
+            />
         {/each}
     </div>
 </div>
 
 <style lang="scss">
-  @import "../../colors.scss";
+    @import "../../colors.scss";
 
-  .panel {
-    border-radius: 12px;
-    width: 230px;
-    position: absolute;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba($background-color, 0.4);
-    will-change: transform;
-    //box-shadow: inset 0 125px 100px -100px rgba(black, 0.8), 0px 0px 10px rgba(black, 0.5);
-    align-items: center;
-  }
-
-  .title {
-    display: grid;
-    grid-template-columns: max-content 1fr max-content;
-    align-items: center;
-    column-gap: 12px;
-    background-color: rgba($background-color, 0.7);
-    padding: 10px;
-    cursor: grab;
-    text-align: center;
-    text-shadow: 0px 0px 20px rgba(150,150,150);
-
-    .category {
-      font-size: 15px;
-      color: $text-color;
-      font-weight: 600;
+    .panel {
+        border-radius: 12px;
+        width: 230px;
+        position: absolute;
+        overflow: hidden;
+        box-shadow: $primary-shadow;
+        will-change: transform;
+        //box-shadow: inset 0 125px 100px -100px rgba(black, 0.8), 0px 0px 10px rgba(black, 0.5);
+        align-items: center;
     }
-  }
 
-  .modules {
-    transition: max-height 400ms ease-in-out;
-    scroll-behavior: smooth;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background-color: rgba($background-color, 0.7);
-  }
+    .title {
+        display: grid;
+        grid-template-columns: max-content 1fr max-content;
+        align-items: center;
+        column-gap: 12px;
+        //background-color: rgba($background-color, 0.7);
+        padding: 10px;
+        cursor: grab;
+        text-align: center;
+        text-shadow: 0px 0px 20px rgba(150, 150, 150);
+        height: 35px;
+        background-image: linear-gradient(
+            rgba($background-color, 0.6),
+            rgba($background-color, 0.5),
+            rgba($background-color, 0.45)
+        );
 
-  .modules::-webkit-scrollbar {
-    width: 0;
-  }
+        .category {
+            left: 50%;
+            transform: translateX(-50%);
+            position: fixed;
+            display: grid;
+            font-size: 15px;
+            color: $text-color;
+            font-weight: 600;
+        }
 
-  .expand-toggle {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-
-    .icon {
-      height: 0px;
-      width: 15.5px;
-      position: relative;
+        .icon {
+            border-radius: 4px;
+        }
     }
-  }
+
+    .modules {
+        transition: max-height 400ms ease-in-out;
+        scroll-behavior: smooth;
+        overflow-y: auto;
+        overflow-x: hidden;
+        background-color: rgba($background-color, 0.45);
+    }
+
+    .modules::-webkit-scrollbar {
+        width: 0;
+    }
 </style>

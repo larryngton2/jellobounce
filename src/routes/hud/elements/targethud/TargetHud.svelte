@@ -1,13 +1,13 @@
 <script lang="ts">
-    import {listen} from "../../../../integration/ws.js";
-    import type {PlayerData} from "../../../../integration/types";
-    import {REST_BASE} from "../../../../integration/host";
-    import {scale} from "svelte/transition";
-    import type {TargetChangeEvent} from "../../../../integration/events";
-    import type {ClientPlayerDataEvent} from "../../../../integration/events";
-    import {onMount} from "svelte";
-    import {getPlayerData} from "../../../../integration/rest";
-    import {expoOut} from "svelte/easing";
+    import { listen } from "../../../../integration/ws.js";
+    import type { PlayerData } from "../../../../integration/types";
+    import { REST_BASE } from "../../../../integration/host";
+    import { scale } from "svelte/transition";
+    import type { TargetChangeEvent } from "../../../../integration/events";
+    import type { ClientPlayerDataEvent } from "../../../../integration/events";
+    import { onMount } from "svelte";
+    import { getPlayerData } from "../../../../integration/rest";
+    import { expoOut } from "svelte/easing";
     import HealthProgress from "./HealthProgress.svelte";
 
     let target: PlayerData | null = null;
@@ -53,26 +53,35 @@
 </script>
 
 {#if visible && target != null}
-    <div class="targethud" transition:scale={{duration: 500, easing: expoOut}}>
+    <div
+        class="targethud"
+        transition:scale={{ duration: 500, easing: expoOut }}
+    >
         <div class="main-wrapper">
             <div class="avatar">
-                <img src="{REST_BASE}/api/v1/client/resource/skin?uuid={target.uuid}" alt="avatar" />
+                <img
+                    src="{REST_BASE}/api/v1/client/resource/skin?uuid={target.uuid}"
+                    alt="avatar"
+                />
             </div>
-    
+
             <div class="name">{target.username}</div>
             <div class="wl">
                 {#if playerData !== null && playerData.health !== null}
-                    {#if (playerData.health + playerData.absorption) > (target.actualHealth + target.absorption)}
+                    {#if playerData.health + playerData.absorption > target.actualHealth + target.absorption}
                         <div class="winning">W</div>
-                        {:else if (playerData.health + playerData.absorption) < (target.actualHealth + target.absorption)}
+                    {:else if playerData.health + playerData.absorption < target.actualHealth + target.absorption}
                         <div class="losing">L</div>
-                        {:else}
+                    {:else}
                         <div class="draw">D</div>
                     {/if}
                 {/if}
             </div>
         </div>
-        <HealthProgress maxHealth={target.maxHealth + target.absorption} health={target.actualHealth + target.absorption} />
+        <HealthProgress
+            maxHealth={target.maxHealth + target.absorption}
+            health={target.actualHealth + target.absorption}
+        />
     </div>
 {/if}
 

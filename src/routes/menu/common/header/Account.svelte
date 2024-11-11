@@ -1,48 +1,55 @@
 <script lang="ts">
-    import ToolTip from "../ToolTip.svelte";
-    import {getSession, openScreen} from "../../../../integration/rest";
-    import {onMount} from "svelte";
-    import {listen} from "../../../../integration/ws";
-    import {fly} from "svelte/transition";
-    import { expoOut } from "svelte/easing";
+  import ToolTip from "../ToolTip.svelte";
+  import { getSession, openScreen } from "../../../../integration/rest";
+  import { onMount } from "svelte";
+  import { listen } from "../../../../integration/ws";
+  import { fly } from "svelte/transition";
+  import { expoOut } from "svelte/easing";
 
-    let username = "";
-    let avatar = "";
-    let premium = true;
+  let username = "";
+  let avatar = "";
+  let premium = true;
 
-    async function refreshSession() {
-        const session = await getSession();
-        username = session.username;
-        avatar = session.avatar;
-        premium = session.premium;
-    }
+  async function refreshSession() {
+    const session = await getSession();
+    username = session.username;
+    avatar = session.avatar;
+    premium = session.premium;
+  }
 
-    onMount(async () => {
-        await refreshSession();
-    });
+  onMount(async () => {
+    await refreshSession();
+  });
 
-    listen("session", async () => {
-        await refreshSession();
-    });
+  listen("session", async () => {
+    await refreshSession();
+  });
 </script>
 
-<div class="account" transition:fly|global={{duration: 500, y: 100, easing: expoOut}}>
-    <object data={avatar} type="image/png" class="avatar" aria-label="avatar">
-        <img src="img/steve.png" alt=avatar class="avatar">
-    </object>
-    <div class="username">{username}</div>
-    <div class="account-type">
-        {#if premium}
-            <span class="premium">Online</span>
-        {:else}
-            <span class="offline">Offline</span>
-        {/if}
-    </div>
-    <button class="button-change-account" type="button" on:click={() => openScreen("altmanager")}>
-        <ToolTip text="Change account"/>
+<div
+  class="account"
+  transition:fly|global={{ duration: 500, y: 100, easing: expoOut }}
+>
+  <object data={avatar} type="image/png" class="avatar" aria-label="avatar">
+    <img src="img/steve.png" alt="avatar" class="avatar" />
+  </object>
+  <div class="username">{username}</div>
+  <div class="account-type">
+    {#if premium}
+      <span class="premium">Online</span>
+    {:else}
+      <span class="offline">Offline</span>
+    {/if}
+  </div>
+  <button
+    class="button-change-account"
+    type="button"
+    on:click={() => openScreen("altmanager")}
+  >
+    <ToolTip text="Change account" />
 
-        <div class="icon">
-    </button>
+    <div class="icon"></div></button
+  >
 </div>
 
 <style lang="scss">
@@ -54,8 +61,8 @@
     align-items: center;
     display: grid;
     grid-template-areas:
-        "a b c"
-        "a d e";
+      "a b c"
+      "a d e";
     grid-template-columns: max-content 1fr max-content;
     margin-top: -210px;
   }

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {createEventDispatcher} from "svelte";
+    import { createEventDispatcher } from "svelte";
 
     export let value: number;
     export let valueType: "int" | "float";
@@ -14,7 +14,7 @@
     }
 
     const dispatch = createEventDispatcher<{
-        change: { value: number }
+        change: { value: number };
     }>();
 
     function handleInput() {
@@ -26,7 +26,7 @@
         }
 
         if (!isNaN(parsed)) {
-            dispatch("change", {value: parsed});
+            dispatch("change", { value: parsed });
         }
     }
 
@@ -38,19 +38,26 @@
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<span contenteditable="true" class="value" bind:innerText={inputValue} on:input={handleInput} on:keydown={handleKeyDown} bind:this={inputElement}></span>
+<span
+    contenteditable="true"
+    class="value"
+    bind:innerText={inputValue}
+    on:input={handleInput}
+    on:keydown={handleKeyDown}
+    bind:this={inputElement}
+></span>
 
 <style lang="scss">
-  @import "../../../../colors.scss";
+    @import "../../../../colors.scss";
 
-  .value {
-    font-family: monospace;
-    color: $text-color;
-    font-weight: 500;
-    font-size: 12px;
-    background-color: transparent;
-    border: none;
-    min-width: 5px;
-    display: inline-block;
-  }
+    .value {
+        font-family: monospace;
+        color: $text-color;
+        font-weight: 500;
+        font-size: 12px;
+        background-color: transparent;
+        border: none;
+        min-width: 5px;
+        display: inline-block;
+    }
 </style>

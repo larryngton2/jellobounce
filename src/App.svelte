@@ -1,11 +1,11 @@
 <script lang="ts">
-    import Router, {push} from "svelte-spa-router";
+    import Router, { push } from "svelte-spa-router";
     import ClickGui from "./routes/clickgui/ClickGui.svelte";
     import Hud from "./routes/hud/Hud.svelte";
-    import {getVirtualScreen} from "./integration/rest";
-    import {cleanupListeners, listenAlways} from "./integration/ws";
-    import {onMount} from "svelte";
-    import {insertPersistentData} from "./integration/persistent_storage";
+    import { getVirtualScreen } from "./integration/rest";
+    import { cleanupListeners, listenAlways } from "./integration/ws";
+    import { onMount } from "svelte";
+    import { insertPersistentData } from "./integration/persistent_storage";
     import Inventory from "./routes/inventory/Inventory.svelte";
     import Title from "./routes/menu/title/Title.svelte";
     import SplashScreen from "./routes/menu/splash/SplashScreen.svelte";
@@ -29,7 +29,7 @@
         "/proxymanager": ProxyManager,
         "/none": None,
         "/disconnected": Disconnected,
-        "/browser": Browser
+        "/browser": Browser,
     };
 
     const url = window.location.href;
@@ -39,7 +39,7 @@
 
     // HACK: Just in case
     setTimeout(() => {
-       showSplash = false;
+        showSplash = false;
     }, 10 * 1000);
 
     async function changeRoute(name: string) {
@@ -65,12 +65,16 @@
             showSplash = event.showingSplash;
             if (!showSplash) {
                 // Dirty fix to patch lagging browser after launch.
-                window.location.replace(window.location.href.split("#").shift()!);
+                window.location.replace(
+                    window.location.href.split("#").shift()!,
+                );
             }
         });
 
         listenAlways("virtualScreen", async (event: any) => {
-            console.log(`[Router] Virtual screen change to ${event.screenName}`);
+            console.log(
+                `[Router] Virtual screen change to ${event.screenName}`,
+            );
             const action = event.action;
 
             switch (action) {
@@ -91,8 +95,8 @@
 
 <main>
     {#if showSplash}
-        <SplashScreen/>
+        <SplashScreen />
     {:else}
-        <Router {routes}/>
+        <Router {routes} />
     {/if}
 </main>
