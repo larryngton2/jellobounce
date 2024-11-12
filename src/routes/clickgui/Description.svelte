@@ -55,6 +55,7 @@
     background-color: $accent-color;
     filter: drop-shadow(0 0 10px rgba($background-color, 0.1));
     left: 15px;
+    pointer-events: none;
 
     &::before {
       content: "";
@@ -75,5 +76,6 @@
     font-size: 12px;
     padding: 7px;
     color: $text-color;
+    pointer-events: none;
   }
 </style>
