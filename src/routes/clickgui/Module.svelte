@@ -142,7 +142,6 @@
                 ease background-color 0.2s,
                 ease color 0.2s;
             color: rgba(150, 150, 150);
-            text-align: center;
             font-size: 13px;
             font-weight: 500;
             position: relative;

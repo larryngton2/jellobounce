@@ -36,6 +36,7 @@
 <html>
     {#if ready}
         <div
+            style="max-width: 250px"
             in:slide|global={{ duration: 200, axis: "y" }}
             out:slide|global={{ duration: 200, axis: "y" }}
         >

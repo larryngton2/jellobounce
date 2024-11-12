@@ -1,264 +1,200 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-    import type { Module as TModule } from "../../integration/types";
-    import { listen } from "../../integration/ws";
+    import { onDestroy, onMount } from "svelte";
+    import type { GroupedModules } from "../../integration/types";
     import Module from "./Module.svelte";
-    import type { ToggleModuleEvent } from "../../integration/events";
-    import { fade } from "svelte/transition";
-    import { quintOut } from "svelte/easing";
-    import {
-        highlightModuleName,
-        maxPanelZIndex,
-        scaleFactor,
-    } from "./clickgui_store";
-    import { setItem } from "../../integration/persistent_storage";
-    import { debounceAsync } from "../../integration/util";
 
-    export let category: string;
-    export let modules: TModule[];
-    export let panelIndex: number;
-
-    const allModuleElements: Record<string, Module> = {};
+    export let categories: GroupedModules;
 
     let panelElement: HTMLElement;
-    let modulesElement: HTMLElement;
+    let panelTop = 100;
+    let panelLeft = 100;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let isResizing = false;
+    export let panelWidth = 1500;
+    let panelHeight = 750;
+    let selectedCategory = Object.keys(categories)[0];
 
-    let moving = false;
-    let prevX = 0;
-    let prevY = 0;
-    const panelConfig = loadPanelConfig();
-
-    interface PanelConfig {
-        top: number;
-        left: number;
-        expanded: boolean;
-        scrollTop: number;
-        zIndex: number;
+    function savePanelSettings() {
+        localStorage.setItem("panelWidth", panelWidth.toString());
+        localStorage.setItem("panelHeight", panelHeight.toString());
+        localStorage.setItem("panelLeft", panelLeft.toString());
+        localStorage.setItem("panelTop", panelTop.toString());
     }
 
-    function clamp(number: number, min: number, max: number) {
-        return Math.max(min, Math.min(number, max));
+    function selectCategory(category: string) {
+        selectedCategory = category;
+        savePanelSettings(); // Save immediately when category changes
     }
 
-    function loadPanelConfig(): PanelConfig {
-        const localStorageItem = localStorage.getItem(
-            `clickgui.panel.${category}`,
-        );
+    // Load saved dimensions on mount
+    onMount(() => {
+        const savedWidth = localStorage.getItem("panelWidth");
+        const savedHeight = localStorage.getItem("panelHeight");
+        const savedLeft = localStorage.getItem("panelLeft");
+        const savedTop = localStorage.getItem("panelTop");
 
-        if (!localStorageItem) {
-            return {
-                top: panelIndex * 50 + 20,
-                left: 20,
-                expanded: false,
-                scrollTop: 0,
-                zIndex: 0,
-            };
-        } else {
-            const config: PanelConfig = JSON.parse(localStorageItem);
-
-            // Migration
-            if (!config.zIndex) {
-                config.zIndex = 0;
-            }
-
-            if (config.zIndex > $maxPanelZIndex) {
-                $maxPanelZIndex = config.zIndex;
-            }
-
-            return config;
-        }
-    }
-
-    const savePanelConfig = debounceAsync(async () => {
-        await setItem(
-            `clickgui.panel.${category}`,
-            JSON.stringify(panelConfig),
-        );
+        if (savedWidth) panelWidth = parseInt(savedWidth);
+        if (savedHeight) panelHeight = parseInt(savedHeight);
+        if (savedLeft) panelLeft = parseInt(savedLeft);
+        if (savedTop) panelTop = parseInt(savedTop);
     });
 
-    function fixPosition() {
-        panelConfig.left = clamp(
-            panelConfig.left,
-            0,
-            document.documentElement.clientWidth * (2 / $scaleFactor) -
-                panelElement.offsetWidth,
-        );
-        panelConfig.top = clamp(
-            panelConfig.top,
-            0,
-            document.documentElement.clientHeight * (2 / $scaleFactor) -
-                panelElement.offsetHeight,
-        );
+    // Remove the event listener on component destroy
+    onDestroy(() => {
+        savePanelSettings();
+        window.removeEventListener("beforeunload", savePanelSettings);
+    });
+
+    function onMouseDown(event: MouseEvent) {
+        isDragging = true;
+        startX = event.clientX - panelLeft;
+        startY = event.clientY - panelTop;
     }
 
-    function onMouseDown() {
-        moving = true;
-
-        panelConfig.zIndex = ++$maxPanelZIndex;
-    }
-
-    function onMouseMove(e: MouseEvent) {
-        if (moving) {
-            panelConfig.left += (e.screenX - prevX) * (2 / $scaleFactor);
-            panelConfig.top += (e.screenY - prevY) * (2 / $scaleFactor);
+    function onMouseMove(event: MouseEvent) {
+        if (isDragging) {
+            panelLeft = event.clientX - startX;
+            panelTop = event.clientY - startY;
+        } else if (isResizing) {
+            panelWidth = Math.max(200, event.clientX - panelLeft);
+            panelHeight = Math.max(150, event.clientY - panelTop);
         }
-
-        prevX = e.screenX;
-        prevY = e.screenY;
-
-        fixPosition();
-        savePanelConfig();
     }
 
     function onMouseUp() {
-        moving = false;
+        isDragging = false;
+        isResizing = false;
     }
 
-    function toggleExpanded() {
-        panelConfig.expanded = !panelConfig.expanded;
-
-        fixPosition();
-        savePanelConfig();
+    function onResizeMouseDown(event: MouseEvent) {
+        isResizing = true;
+        event.stopPropagation();
     }
-
-    function handleModulesScroll() {
-        panelConfig.scrollTop = modulesElement.scrollTop;
-        savePanelConfig();
-    }
-
-    highlightModuleName.subscribe(() => {
-        const highlightModule = modules.find(
-            (m) => m.name === $highlightModuleName,
-        );
-        if (highlightModule) {
-            panelConfig.zIndex = ++$maxPanelZIndex;
-            panelConfig.expanded = true;
-            savePanelConfig();
-        }
-    });
-
-    listen("toggleModule", (e: ToggleModuleEvent) => {
-        const moduleName = e.moduleName;
-        const moduleEnabled = e.enabled;
-
-        const mod = modules.find((m) => m.name === moduleName);
-        if (!mod) return;
-
-        mod.enabled = moduleEnabled;
-        modules = modules;
-    });
-
-    onMount(() => {
-        if (!modulesElement) {
-            return;
-        }
-
-        modulesElement.scrollTo({
-            top: panelConfig.scrollTop,
-            behavior: "instant",
-        });
-    });
 </script>
 
-<svelte:window on:mouseup={onMouseUp} on:mousemove={onMouseMove} />
+<svelte:window on:mousemove={onMouseMove} on:mouseup={onMouseUp} />
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-    class="panel"
-    style="left: {panelConfig.left}px; top: {panelConfig.top}px; z-index: {panelConfig.zIndex};"
+    class="panel-container"
+    style="top: {panelTop}px; left: {panelLeft}px; width: {panelWidth}px; height: {panelHeight}px"
     bind:this={panelElement}
-    transition:fade|global={{ duration: 200, easing: quintOut }}
+    on:mousedown={onMouseDown}
 >
-    <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div
-        class="title"
-        on:dblclick={() =>
-            Object.values(allModuleElements).forEach((it) =>
-                it.setExpanded(false),
-            )}
-        on:mousedown={onMouseDown}
-        on:contextmenu|preventDefault={toggleExpanded}
-    >
-        <img
-            class="icon"
-            src="img/clickgui/icon-{category.toLowerCase()}.svg"
-            alt="icon"
-        />
-        <span class="category">{category}</span>
-    </div>
-
-    <div
-        class="modules"
-        style="max-height: {panelConfig.expanded ? '545px' : '0'}"
-        on:scroll={handleModulesScroll}
-        bind:this={modulesElement}
-    >
-        {#each modules as { name, enabled, description, aliases } (name)}
-            <Module
-                {name}
-                {enabled}
-                {description}
-                {aliases}
-                bind:this={allModuleElements[name]}
-            />
+    <!-- Sidebar with category names, scrollable if overflowed -->
+    <div class="sidebar">
+        <!-- Adjust for padding -->
+        {#each Object.keys(categories) as category}
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
+            <div
+                class="category-item {category === selectedCategory
+                    ? 'active'
+                    : ''}"
+                on:click={() => selectCategory(category)}
+            >
+                <img
+                    class="icon"
+                    src="img/clickgui/icon-{category.toLowerCase()}.svg"
+                    alt="icon"
+                />
+                <div class="text">{category}</div>
+            </div>
         {/each}
     </div>
+
+    <div class="modules-panel">
+        {#if selectedCategory}
+            <div class="panel">
+                <div class="title">ClickGUI</div>
+                <div class="modules">
+                    {#each categories[selectedCategory] as { name, enabled, description, aliases } (name)}
+                        <Module {name} {enabled} {description} {aliases} />
+                    {/each}
+                </div>
+            </div>
+        {/if}
+    </div>
+
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
+    <div class="resize-handle" on:mousedown={onResizeMouseDown} />
 </div>
 
 <style lang="scss">
     @import "../../colors.scss";
-
+    .panel-container {
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        cursor: move;
+    }
+    .sidebar {
+        width: 150px;
+        background-color: rgba($background-color, $opacity);
+        padding: 10px;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        overflow-y: auto;
+        box-shadow: $primary-shadow;
+    }
+    .category-item {
+        color: $text-dimmed-color;
+        padding: 8px;
+        cursor: pointer;
+        border-radius: 7px;
+        text-align: center;
+        transition: background-color 0.2s ease;
+        background-color: rgba($background-color, 0.15);
+    }
+    .category-item:hover {
+        background-color: rgba(0, 0, 0, 0.25);
+    }
+    .category-item.active {
+        background-color: rgba(0, 0, 0, 0.35);
+    }
+    .modules-panel {
+        flex: 1;
+    }
     .panel {
         border-radius: 12px;
-        width: 230px;
-        position: absolute;
+        width: 100%;
+        height: 100%;
+        position: relative;
         overflow: hidden;
         box-shadow: $primary-shadow;
-        will-change: transform;
-        //box-shadow: inset 0 125px 100px -100px rgba(black, 0.8), 0px 0px 10px rgba(black, 0.5);
-        align-items: center;
     }
-
     .title {
-        display: grid;
-        grid-template-columns: max-content 1fr max-content;
+        background-color: rgba($background-color, $opacity);
+        color: white;
+        display: flex;
         align-items: center;
-        column-gap: 12px;
-        //background-color: rgba($background-color, 0.7);
+        gap: 12px;
         padding: 10px;
-        cursor: grab;
+        cursor: pointer;
         text-align: center;
-        text-shadow: 0px 0px 20px rgba(150, 150, 150);
-        height: 35px;
-        background-image: linear-gradient(
-            rgba($background-color, 0.6),
-            rgba($background-color, 0.5),
-            rgba($background-color, 0.45)
-        );
-
-        .category {
-            left: 50%;
-            transform: translateX(-50%);
-            position: fixed;
-            display: grid;
-            font-size: 15px;
-            color: $text-color;
-            font-weight: 600;
-        }
-
-        .icon {
-            border-radius: 4px;
-        }
     }
-
     .modules {
-        transition: max-height 400ms ease-in-out;
-        scroll-behavior: smooth;
         overflow-y: auto;
-        overflow-x: hidden;
-        background-color: rgba($background-color, 0.45);
+        background-color: rgba(black, 0.45);
     }
-
-    .modules::-webkit-scrollbar {
-        width: 0;
+    .resize-handle {
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        cursor: nwse-resize;
+        border-radius: 100%;
+        background-image: linear-gradient(
+            to bottom right,
+            transparent,
+            transparent,
+            $accent-color
+        );
     }
 </style>
