@@ -88,7 +88,7 @@
         padding: 10px;
         border: 1px solid $border-thing;
         border-radius: 12px;
-        outline: none;
+        border: none;
         font-size: 14px;
         background-color: rgba($accent-color, 0.7);
         box-shadow: $primary-shadow;
@@ -101,7 +101,7 @@
         border: none;
         padding: 10px 15px;
         margin: 7px;
-        border-radius: 6px;
+        border-radius: 10px;
         cursor: pointer;
         font-size: 14px;
         box-shadow: $primary-shadow;
