@@ -1,11 +1,27 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
   import { description, type TDescription } from "./clickgui_store";
+  import { onMount, onDestroy } from "svelte";
 
   let data: TDescription | null = null;
+  let cursorX = 0;
+  let cursorY = 0;
 
   description.subscribe((v) => {
     data = v;
+  });
+
+  function handleMouseMove(event: MouseEvent) {
+    cursorX = event.clientX;
+    cursorY = event.clientY;
+  }
+
+  onMount(() => {
+    window.addEventListener("mousemove", handleMouseMove);
+  });
+
+  onDestroy(() => {
+    window.removeEventListener("mousemove", handleMouseMove);
   });
 </script>
 
@@ -14,7 +30,7 @@
     <div
       transition:fade|global={{ duration: 150 }}
       class="description-wrapper"
-      style="top: {data.y}px; left: {data.x + 10}px;"
+      style="top: {cursorY + 10}px; left: {cursorX + 10}px;"
     >
       <div class="description">
         <div class="text">{data.description}</div>
@@ -28,8 +44,9 @@
 
   .description-wrapper {
     position: fixed;
-    z-index: 999999999999; //silly
+    z-index: 999999999999; // high value to ensure it appears on top
     transform: translateY(-50%);
+    pointer-events: none;
   }
 
   .description {
@@ -37,6 +54,8 @@
     border-radius: 12px;
     background-color: $accent-color;
     filter: drop-shadow(0 0 10px rgba($background-color, 0.1));
+    left: 15px;
+    pointer-events: none;
 
     &::before {
       content: "";
@@ -57,5 +76,6 @@
     font-size: 12px;
     padding: 7px;
     color: $text-color;
+    pointer-events: none;
   }
 </style>
