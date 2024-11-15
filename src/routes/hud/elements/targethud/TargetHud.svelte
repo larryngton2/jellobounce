@@ -72,7 +72,7 @@
         const newHealth = target!.actualHealth + target!.absorption;
         if (previousHealth !== 0 && newHealth !== previousHealth) {
             showDamageEffect = true;
-            setTimeout(() => (showDamageEffect = false), 50);
+            setTimeout(() => (showDamageEffect = false), 250);
         }
         previousHealth = newHealth;
     });
@@ -88,7 +88,7 @@
         <div class="main-wrapper">
             <div class="avatar">
                 {#if showDamageEffect}
-                    <div class="damage-effect" out:fade={{ duration: 450 }} />
+                    <div class="damage-effect" out:fade={{ duration: 250 }} />
                 {/if}
                 <img
                     src="{REST_BASE}/api/v1/client/resource/skin?uuid={target.uuid}"
@@ -218,7 +218,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(red, 0.25);
+            background-color: rgba(red, 0.4);
             border-radius: 8px;
         }
     }
