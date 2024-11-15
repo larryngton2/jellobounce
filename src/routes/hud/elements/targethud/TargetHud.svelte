@@ -70,7 +70,7 @@
         startHideTimeout();
 
         const newHealth = target!.actualHealth + target!.absorption;
-        if (previousHealth !== 0 && newHealth !== previousHealth) {
+        if (previousHealth !== 0 && newHealth < previousHealth) {
             showDamageEffect = true;
             setTimeout(() => (showDamageEffect = false), 250);
         }
