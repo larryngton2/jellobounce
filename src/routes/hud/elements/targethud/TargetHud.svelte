@@ -2,13 +2,13 @@
     import { listen } from "../../../../integration/ws.js";
     import type { PlayerData } from "../../../../integration/types";
     import { REST_BASE } from "../../../../integration/host";
-    import { scale } from "svelte/transition";
+    import { fade, scale } from "svelte/transition";
     import type { TargetChangeEvent } from "../../../../integration/events";
     import type { ClientPlayerDataEvent } from "../../../../integration/events";
-    import { onMount } from "svelte";
     import { getPlayerData } from "../../../../integration/rest";
     import { expoOut } from "svelte/easing";
     import HealthProgress from "./HealthProgress.svelte";
+    import { onMount, afterUpdate } from "svelte";
 
     let target: PlayerData | null = null;
     let visible = true;
@@ -17,6 +17,27 @@
     let maxAbsorption = 0;
 
     let hideTimeout: number;
+    let showDamageEffect = false;
+
+    let previousHealth = 0;
+
+    let nameElement: HTMLElement;
+    let wlElement: HTMLElement;
+
+    function updateNamePadding() {
+        if (nameElement && wlElement) {
+            const wlWidth = wlElement.offsetWidth;
+            nameElement.style.paddingRight = `${wlWidth + 10}px`;
+        }
+    }
+
+    onMount(() => {
+        updateNamePadding();
+    });
+
+    afterUpdate(() => {
+        updateNamePadding();
+    });
 
     function updatePlayerData(s: PlayerData) {
         playerData = s;
@@ -47,6 +68,13 @@
         visible = true;
         clearTimeout(hideTimeout);
         startHideTimeout();
+
+        const newHealth = target!.actualHealth + target!.absorption;
+        if (previousHealth !== 0 && newHealth !== previousHealth) {
+            showDamageEffect = true;
+            setTimeout(() => (showDamageEffect = false), 50);
+        }
+        previousHealth = newHealth;
     });
 
     startHideTimeout();
@@ -59,14 +87,18 @@
     >
         <div class="main-wrapper">
             <div class="avatar">
+                {#if showDamageEffect}
+                    <div class="damage-effect" out:fade={{ duration: 450 }} />
+                {/if}
                 <img
                     src="{REST_BASE}/api/v1/client/resource/skin?uuid={target.uuid}"
                     alt="avatar"
                 />
             </div>
-
-            <div class="name">{target.username}</div>
-            <div class="wl">
+            <div class="name" bind:this={nameElement}>
+                {target.username}
+            </div>
+            <div class="wl" bind:this={wlElement}>
                 {#if playerData !== null && playerData.health !== null}
                     {#if playerData.health + playerData.absorption > target.actualHealth + target.absorption}
                         <div class="winning">
@@ -126,7 +158,6 @@
         padding-left: 56px;
         padding-top: 4px;
         font-size: 20px;
-        padding-right: 25px;
         text-shadow: $primary-shadow;
         overflow: hidden;
         white-space: nowrap;
@@ -177,6 +208,18 @@
             scale: 6.25;
             left: 118px;
             top: 118px;
+            z-index: 1;
+        }
+
+        .damage-effect {
+            z-index: 10;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(red, 0.25);
+            border-radius: 8px;
         }
     }
 </style>
