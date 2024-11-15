@@ -4,6 +4,7 @@
     import SwitchSetting from "../common/setting/SwitchSetting.svelte";
     import ButtonSetting from "../common/setting/ButtonSetting.svelte";
     import { addProxy as addProxyRest } from "../../../integration/rest";
+    import { listen } from "../../../integration/ws";
 
     export let visible: boolean;
 
@@ -24,6 +25,8 @@
     let hostPort = "";
     let username = "";
     let password = "";
+    let forwardAuthentication = false;
+    let loading = false;
 
     function validateInput(
         requiresAuthentication: boolean,
@@ -46,16 +49,28 @@
         }
         const [host, port] = hostPort.split(":");
 
-        await addProxyRest(host, parseInt(port), username, password);
+        loading = true;
+        await addProxyRest(
+            host,
+            parseInt(port),
+            username,
+            password,
+            forwardAuthentication,
+        );
+    }
+
+    listen("proxyAdditionResult", () => {
+        loading = false;
         visible = false;
         cleanup();
-    }
+    });
 
     function cleanup() {
         requiresAuthentication = false;
         hostPort = "";
         username = "";
         password = "";
+        forwardAuthentication = false;
     }
 </script>
 
@@ -79,10 +94,15 @@
             bind:value={password}
         />
     {/if}
+    <SwitchSetting
+        title="Forward Microsoft Authentication"
+        bind:value={forwardAuthentication}
+    />
     <ButtonSetting
         title="Add Proxy"
         {disabled}
         on:click={addProxy}
         listenForEnter={true}
+        {loading}
     />
 </Modal>

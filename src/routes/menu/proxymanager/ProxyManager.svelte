@@ -165,11 +165,12 @@
                 message: "Successfully edited proxy",
                 error: false,
             });
+
             await refreshProxies();
         }
     });
 
-    listen("proxyCheckResult", (e: ProxyCheckResultEvent) => {
+    listen("proxyCheckResult", async (e: ProxyCheckResultEvent) => {
         if (e.error) {
             notification.set({
                 title: "ProxyManager",
@@ -182,6 +183,8 @@
                 message: "Proxy is working",
                 error: false,
             });
+
+            await refreshProxies();
         }
     });
 
@@ -208,10 +211,10 @@
         id={currentEditProxy.id}
         host={currentEditProxy.host}
         port={currentEditProxy.port}
+        forwardAuthentication={currentEditProxy.forwardAuthentication}
         username={currentEditProxy.credentials?.username ?? ""}
         password={currentEditProxy.credentials?.password ?? ""}
         requiresAuthentication={currentEditProxy.credentials !== undefined}
-        on:proxyEdit={refreshProxies}
     />
 {/if}
 <Menu>
@@ -264,12 +267,13 @@
                         on:click={() =>
                             toggleFavorite(proxy.id, !proxy.favorite)}
                     />
+                    <MenuListItemButton
+                        title="Edit"
+                        icon="pen-2"
+                        on:click={() => editProxy(proxy)}
+                    />
                 </svelte:fragment>
-                <MenuListItemButton
-                    title="Edit"
-                    icon="pen-2"
-                    on:click={() => editProxy(proxy)}
-                />
+
                 <svelte:fragment slot="always-visible">
                     <MenuListItemButton
                         title="Connect"

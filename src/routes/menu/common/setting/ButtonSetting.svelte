@@ -1,11 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import CircleLoader from "../CircleLoader.svelte";
 
   export let title: string;
   export let disabled = false;
   export let secondary = false;
   export let inset = false;
   export let listenForEnter = false;
+  export let loading = false;
 
   const dispatch = createEventDispatcher();
 
@@ -26,13 +28,19 @@
   type="button"
   on:click={() => dispatch("click")}
   {disabled}
-  class:secondary>{title}</button
+  class:secondary
 >
+  {#if loading}
+    <CircleLoader />
+  {/if}
+  {title}
+</button>
 
 <style lang="scss">
   @import "../../../../colors.scss";
 
   .button-setting {
+    position: relative;
     border: none;
     background-color: rgba($accent-color, 0.7);
     color: $text-color;

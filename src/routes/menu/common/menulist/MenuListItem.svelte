@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import Loader from "../Loader.svelte";
+  import CircleLoader from "../CircleLoader.svelte";
 
   export let image: string;
   export let imageText: string | null = null;
@@ -19,7 +19,7 @@
   <div class="image">
     {#if !previewImageLoaded}
       <div class="loader">
-        <Loader />
+        <CircleLoader />
       </div>
     {/if}
     <img

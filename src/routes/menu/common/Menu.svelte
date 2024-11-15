@@ -1,6 +1,6 @@
 <script lang="ts">
   import Header from "./header/Header.svelte";
-  import { fade, scale } from "svelte/transition";
+  import { scale } from "svelte/transition";
   import { onMount } from "svelte";
   import { expoOut } from "svelte/easing";
 

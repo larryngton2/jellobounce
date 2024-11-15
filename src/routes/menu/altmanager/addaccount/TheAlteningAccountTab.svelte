@@ -5,6 +5,7 @@
     import { addAlteningAccount } from "../../../../integration/rest";
 
     let token = "";
+    let loading = false;
     $: disabled = validateToken(token);
 
     function validateToken(token: string) {
@@ -15,6 +16,7 @@
         if (disabled) {
             return;
         }
+        loading = true;
         await addAlteningAccount(token);
     }
 </script>
@@ -27,5 +29,6 @@
         on:click={addAccount}
         listenForEnter={true}
         inset={true}
+        {loading}
     />
 </Tab>
