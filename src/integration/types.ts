@@ -320,6 +320,7 @@ export interface World {
 }
 
 export interface Proxy {
+    forwardAuthentication: boolean;
     id: number;
     host: string;
     port: number;

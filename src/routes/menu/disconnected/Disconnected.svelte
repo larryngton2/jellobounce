@@ -20,7 +20,7 @@
             .userName()
             .substring(0, 16)
             .replace(/[^a-zA-Z0-9_]+/gi, "");
-        await directLoginToCrackedAccount(username);
+        await directLoginToCrackedAccount(username, false);
     }
 
     async function reconnectWithRandomAccount() {
