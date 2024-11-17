@@ -1,6 +1,6 @@
 ![jellobounce-wide1](/.github/img/jellobounce-wide1.png)
 
-will be merged into main when liquidbounce v0.18.0 is released
+will be merged into main when liquidbouce's theme refactoring is pushed
     
 <p align="center">
     <img src="https://img.shields.io/github/downloads/larryngton2/jellobounce/total?label=Github%20Downloads" alt="Downloads">
