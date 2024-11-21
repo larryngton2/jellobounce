@@ -45,30 +45,33 @@
   .available-tabs {
     display: flex;
     column-gap: 10px;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
   }
 
   .tab-button {
-    font-family: "Inter", sans-serif;
-    background-color: rgba($background-color, 0.36);
+    background-color: rgba($background-color, 0.25);
     color: $text-color;
     padding: 10px;
     border: solid 1px transparent;
-    border-radius: 5px;
+    border-radius: 12px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     row-gap: 10px;
     cursor: pointer;
-    transition: ease border-color 0.2s;
+    transition:
+      ease border-color 0.2s,
+      ease background-color 0.2s;
+    box-shadow: $primary-shadow;
 
     .icon {
       height: 30px;
     }
 
-    &.active {
-      border-color: $accent-color;
+    &.active,
+    &:hover {
+      background-color: rgba($background-color, 0.35);
     }
   }
 </style>

@@ -42,9 +42,8 @@
   .button-setting {
     position: relative;
     border: none;
-    background-color: rgba($accent-color, 0.7);
+    background-color: rgba($accent-color, 0.25);
     color: $text-color;
-    font-family: "sf-pro", sans-serif;
     padding: 15px;
     border-radius: 12px;
     font-size: 20px;
@@ -52,21 +51,22 @@
       ease background-color 0.2s,
       ease opacity 0.2s;
     font-weight: 600;
+    box-shadow: $primary-shadow;
 
     &.inset {
       margin: 0 30px;
     }
 
     &.secondary {
-      background-color: rgba($background-color, 0.36);
+      background-color: rgba($background-color, 0.25);
     }
 
     &:not([disabled]):hover {
-      background-color: darken(desaturate($accent-color, 30%), 10%);
+      background-color: rgba($background-color, 0.25);
       cursor: pointer;
 
       &.secondary {
-        background-color: darken(desaturate($background-color, 30%), 10%);
+        background-color: rgba($background-color, 0.5);
       }
     }
 

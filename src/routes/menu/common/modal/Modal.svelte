@@ -64,20 +64,7 @@
     position: relative;
     width: max-content;
     align-self: center;
-    margin-bottom: 80px;
-
-    &::after {
-      content: "";
-      position: absolute;
-      display: block;
-      height: 5px;
-      width: calc(95%);
-      background-color: $accent-color;
-      bottom: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 10px;
-    }
+    margin-bottom: 25px;
   }
 
   .content {
@@ -93,13 +80,13 @@
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    border: solid 2px $text-color;
+    border: none;
     border-radius: 50%;
     cursor: pointer;
     top: 20px;
     right: 20px;
     position: fixed;
-    transition: ease background-color 0.15s;
+    transition: ease background-color 0.25s;
 
     &:hover {
       background-color: rgba($text-color, 0.1);

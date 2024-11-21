@@ -170,7 +170,6 @@
             }
 
             &.enabled {
-                background: rgba($background-color, 0.3);
                 color: white;
                 text-shadow: 0px 0px 20px gray;
             }

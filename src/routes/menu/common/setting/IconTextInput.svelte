@@ -43,37 +43,45 @@
 
   .icon-text-input {
     display: grid;
-    grid-template-columns: max-content 1fr max-content;
+    grid-template-columns: max-content 1fr 60px;
+    margin-bottom: -15px;
+    box-shadow: $primary-shadow;
+    border-radius: 12px;
   }
 
   .icon {
     height: 64px;
     width: 64px;
-    background-color: rgba($accent-color, 0.7);
+    background-color: rgba($background-color, 0.35);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px 0 0 6px;
+    border-radius: 12px 0 0 12px;
   }
 
   .input {
     color: $text-color;
-    font-family: "Inter", sans-serif;
     font-size: 20px;
-    background-color: rgba($background-color, 0.3);
+    background-color: rgba($background-color, 0.25);
     border: none;
     padding: 0 20px 0 18px;
-    border-radius: 0 12px 12px 0;
-    border-left: solid 2px $background-color;
     width: 100%;
 
     &:invalid {
       border: solid 2px $menu-error-color;
+      box-shadow: 0 0 10px rgba(red, 0.25);
     }
   }
 
   .button-container {
     display: flex;
     align-items: center;
+    background-color: rgba($background-color, 0.25);
+    border-radius: 0 12px 12px 0;
+    transition: ease background-color 0.25s;
+
+    &:hover {
+      background-color: rgba($background-color, 0.35);
+    }
   }
 </style>

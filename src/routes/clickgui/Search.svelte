@@ -9,6 +9,8 @@
     convertToSpacedString,
     spaceSeperatedNames,
   } from "../../theme/theme_config";
+  import { fade } from "svelte/transition";
+  import { quintOut } from "svelte/easing";
 
   export let modules: Module[];
 
@@ -121,6 +123,7 @@
   class="search"
   class:has-results={query}
   bind:this={searchContainerElement}
+  transition:fade|global={{ duration: 200, easing: quintOut }}
 >
   <input
     type="text"
@@ -134,7 +137,7 @@
   />
 
   {#if query}
-    <div class="results">
+    <div class="results" transition:fade={{ duration: 100 }}>
       {#if filteredModules.length > 0}
         {#each filteredModules as { name, enabled, aliases }, index (name)}
           <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -177,16 +180,19 @@
     left: 50%;
     top: 50px;
     transform: translateX(-50%);
-    background-color: rgba($background-color, 0.7);
     width: 600px;
     border-radius: 50px;
     overflow: hidden;
     transition: ease border-radius 0.2s;
-    box-shadow: 0 0 10px rgba($background-color, $opacity);
-    //border: $border-thing;
+    box-shadow: $primary-shadow;
+    background-image: linear-gradient(
+      rgba($background-color, 0.6),
+      rgba($background-color, 0.5),
+      rgba($background-color, 0.45)
+    );
 
     &.has-results {
-      border-radius: 10px;
+      border-radius: 12px;
     }
 
     &:focus-within {
@@ -195,7 +201,6 @@
   }
 
   .results {
-    border-top: solid 2px $accent-color;
     padding: 5px 25px;
     max-height: 250px;
     overflow: auto;
@@ -210,24 +215,14 @@
 
       .module-name {
         position: relative;
-        color: $text-dimmed-color;
+        color: rgba(150, 150, 150);
         transition: color 0.2s ease;
-
-        &::after {
-          content: "";
-          position: absolute;
-          left: -4px;
-          bottom: 0;
-          height: 1px;
-          width: 0;
-          background-color: $accent-color;
-          transition: width 0.3s ease;
-        }
       }
 
       &.enabled {
         .module-name {
-          color: $accent-color;
+          color: white;
+          text-shadow: 0px 0px 20px gray;
         }
       }
 
@@ -277,7 +272,6 @@
     padding: 15px 25px;
     background-color: transparent;
     border: none;
-    font-family: "Inter", sans-serif;
     font-size: 16px;
     color: $text-color;
     width: 100%;

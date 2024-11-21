@@ -24,8 +24,9 @@
     let modulesElement: HTMLElement;
 
     let moving = false;
-    let prevX = 0;
-    let prevY = 0;
+    let offsetX = 0;
+    let offsetY = 0;
+    const GRID_SIZE = 20;
     const panelConfig = loadPanelConfig();
 
     interface PanelConfig {
@@ -91,27 +92,35 @@
         );
     }
 
-    function onMouseDown() {
+    function onMouseDown(e: MouseEvent) {
         moving = true;
 
+        offsetX = e.clientX - panelConfig.left;
+        offsetY = e.clientY - panelConfig.top;
         panelConfig.zIndex = ++$maxPanelZIndex;
+        document.body.classList.add("moving-panel");
+    }
+
+    function snapToGrid(value: number): number {
+        return Math.round(value / GRID_SIZE) * GRID_SIZE;
     }
 
     function onMouseMove(e: MouseEvent) {
         if (moving) {
-            panelConfig.left += (e.screenX - prevX) * (2 / $scaleFactor);
-            panelConfig.top += (e.screenY - prevY) * (2 / $scaleFactor);
+            const newLeft = (e.clientX - offsetX) * (2 / $scaleFactor);
+            const newTop = (e.clientY - offsetY) * (2 / $scaleFactor);
+
+            panelConfig.left = snapToGrid(newLeft);
+            panelConfig.top = snapToGrid(newTop);
+
+            fixPosition();
+            savePanelConfig();
         }
-
-        prevX = e.screenX;
-        prevY = e.screenY;
-
-        fixPosition();
-        savePanelConfig();
     }
 
     function onMouseUp() {
         moving = false;
+        document.body.classList.remove("moving-panel");
     }
 
     function toggleExpanded() {
@@ -207,6 +216,22 @@
 <style lang="scss">
     @import "../../colors.scss";
 
+    $GRID_SIZE: 20px;
+
+    :global(.moving-panel) {
+        background-image: linear-gradient(
+                to right,
+                rgba(128, 128, 128, 0.1) 1px,
+                transparent 1px
+            ),
+            linear-gradient(
+                to bottom,
+                rgba(128, 128, 128, 0.1) 1px,
+                transparent 1px
+            );
+        background-size: $GRID_SIZE $GRID_SIZE;
+    }
+
     .panel {
         border-radius: 12px;
         width: 230px;
@@ -216,6 +241,8 @@
         will-change: transform;
         //box-shadow: inset 0 125px 100px -100px rgba(black, 0.8), 0px 0px 10px rgba(black, 0.5);
         align-items: center;
+        transition: none;
+        user-select: none;
     }
 
     .title {
@@ -223,7 +250,6 @@
         grid-template-columns: max-content 1fr max-content;
         align-items: center;
         column-gap: 12px;
-        //background-color: rgba($background-color, 0.7);
         padding: 10px;
         cursor: grab;
         text-align: center;
@@ -231,8 +257,7 @@
         height: 35px;
         background-image: linear-gradient(
             rgba($background-color, 0.6),
-            rgba($background-color, 0.5),
-            rgba($background-color, 0.45)
+            rgba($background-color, 0.5)
         );
 
         .category {
@@ -255,7 +280,10 @@
         scroll-behavior: smooth;
         overflow-y: auto;
         overflow-x: hidden;
-        background-color: rgba($background-color, 0.45);
+        background-image: linear-gradient(
+            rgba($background-color, 0.5),
+            rgba($background-color, 0.45)
+        );
     }
 
     .modules::-webkit-scrollbar {
