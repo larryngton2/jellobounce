@@ -1,72 +1,125 @@
 <script lang="ts">
-  import {onMount} from "svelte";
-  import {getGameWindow, getModules, getModuleSettings} from "../../integration/rest";
-  import {groupByCategory} from "../../integration/util";
-  import type {GroupedModules, Module} from "../../integration/types";
+  import { onMount } from "svelte";
+  import {
+    getGameWindow,
+    getModules,
+    getModuleSettings,
+  } from "../../integration/rest";
+  import { groupByCategory } from "../../integration/util";
+  import type {
+    ConfigurableSetting,
+    GroupedModules,
+    Module,
+    TogglableSetting,
+  } from "../../integration/types";
   import Panel from "./Panel.svelte";
   import Search from "./Search.svelte";
   import Description from "./Description.svelte";
-  import {fade, scale} from "svelte/transition";
-  import {listen} from "../../integration/ws";
-  import type {ClickGuiScaleChangeEvent, ScaleFactorChangeEvent} from "../../integration/events";
-  import {scaleFactor} from "./clickgui_store";
-    import { expoOut } from "svelte/easing";
+  import { fade, scale } from "svelte/transition";
+  import { listen } from "../../integration/ws";
+  import type {
+    ClickGuiScaleChangeEvent,
+    ClickGuiValueChangeEvent,
+    ScaleFactorChangeEvent,
+  } from "../../integration/events";
+  import {
+    gridSize,
+    scaleFactor,
+    showGrid,
+    snappingEnabled,
+  } from "./clickgui_store";
 
   let categories: GroupedModules = {};
   let modules: Module[] = [];
   let minecraftScaleFactor = 2;
   let clickGuiScaleFactor = 1;
   $: {
-      scaleFactor.set(minecraftScaleFactor * clickGuiScaleFactor);
+    scaleFactor.set(minecraftScaleFactor * clickGuiScaleFactor);
+  }
+
+  function applyValues(configurable: ConfigurableSetting) {
+    clickGuiScaleFactor =
+      (configurable.value.find((v) => v.name === "Scale")?.value as number) ??
+      1;
+
+    const snappingValue = configurable.value.find(
+      (v) => v.name === "Snapping",
+    ) as TogglableSetting;
+
+    $snappingEnabled =
+      (snappingValue?.value.find((v) => v.name === "Enabled")
+        ?.value as boolean) ?? true;
+    $gridSize =
+      (snappingValue?.value.find((v) => v.name === "GridSize")
+        ?.value as number) ?? 10;
   }
 
   onMount(async () => {
-      const gameWindow = await getGameWindow();
-      minecraftScaleFactor = gameWindow.scaleFactor;
+    const gameWindow = await getGameWindow();
+    minecraftScaleFactor = gameWindow.scaleFactor;
 
-      modules = await getModules();
-      categories = groupByCategory(modules);
+    modules = await getModules();
+    categories = groupByCategory(modules);
 
-      const clickGuiSettings = await getModuleSettings("ClickGUI");
-      clickGuiScaleFactor = clickGuiSettings.value.find(v => v.name === "Scale")?.value as number ?? 1
+    const clickGuiSettings = await getModuleSettings("ClickGUI");
+    applyValues(clickGuiSettings);
   });
 
   listen("scaleFactorChange", (e: ScaleFactorChangeEvent) => {
-      minecraftScaleFactor = e.scaleFactor;
+    minecraftScaleFactor = e.scaleFactor;
   });
 
-  listen("clickGuiScaleChange", (e: ClickGuiScaleChangeEvent) => {
-      clickGuiScaleFactor = e.value;
+  listen("clickGuiValueChange", (e: ClickGuiValueChangeEvent) => {
+    applyValues(e.configurable);
   });
 </script>
 
-<div class="background" transition:fade|global={{duration: 700}}/>
-<div class="clickgui" transition:scale|global={{duration: 500, easing: expoOut}}
-   style="transform: scale({$scaleFactor * 50}%); width: {2 / $scaleFactor * 100}vw; height: {2 / $scaleFactor * 100}vh;">
-  <Description/>
-  <Search modules={structuredClone(modules)}/>
+<div class="background" transition:fade|global={{ duration: 700 }} />
+<div
+  class="clickgui"
+  class:grid={$showGrid}
+  transition:scale|global={{ duration: 200 }}
+  style="transform: scale({$scaleFactor * 50}%); width: {(2 / $scaleFactor) *
+    100}vw; height: {(2 / $scaleFactor) * 100}vh;
+   background-size: {$gridSize}px {$gridSize}px;"
+>
+  <Description />
+  <Search modules={structuredClone(modules)} />
 
   {#each Object.entries(categories) as [category, modules], panelIndex}
-      <Panel {category} {modules} {panelIndex}/>
+    <Panel {category} {modules} {panelIndex} />
   {/each}
 </div>
 
 <style lang="scss">
   @import "../../colors.scss";
 
+  $GRID_SIZE: 10px;
+
   .background {
-    background-color: rgba($background-color, 0.5);
-    width: 100%;
-    height: 100%;
+    background-color: rgba(black, 0.5);
     position: absolute;
-    left: 0%;
-    top: 0%;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
   }
-  
+
   .clickgui {
     overflow: hidden;
-    position: relative;
+    position: absolute;
     will-change: opacity;
-    z-index: 1;
+    transform-origin: top left;
+    left: 0;
+    top: 0;
+
+    &.grid {
+      background-image: linear-gradient(
+          to right,
+          $clickgui-grid-color 1px,
+          transparent 1px
+        ),
+        linear-gradient(to bottom, $clickgui-grid-color 1px, transparent 1px);
+    }
   }
 </style>

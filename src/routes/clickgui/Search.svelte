@@ -1,8 +1,12 @@
 <script lang="ts">
-  import type { Module } from "../../integration/types";
+  import type { ConfigurableSetting, Module } from "../../integration/types";
   import { getModuleSettings, setModuleEnabled } from "../../integration/rest";
   import { listen } from "../../integration/ws";
-  import type { ToggleModuleEvent } from "../../integration/events";
+  import type {
+    ClickGuiValueChangeEvent,
+    KeyboardKeyEvent,
+    ToggleModuleEvent,
+  } from "../../integration/events";
   import { highlightModuleName } from "./clickgui_store";
   import { onMount } from "svelte";
   import {
@@ -34,47 +38,60 @@
       return;
     }
 
-    const pureQuery = query.toLowerCase().replaceAll(" ", "");
-
     selectedIndex = 0;
 
     filteredModules = modules.filter(
       (m) =>
-        m.name.toLowerCase().includes(pureQuery) ||
-        m.aliases.some((a) => a.toLowerCase().includes(pureQuery)),
+        m.name
+          .toLowerCase()
+          .includes(query.toLowerCase().replaceAll(" ", "")) ||
+        m.aliases.some((a) =>
+          a.toLowerCase().includes(query.toLowerCase().replaceAll(" ", "")),
+        ),
     );
   }
 
-  async function handleBrowserKeyDown(e: KeyboardEvent) {
-    if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Tab") {
-      e.preventDefault();
-    }
-
-    if (filteredModules.length === 0) {
+  async function handleKeyDown(e: KeyboardKeyEvent) {
+    if (filteredModules.length === 0 || e.action === 0) {
       return;
     }
 
-    if (e.key === "ArrowDown") {
-      selectedIndex = (selectedIndex + 1) % filteredModules.length;
-    } else if (e.key === "ArrowUp") {
-      selectedIndex =
-        (selectedIndex - 1 + filteredModules.length) % filteredModules.length;
-    } else if (e.key === "Enter") {
-      await setModuleEnabled(
-        filteredModules[selectedIndex].name,
-        !filteredModules[selectedIndex].enabled,
-      );
-    } else if (e.key === "Tab") {
-      const m = filteredModules[selectedIndex]?.name;
-      if (m) {
-        $highlightModuleName = m;
-      }
+    switch (e.keyCode) {
+      case 264:
+        selectedIndex = (selectedIndex + 1) % filteredModules.length;
+        break;
+      case 265:
+        selectedIndex =
+          (selectedIndex - 1 + filteredModules.length) % filteredModules.length;
+        break;
+      case 257:
+        await toggleModule(
+          filteredModules[selectedIndex].name,
+          !filteredModules[selectedIndex].enabled,
+        );
+        break;
+      case 258:
+        const m = filteredModules[selectedIndex]?.name;
+        if (m) {
+          $highlightModuleName = m;
+        }
+        break;
     }
 
     resultElements[selectedIndex]?.scrollIntoView({
       behavior: "smooth",
       block: "nearest",
     });
+  }
+
+  function handleBrowserKeyDown(e: KeyboardEvent) {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Tab") {
+      e.preventDefault();
+    }
+  }
+
+  async function toggleModule(name: string, enabled: boolean) {
+    await setModuleEnabled(name, enabled);
   }
 
   function handleWindowClick(e: MouseEvent) {
@@ -93,11 +110,15 @@
     }
   }
 
+  function applyValues(configurable: ConfigurableSetting) {
+    autoFocus =
+      (configurable.value.find((v) => v.name === "SearchBarAutoFocus")
+        ?.value as boolean) ?? true;
+  }
+
   onMount(async () => {
     const clickGuiSettings = await getModuleSettings("ClickGUI");
-    autoFocus =
-      (clickGuiSettings.value.find((v) => v.name === "SearchBarAutoFocus")
-        ?.value as boolean) ?? true;
+    applyValues(clickGuiSettings);
     if (autoFocus) {
       searchInputElement.focus();
     }
@@ -110,6 +131,12 @@
     }
     mod.enabled = e.enabled;
     filteredModules = filteredModules;
+  });
+
+  listen("keyboardKey", handleKeyDown);
+
+  listen("clickGuiValueChange", (e: ClickGuiValueChangeEvent) => {
+    applyValues(e.configurable);
   });
 </script>
 

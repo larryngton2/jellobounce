@@ -47,7 +47,6 @@
     function handleBlockToggle(
         e: CustomEvent<{ identifier: string; enabled: boolean }>,
     ) {
-        console.log(e);
         if (e.detail.enabled) {
             cSetting.value = [...cSetting.value, e.detail.identifier];
         } else {
