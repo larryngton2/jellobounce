@@ -101,8 +101,9 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 100vw;
+    z-index: -5;
     height: 100vh;
+    width: 100vw;
   }
 
   .clickgui {
@@ -112,8 +113,10 @@
     transform-origin: top left;
     left: 0;
     top: 0;
+    z-index: 1;
 
     &.grid {
+      z-index: 999999999;
       background-image: linear-gradient(
           to right,
           $clickgui-grid-color 1px,
