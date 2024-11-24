@@ -4,8 +4,8 @@
   import { createEventDispatcher, onMount } from "svelte";
   import noUiSlider, { type API } from "nouislider";
   import type {
-    ModuleSetting,
     FloatRangeSetting,
+    ModuleSetting,
   } from "../../../integration/types";
   import ValueInput from "./common/ValueInput.svelte";
   import {
@@ -43,6 +43,9 @@
         to: newValue[1],
       };
       setting = { ...cSetting };
+    });
+
+    apiSlider.on("set", () => {
       dispatch("change");
     });
   });

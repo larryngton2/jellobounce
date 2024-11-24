@@ -35,6 +35,9 @@
 
             cSetting.value = newValue;
             setting = { ...cSetting };
+        });
+
+        apiSlider.on("set", () => {
             dispatch("change");
         });
     });
