@@ -320,10 +320,10 @@ export interface World {
 }
 
 export interface Proxy {
-    forwardAuthentication: boolean;
     id: number;
     host: string;
     port: number;
+    forwardAuthentication: boolean;
     favorite: boolean;
     credentials: {
         username: string;
@@ -403,4 +403,13 @@ export interface EntityHitResult extends HitResult {
     entityName: string;
     entityType: string;
     entityPos: Vec3;
+}
+
+export interface GeneratorResult {
+    name: string;
+}
+
+export interface Screen {
+    class: string,
+    title: string,
 }
