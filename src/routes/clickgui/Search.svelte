@@ -5,7 +5,7 @@
   import type {
     ClickGuiValueChangeEvent,
     KeyboardKeyEvent,
-    ToggleModuleEvent,
+    ModuleToggleEvent,
   } from "../../integration/events";
   import { highlightModuleName } from "./clickgui_store";
   import { onMount } from "svelte";
@@ -124,7 +124,7 @@
     }
   });
 
-  listen("toggleModule", (e: ToggleModuleEvent) => {
+  listen("moduleToggle", (e: ModuleToggleEvent) => {
     const mod = filteredModules.find((m) => m.name === e.moduleName);
     if (!mod) {
       return;

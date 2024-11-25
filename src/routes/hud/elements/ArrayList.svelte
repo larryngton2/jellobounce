@@ -78,7 +78,7 @@
         await updateEnabledModules();
     });
 
-    listen("toggleModule", async () => {
+    listen("moduleToggle", async () => {
         await updateEnabledModules();
     });
 
