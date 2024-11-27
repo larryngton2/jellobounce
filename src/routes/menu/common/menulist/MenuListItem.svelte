@@ -66,7 +66,7 @@
       "a b c"
       "a d c";
     grid-template-columns: max-content 1fr max-content;
-    background-color: rgba($background-color, 0.36);
+    background-color: $misc-background-color;
     padding-left: 15px;
     padding-bottom: 5px;
     padding-top: 10px;

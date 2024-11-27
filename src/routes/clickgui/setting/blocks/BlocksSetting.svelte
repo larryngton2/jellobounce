@@ -114,6 +114,6 @@
         padding: 5px;
         color: $text-color;
         margin-bottom: 5px;
-        background-color: rgba($background-color, 0.36);
+        background-color: $misc-background-color;
     }
 </style>

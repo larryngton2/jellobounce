@@ -297,10 +297,6 @@
       font-size: 16px;
       padding: 10px 0;
     }
-
-    &::-webkit-scrollbar {
-      width: 0;
-    }
   }
 
   .search-input {

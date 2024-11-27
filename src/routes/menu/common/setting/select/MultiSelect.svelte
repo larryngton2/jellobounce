@@ -60,6 +60,7 @@
         }
 
         &.active {
+            background-color: rgba($background-color, 0.25);
             color: white;
             text-shadow: 0px 0px 20px gray;
         }

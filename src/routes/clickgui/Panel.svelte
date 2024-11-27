@@ -313,7 +313,7 @@
         );
     }
 
-    .modules::-webkit-scrollbar {
-        width: 0;
+    .modules::-webkit-scrollbar-thumb {
+        background-color: rgba(white, 0.15);
     }
 </style>

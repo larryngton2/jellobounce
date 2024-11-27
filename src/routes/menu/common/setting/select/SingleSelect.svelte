@@ -60,9 +60,7 @@
     &.active {
       color: white;
       text-shadow: 0px 0px 20px gray;
-      background-color: rgba($background-color, 0.4);
-      border-radius: 12px;
-      margin: 5px;
+      background-color: rgba($background-color, 0.25);
     }
   }
 </style>

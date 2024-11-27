@@ -93,7 +93,7 @@
 
     input.value {
       width: 100%;
-      background-color: rgba($background-color, 0.36);
+      background-color: $misc-background-color;
       font-family: monospace;
       font-size: 12px;
       color: $text-color;

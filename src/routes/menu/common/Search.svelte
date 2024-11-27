@@ -21,7 +21,7 @@
   @import "../../../colors.scss";
 
   .search {
-    background-color: rgba($background-color, 0.36);
+    background-color: $misc-background-color;
     border: none;
     color: $text-color;
     font-family: "sf-pro", sans-serif;

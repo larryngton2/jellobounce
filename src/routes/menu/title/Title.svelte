@@ -67,10 +67,7 @@
 
 <Menu>
     <div class="content">
-        <div
-            class="clock"
-            transition:fly|global={{ duration: 500, y: -250, easing: expoOut }}
-        >
+        <div class="clock" transition:fly|global={{ duration: 500, y: -50 }}>
             {currentTime}
         </div>
         <div class="account"><Account /></div>
@@ -143,7 +140,6 @@
     @import "../../../colors.scss";
 
     .clock {
-        font-family: "inter";
         color: white;
         opacity: 0.8;
         font-size: 250px;

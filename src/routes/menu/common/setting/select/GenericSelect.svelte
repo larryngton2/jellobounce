@@ -69,7 +69,7 @@
   }
 
   .header {
-    background-color: rgba($accent-color, 0.7);
+    background-color: $misc-background-color;
     padding: 15px;
     display: flex;
     column-gap: 20px;
@@ -78,6 +78,11 @@
     border-radius: 12px;
     transition: ease 0.2s;
     z-index: 1;
+    box-shadow: $primary-shadow;
+
+    &:hover {
+      background-color: rgba($background-color, 0.45);
+    }
 
     .title {
       color: white;
@@ -95,11 +100,11 @@
     z-index: 1000;
     width: 100%;
     border-radius: 12px;
-    max-height: 250px;
+    max-height: 75vh;
     overflow: auto;
     background-color: rgba($background-color, $opacity);
     margin-top: 10px;
     //border: $border-thing;
-    backdrop-filter: blur(64);
+    box-shadow: $primary-shadow;
   }
 </style>

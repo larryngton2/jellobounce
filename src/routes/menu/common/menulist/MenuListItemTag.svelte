@@ -10,7 +10,7 @@
   @import "../../../../colors.scss";
 
   .tag {
-    background-color: rgba($background-color, 0.36);
+    background-color: $misc-background-color;
     color: $text-color;
     font-size: 12px;
     padding: 3px 10px;

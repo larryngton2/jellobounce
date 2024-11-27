@@ -42,7 +42,7 @@
   .button-setting {
     position: relative;
     border: none;
-    background-color: rgba($accent-color, 0.25);
+    background-color: $misc-background-color;
     color: $text-color;
     padding: 15px;
     border-radius: 12px;
@@ -62,7 +62,7 @@
     }
 
     &:not([disabled]):hover {
-      background-color: rgba($background-color, 0.25);
+      background-color: rgba($background-color, 0.45);
       cursor: pointer;
 
       &.secondary {
