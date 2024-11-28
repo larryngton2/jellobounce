@@ -1,7 +1,6 @@
 <script lang="ts">
     import MainButton from "./buttons/MainButton.svelte";
     import Account from "../common/header/Account.svelte";
-    import { fade } from "svelte/transition";
     import { onDestroy } from "svelte";
     import {
         browse,
@@ -14,7 +13,6 @@
     import { fly } from "svelte/transition";
     import { onMount } from "svelte";
     import { notification } from "../common/header/notification_store";
-    import { expoOut } from "svelte/easing";
 
     let regularButtonsShown = true;
     let clientButtonsShown = false;
