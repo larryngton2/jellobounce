@@ -1,4 +1,6 @@
 <script lang="ts">
+    import thWidth from "./TargetHud.svelte";
+
     export let maxHealth: number;
     export let health: number;
 
@@ -29,14 +31,9 @@
 
     .thumb {
         height: 7px;
-        background-color: $accent-color;
+        background-color: $healthprogress-neutral;
         transition: ease-out width 0.3s;
         border-radius: 6px;
-        background-image: linear-gradient(
-            to right,
-            $healthprogress-neutral-1,
-            $healthprogress-neutral-2
-        );
         z-index: 1;
 
         .thumb2 {
@@ -44,11 +41,7 @@
             height: 7px;
             transition: ease-out width 0.6s;
             border-radius: 6px;
-            background-image: linear-gradient(
-                to right,
-                $healthprogress-lose-1,
-                $healthprogress-lose-2
-            );
+            background-color: $healthprogress-lose;
             z-index: -1;
         }
 

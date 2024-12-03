@@ -1,15 +1,10 @@
 $accent-color: #2e2e2e;
 
-$gradient-color-1: rgb(255, 255, 255);
-$gradient-color-2: rgb(150, 150, 150);
-
-$healthprogress-neutral-1: white;
-$healthprogress-neutral-2: rgb(145, 145, 145);
+$healthprogress-neutral: rgb(200, 200, 200);
 
 // the values here get darker by 0.2
-$healthprogress-gain: rgb(117, 117, 117);
-$healthprogress-lose-1: white;
-$healthprogress-lose-2: rgb(145, 145, 145);
+$healthprogress-gain: rgb(150, 150, 150);
+$healthprogress-lose: rgb(100, 100, 100);
 
 $text-color: white;
 $text-dimmed-color: rgba(211, 211, 211, 255);

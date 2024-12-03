@@ -44,12 +44,13 @@
     {#if clientInfo}
         <div
             class="fps"
-            transition:fly|global={{
+            in:fly|global={{
                 duration: 500,
                 delay: 25,
                 y: 50,
                 easing: expoOut,
             }}
+            out:fly|global={{ duration: 500, y: 50, easing: expoOut }}
         >
             {clientInfo.fps} FPS
         </div>

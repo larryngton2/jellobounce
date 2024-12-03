@@ -9,7 +9,7 @@
   let active = false;
 
   listen("key", (e: KeyEvent) => {
-    if (e.key.name !== key?.key.translationKey) {
+    if (e.key !== key?.key.translationKey) {
       return;
     }
 
@@ -25,13 +25,13 @@
   @import "../../../../colors.scss";
 
   .key {
-    height: 40px;
+    height: 35px;
     background-color: rgba($background-color, $opacity);
     color: $text-color;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
+    border-radius: 7px;
     font-size: 14px;
     font-weight: 500;
     transition:
