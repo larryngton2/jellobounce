@@ -109,7 +109,7 @@
     @import "../../../../colors.scss";
 
     .targethud {
-        width: 230px;
+        width: 250px;
         background-color: rgba($background-color, $opacity);
         border-radius: 12px;
         overflow: hidden;
@@ -124,7 +124,7 @@
         position: absolute;
         left: 78.18px;
         top: 9px;
-        width: 140px;
+        width: 158px;
         height: 22px;
         font-size: 20px;
         text-shadow: $primary-shadow;
@@ -147,7 +147,7 @@
     }
 
     .stats {
-        width: 118px;
+        width: 136px;
         position: absolute;
         left: 98px;
         top: 31px;
@@ -165,23 +165,23 @@
 
         .wl {
             grid-area: b;
-            font-size: 17px;
-            padding-top: 1px;
+            font-size: 15px;
+            padding-top: 4px;
             text-align: right;
 
             .winning {
                 color: $targethud-winning;
-                filter: grayscale(90%);
+                filter: grayscale(50%);
             }
 
             .losing {
                 color: $targethud-losing;
-                filter: grayscale(90%);
+                filter: grayscale(50%);
             }
 
             .draw {
                 color: $targethud-draw;
-                filter: grayscale(90%);
+                filter: grayscale(50%);
             }
         }
     }

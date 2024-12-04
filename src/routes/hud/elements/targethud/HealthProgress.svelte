@@ -23,7 +23,7 @@
         bottom: 9px;
         left: 79.68px;
         border-radius: 6px;
-        max-width: 137.91px;
+        max-width: 156px;
         background-color: rgba($background-color, 0.2);
         box-shadow: $primary-shadow;
     }
