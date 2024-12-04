@@ -8,7 +8,7 @@
     import { getPlayerData } from "../../../../integration/rest";
     import { expoOut } from "svelte/easing";
     import HealthProgress from "./HealthProgress.svelte";
-    import { onMount, afterUpdate } from "svelte";
+    import { onMount } from "svelte";
 
     let target: PlayerData | null = null;
     let visible = true;
@@ -20,24 +20,6 @@
     let showDamageEffect = false;
 
     let previousHealth = 0;
-
-    let nameElement: HTMLElement;
-    let wlElement: HTMLElement;
-
-    function updateNamePadding() {
-        if (nameElement && wlElement) {
-            const wlWidth = wlElement.offsetWidth;
-            nameElement.style.paddingRight = `${wlWidth + 10}px`;
-        }
-    }
-
-    onMount(() => {
-        updateNamePadding();
-    });
-
-    afterUpdate(() => {
-        updateNamePadding();
-    });
 
     function updatePlayerData(s: PlayerData) {
         playerData = s;
@@ -85,42 +67,36 @@
         class="targethud"
         transition:scale={{ duration: 500, easing: expoOut }}
     >
-        <div class="main-wrapper">
-            <div class="avatar">
-                {#if showDamageEffect}
-                    <div class="damage-effect" out:fade={{ duration: 250 }} />
-                {/if}
-                <img
-                    src="{REST_BASE}/api/v1/client/resource/skin?uuid={target.uuid}"
-                    alt="avatar"
-                />
+        <div class="avatar">
+            {#if showDamageEffect}
+                <div class="damage-effect" out:fade={{ duration: 250 }} />
+            {/if}
+            <img
+                src="{REST_BASE}/api/v1/client/resource/skin?uuid={target.uuid}"
+                alt="avatar"
+            />
+        </div>
+        <div class="name">
+            {target.username}
+        </div>
+        <div class="heart-icon">
+            <img src="img/hud/targethud/icon-health.svg" alt="heart-icon" />
+        </div>
+        <div class="stats">
+            <div class="health">
+                {Math.floor(target.actualHealth + target.absorption)}
             </div>
-            <div class="name" bind:this={nameElement}>
-                {target.username}
-            </div>
-            <div class="wl" bind:this={wlElement}>
+            <span class="wl">
                 {#if playerData !== null && playerData.health !== null}
                     {#if playerData.health + playerData.absorption > target.actualHealth + target.absorption}
-                        <div class="winning">
-                            {Math.floor(
-                                target.actualHealth + target.absorption,
-                            )}
-                        </div>
+                        <div class="winning">Winning</div>
                     {:else if playerData.health + playerData.absorption < target.actualHealth + target.absorption}
-                        <div class="losing">
-                            {Math.floor(
-                                target.actualHealth + target.absorption,
-                            )}
-                        </div>
+                        <div class="losing">Losing</div>
                     {:else}
-                        <div class="draw">
-                            {Math.floor(
-                                target.actualHealth + target.absorption,
-                            )}
-                        </div>
+                        <div class="draw">Draw</div>
                     {/if}
                 {/if}
-            </div>
+            </span>
         </div>
         <HealthProgress
             maxHealth={target.maxHealth + target.absorption}
@@ -133,30 +109,23 @@
     @import "../../../../colors.scss";
 
     .targethud {
-        width: 250px;
+        width: 230px;
         background-color: rgba($background-color, $opacity);
         border-radius: 12px;
         overflow: hidden;
-        height: 64px;
+        height: 79px;
         box-shadow: $primary-shadow;
         //border: $border-thing;
     }
 
-    .main-wrapper {
-        display: grid;
-        grid-template-areas:
-            "a c"
-            ". b";
-        padding: 7px;
-    }
-
     .name {
-        grid-area: a;
         color: $text-color;
         font-weight: 500;
-        align-self: flex-start;
-        padding-left: 56px;
-        padding-top: 4px;
+        position: absolute;
+        left: 78.18px;
+        top: 9px;
+        width: 140px;
+        height: 22px;
         font-size: 20px;
         text-shadow: $primary-shadow;
         overflow: hidden;
@@ -164,32 +133,64 @@
         text-overflow: ellipsis;
     }
 
-    .wl {
-        grid-area: c;
+    .heart-icon {
+        width: 16.12px;
+        height: 15.2px;
         position: absolute;
-        right: 15px;
-        top: 15px;
-        font-size: 16px;
+        left: 80px;
+        top: 35px;
+
+        img {
+            width: 16.12px;
+            height: 15.2px;
+        }
+    }
+
+    .stats {
+        width: 118px;
+        position: absolute;
+        left: 98px;
+        top: 31px;
         text-shadow: $text-shadow;
+        color: #c8c8c8;
+        display: grid;
+        grid-template-areas: "a b";
 
-        .winning {
-            color: $targethud-winning;
-            filter: grayscale(50%);
+        .health {
+            grid-area: a;
+            overflow: hidden;
+            padding-right: 5px;
+            font-size: 20px;
         }
 
-        .losing {
-            color: $targethud-losing;
-            filter: grayscale(50%);
-        }
+        .wl {
+            grid-area: b;
+            font-size: 17px;
+            padding-top: 1px;
+            text-align: right;
 
-        .draw {
-            color: $targethud-draw;
-            filter: grayscale(50%);
+            .winning {
+                color: $targethud-winning;
+                filter: grayscale(90%);
+            }
+
+            .losing {
+                color: $targethud-losing;
+                filter: grayscale(90%);
+            }
+
+            .draw {
+                color: $targethud-draw;
+                filter: grayscale(90%);
+            }
         }
     }
 
     .avatar {
-        grid-area: a;
+        margin: 7.16px;
+        left: 7px;
+        top: 7px;
+        scale: 125.297%;
         height: 50px;
         width: 50px;
         position: relative;
@@ -219,7 +220,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(red, 0.4);
-            border-radius: 8px;
+            border-radius: 9px;
         }
     }
 </style>

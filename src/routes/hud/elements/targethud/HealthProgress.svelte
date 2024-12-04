@@ -20,17 +20,16 @@
 
     .health-progress {
         position: relative;
-        bottom: 21px;
-        left: 64.8px;
+        bottom: 9px;
+        left: 79.68px;
         border-radius: 6px;
-        max-width: 169.5px;
-        //max-width: 67.8%;
+        max-width: 137.91px;
         background-color: rgba($background-color, 0.2);
         box-shadow: $primary-shadow;
     }
 
     .thumb {
-        height: 7px;
+        height: 10.75px;
         background-color: $healthprogress-neutral;
         transition: ease-out width 0.3s;
         border-radius: 6px;
@@ -38,7 +37,7 @@
 
         .thumb2 {
             position: absolute;
-            height: 7px;
+            height: 10.75px;
             transition: ease-out width 0.6s;
             border-radius: 6px;
             background-color: $healthprogress-lose;
@@ -47,7 +46,7 @@
 
         .thumb3 {
             position: absolute;
-            height: 7px;
+            height: 10.75px;
             border-radius: 6px;
             background-color: $healthprogress-gain;
             z-index: -2;
