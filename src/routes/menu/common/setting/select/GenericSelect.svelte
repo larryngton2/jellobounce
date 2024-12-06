@@ -80,6 +80,17 @@
     z-index: 1;
     box-shadow: $primary-shadow;
 
+    img {
+      position: absolute;
+      right: 7px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(black, 0.25);
+      padding: 15px 10px;
+      box-shadow: $primary-shadow;
+      border-radius: 7px;
+    }
+
     &:hover {
       background-color: rgba($background-color, 0.45);
     }

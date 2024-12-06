@@ -9,7 +9,7 @@
 </script>
 
 <button class="button" type="button" on:click={() => dispatch("click")}>
-  <ToolTip text={title} color="black" />
+  <ToolTip text={title} />
   <img class="icon" src="img/menu/icon-{icon}.svg" alt={icon} />
 </button>
 
@@ -22,7 +22,7 @@
     position: relative;
     margin-left: 15px;
     z-index: 1;
-    box-shadow: $primary-shadow;
+    filter: drop-shadow($primary-shadow);
   }
 
   .icon {

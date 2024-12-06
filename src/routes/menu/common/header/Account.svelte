@@ -47,9 +47,7 @@
     on:click={() => openScreen("altmanager")}
   >
     <ToolTip text="Change account" />
-
-    <div class="icon"></div></button
-  >
+  </button>
 </div>
 
 <style lang="scss">

@@ -3,7 +3,6 @@
   import { afterUpdate } from "svelte";
 
   export let text: string;
-  export let color = "#2e2e2e";
 
   let element: HTMLElement;
   let shown = false;
@@ -21,11 +20,7 @@
 
 <div bind:this={element}>
   {#if shown}
-    <div
-      transition:fade={{ duration: 100 }}
-      class="tooltip"
-      style="background-color: {color};"
-    >
+    <div transition:fade={{ duration: 100 }} class="tooltip">
       {text}
     </div>
   {/if}
@@ -35,6 +30,7 @@
   @import "../../../colors.scss";
 
   .tooltip {
+    background-color: $accent-color;
     color: white;
     padding: 7px 10px;
     border-radius: 12px;

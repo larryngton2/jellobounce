@@ -39,7 +39,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba($background-color, 0.25);
+    background-color: rgba($background-color, 0.15);
     z-index: 99999;
     backdrop-filter: blur(15px);
   }
