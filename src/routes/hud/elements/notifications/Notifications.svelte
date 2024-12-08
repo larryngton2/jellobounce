@@ -9,7 +9,7 @@
     import disable from "/sounds/disable.ogg";
     import warn from "/sounds/warn.ogg";
     import success from "/sounds/success.ogg";
-    import { Howl, Howler } from "howler";
+    import { Howl } from "howler";
 
     interface TNotification {
         animationKey: number;
@@ -75,6 +75,7 @@
         if (e.severity === "DISABLED") disableSound();
         if (e.severity === "ERROR") warnSound();
         if (e.severity === "SUCCESS") successSound();
+        if (e.severity === "INFO") warnSound();
     });
 </script>
 
