@@ -69,7 +69,7 @@
 {#if visible}
     <div class="fade" transition:fade={{ duration: 1350 }}></div>
     <div class="info">
-        <div class="text" transition:fade={{ delay: 1000, duration: 250 }}>
+        <div class="text" transition:fade={{ delay: 2500, duration: 1500 }}>
             Logged in as {username} on version {selectedProtocol.name}.
         </div>
     </div>

@@ -53,7 +53,7 @@
     position: relative;
     border-radius: 12px;
     background-color: $accent-color;
-    filter: drop-shadow(0 0 10px rgba($background-color, 0.1));
+    filter: drop-shadow($primary-shadow);
     left: 15px;
     pointer-events: none;
 

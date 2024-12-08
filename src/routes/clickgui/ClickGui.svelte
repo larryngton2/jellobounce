@@ -97,7 +97,7 @@
   $GRID_SIZE: 10px;
 
   .background {
-    background-color: rgba(black, 0.5);
+    background-color: rgba(black, 0.45);
     position: absolute;
     left: 0;
     top: 0;
@@ -110,7 +110,6 @@
     overflow: hidden;
     position: absolute;
     will-change: opacity;
-    transform-origin: top left;
     left: 0;
     top: 0;
     z-index: 1;

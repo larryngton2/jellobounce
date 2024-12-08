@@ -11,11 +11,8 @@
         spaceSeperatedNames,
     } from "../../../theme/theme_config";
     import { expoOut } from "svelte/easing";
-    import { Sound } from "svelte-sound";
 
     let enabledModules: Module[] = [];
-    let enabledSound = "../../../../public/sounds/enable.ogg";
-    let disabledSound = "../../../../public/sounds/disable.ogg";
 
     async function updateEnabledModules() {
         const modules = await getModules();
@@ -38,36 +35,8 @@
 
         modulesWithWidths.sort((a, b) => b.width - a.width);
 
-        const previousModules = enabledModules.map((m) => m.name);
-        const currentModules = modulesWithWidths.map((m) => m.name);
-
-        const addedModules = currentModules.filter(
-            (name) => !previousModules.includes(name),
-        );
-        const removedModules = previousModules.filter(
-            (name) => !currentModules.includes(name),
-        );
-
-        if (addedModules.length > 0) {
-            playSound(enabledSound);
-        }
-        if (removedModules.length > 0) {
-            playSound(disabledSound);
-        }
-
         enabledModules = modulesWithWidths;
         await tick();
-    }
-
-    function playSound(src: string) {
-        new Sound({
-            props: {
-                src,
-                autoplay: true,
-                volume: 1,
-            },
-            target: document.body,
-        });
     }
 
     spaceSeperatedNames.subscribe(async () => {

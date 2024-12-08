@@ -5,6 +5,11 @@
     import Notification from "./Notification.svelte";
     import type { NotificationEvent } from "../../../../integration/events";
     import { expoOut } from "svelte/easing";
+    import enable from "/sounds/enable.ogg";
+    import disable from "/sounds/disable.ogg";
+    import warn from "/sounds/warn.ogg";
+    import success from "/sounds/success.ogg";
+    import { Howl, Howler } from "howler";
 
     interface TNotification {
         animationKey: number;
@@ -43,8 +48,33 @@
         }, 1000);
     }
 
+    function enableSound() {
+        const esound = new Howl({ src: [enable], html5: true, preload: true });
+        esound.play();
+    }
+
+    function disableSound() {
+        const dsound = new Howl({ src: [disable], html5: true, preload: true });
+        dsound.play();
+    }
+
+    function warnSound() {
+        const wsound = new Howl({ src: [warn], html5: true, preload: true });
+        wsound.play();
+    }
+
+    function successSound() {
+        const ssound = new Howl({ src: [success], html5: true, preload: true });
+        ssound.play();
+    }
+
     listen("notification", (e: NotificationEvent) => {
         addNotification(e.title, e.message, e.severity);
+
+        if (e.severity === "ENABLED") enableSound();
+        if (e.severity === "DISABLED") disableSound();
+        if (e.severity === "ERROR") warnSound();
+        if (e.severity === "SUCCESS") successSound();
     });
 </script>
 

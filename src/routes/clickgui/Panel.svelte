@@ -261,14 +261,12 @@
 
     .panel {
         border-radius: 12px;
-        width: 230px;
+        width: 225px;
         position: absolute;
         overflow: hidden;
         box-shadow: $primary-shadow;
         will-change: transform;
-        //box-shadow: inset 0 125px 100px -100px rgba(black, 0.8), 0px 0px 10px rgba(black, 0.5);
         align-items: center;
-        transition: none;
         user-select: none;
     }
 
