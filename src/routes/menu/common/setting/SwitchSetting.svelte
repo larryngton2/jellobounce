@@ -81,8 +81,8 @@
     }
 
     input:checked + .slider:before {
-      transform: translateX(27px);
-      background-color: rgba($accent-color, 0.7);
+      transform: translateX(125%);
+      background-color: $accent-color;
     }
   }
 </style>
