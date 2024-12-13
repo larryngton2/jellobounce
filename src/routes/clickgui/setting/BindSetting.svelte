@@ -122,8 +122,9 @@
     }
 
     .change-bind {
-        background-color: transparent;
-        border: solid 1px $accent-color;
+        //border: solid 1px rgba(white, 0.1);
+        background-color: $setting-color;
+        border: none;
         border-radius: 6px;
         cursor: pointer;
         padding: 4px;

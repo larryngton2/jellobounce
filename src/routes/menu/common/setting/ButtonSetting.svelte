@@ -58,7 +58,7 @@
     }
 
     &.secondary {
-      background-color: rgba($background-color, 0.25);
+      background-color: $setting-color;
     }
 
     &:not([disabled]):hover {

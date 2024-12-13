@@ -155,7 +155,7 @@
         if (!e.error) {
             notification.set({
                 title: "AltManager",
-                message: `Successfully logged in to account ${e.username}`,
+                message: `Successfully logged in to ${e.username}`,
                 error: false,
             });
         } else {

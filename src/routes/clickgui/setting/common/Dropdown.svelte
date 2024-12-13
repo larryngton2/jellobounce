@@ -4,6 +4,8 @@
     convertToSpacedString,
     spaceSeperatedNames,
   } from "../../../../theme/theme_config";
+  import { fade } from "svelte/transition";
+  import { quintOut } from "svelte/easing";
 
   export let name: string | null;
   export let options: string[];
@@ -31,6 +33,7 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div class="dropdown" class:expanded on:click={() => (expanded = !expanded)}>
   <div class="head" bind:this={dropdownHead}>
+    <div class="box" />
     {#if name !== null}
       <span class="text"
         >{name} &bull; {$spaceSeperatedNames
@@ -43,7 +46,10 @@
   </div>
 
   {#if expanded}
-    <div class="options">
+    <div
+      class="options"
+      transition:fade|global={{ duration: 150, easing: quintOut }}
+    >
       {#each options as o}
         <div
           class="option"
@@ -68,15 +74,11 @@
         transform: translateY(-50%) rotate(0);
         opacity: 1;
       }
-
-      .head {
-        border-radius: 3px 3px 0 0;
-      }
     }
   }
 
   .head {
-    background-color: $accent-color;
+    background-color: $setting-color;
     padding: 6px 10px;
     cursor: pointer;
     display: flex;
@@ -84,6 +86,18 @@
     position: relative;
     border-radius: 6px;
     transition: ease border-radius 0.2s;
+    max-width: 210px;
+    //border: solid 1px rgba(white, 0.1);
+
+    .box {
+      position: absolute;
+      right: 5px;
+      background-color: rgba(black, 0.25);
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      //border: solid 1px rgba(white, 0.1);
+    }
 
     .text {
       font-weight: 500;
@@ -101,7 +115,7 @@
       position: absolute;
       height: 10px;
       width: 10px;
-      right: 10px;
+      right: 5px;
       top: 50%;
       background-image: url("/img/clickgui/icon-settings-expand.svg");
       background-position: center;
@@ -111,18 +125,20 @@
       transition:
         ease opacity 0.2s,
         ease transform 0.4s;
+      padding: 5px;
     }
   }
 
   .options {
     padding: 6px 10px;
-    background-color: $background-color;
+    background-color: rgba($background-color, 0.7);
     border: solid 1px $accent-color;
     border-top: none;
-    border-radius: 0 0 3px 3px;
+    border-radius: 6px;
     z-index: 9999;
     width: 100%;
     position: absolute;
+    margin-top: 7px;
 
     .option {
       color: $text-dimmed-color;

@@ -21,6 +21,7 @@ $opacity: 0.45;
 $border-thing: 1px solid rgba(white, 0.15);
 
 $primary-shadow: 0 0 50px 0 rgba(black, 0.5);
+$soft-shadow: 0 0 20px 0 rgba(black, 0.15);
 $text-shadow: 0 0 50px rgba(black, 1);
 $arraylist-shadow-color: black;
 
@@ -34,3 +35,5 @@ $shaderfix-color: rgba(black, 0.1); // idk why someone would fucking want this, 
 $fade-color: black;
 
 $clickgui-grid-color: rgba(75, 75, 75, 0.25);
+$setting-color: rgba(#2f2f2f, 0.4);
+$setting-background-color: rgba(#2f2f2f, 0.15);

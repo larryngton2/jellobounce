@@ -20,6 +20,7 @@
         cursor: pointer;
         background-color: transparent;
         border: none;
+        margin-right: 2px;
 
         &::after {
             content: "";

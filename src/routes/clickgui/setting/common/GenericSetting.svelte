@@ -18,6 +18,7 @@
     import BindSetting from "../BindSetting.svelte";
     import VectorSetting from "../VectorSetting.svelte";
     import KeySetting from "../KeySetting.svelte";
+    import { quintOut } from "svelte/easing";
 
     export let setting: ModuleSetting;
     export let path: string;
@@ -36,8 +37,8 @@
 <html>
     {#if ready}
         <div
-            in:slide|global={{ duration: 200, axis: "y" }}
-            out:slide|global={{ duration: 200, axis: "y" }}
+            in:slide|global={{ duration: 200, axis: "y", easing: quintOut }}
+            out:slide|global={{ duration: 200, axis: "y", easing: quintOut }}
         >
             {#if setting.valueType === "BOOLEAN"}
                 <BooleanSetting bind:setting on:change />

@@ -23,7 +23,7 @@
     async function generateRandomUsername() {
         if (mode === "Default") {
             username = await randomUsername();
-        } else if (mode === "Internet") {
+        } else if (mode === "Generic") {
             username = faker.internet
                 .userName()
                 .substring(0, 16)
@@ -58,7 +58,7 @@
     <SwitchSetting title="Use online UUID" bind:value={online} />
     <SingleSelect
         title="Generator Mode"
-        options={["Default", "Internet", "Cat", "Silly"]}
+        options={["Default", "Generic", "Cat", "Silly"]}
         bind:value={mode}
     />
     <ButtonSetting

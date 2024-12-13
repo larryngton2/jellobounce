@@ -57,10 +57,11 @@
     font-size: 12px;
     color: $text-color;
     border: none;
-    border-bottom: solid 2px $accent-color;
+    border-bottom: solid 2px $setting-color;
     padding: 5px;
     border-radius: 6px;
     transition: ease border-color 0.2s;
+    //border: solid 1px rgba(white, 0.1);
 
     &::-webkit-scrollbar {
       background-color: transparent;

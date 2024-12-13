@@ -22,10 +22,10 @@
     let slotsElement: HTMLElement | undefined;
 
     let showItemStackName = false;
-    let showItemStackNameTimeout: number | null = null;
+    let showItemStackNameTimeout: any | null = null;
     let itemStackName: TTExtComponent | string | null = null;
     let overlayMessage: OverlayMessageEvent | null = null;
-    let overlayMessageTimeout: number | null = null;
+    let overlayMessageTimeout: any | null = null;
 
     function updatePlayerData(s: PlayerData) {
         playerData = s;

@@ -102,16 +102,17 @@
     font-family: monospace;
     font-size: 12px;
     color: $text-color;
-    background-color: rgba($accent-color, 0.7);
+    background-color: $setting-color;
     border: none;
     padding: 6px 10px;
     border-radius: 6px;
     width: 100%;
     cursor: pointer;
     transition: ease background-color 0.15s;
+    //border: solid 1px rgba(white, 0.1);
 
     &:hover {
-      background-color: darken(desaturate($accent-color, 30%), 10%);
+      background-color: darken(desaturate($setting-color, 30%), 10%);
     }
   }
 
@@ -122,10 +123,11 @@
     font-size: 12px;
     color: $text-color;
     border: none;
-    border-bottom: solid 2px $accent-color;
+    border-bottom: solid 2px $setting-color;
     padding: 6px;
     border-radius: 6px;
     transition: ease border-color 0.2s;
+    //border: solid 1px rgba(white, 0.1);
 
     &::-webkit-scrollbar {
       background-color: transparent;

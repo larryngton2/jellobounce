@@ -1,7 +1,8 @@
 @import "../../../colors.scss";
 
 .noUi-handle {
-    background-color: $accent-color;
+    background-color: #2f2f2f;
+    ;
     box-shadow: unset;
     border: none;
     border-radius: 50%;
@@ -19,10 +20,10 @@
     margin: 10px 0;
     height: 2px;
     border: none;
-    background-color: darken($text-color, 80%);
+    background-color: lighten(#2f2f2f, 10%);
     box-shadow: unset;
 }
 
 .noUi-connect {
-    background-color: $accent-color;
+    background-color: #2f2f2f;
 }

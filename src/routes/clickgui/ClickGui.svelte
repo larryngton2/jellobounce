@@ -97,7 +97,7 @@
   $GRID_SIZE: 10px;
 
   .background {
-    background-color: rgba(black, 0.45);
+    background-color: rgba($background-color, 0.45);
     position: absolute;
     left: 0;
     top: 0;

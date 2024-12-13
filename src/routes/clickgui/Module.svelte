@@ -176,7 +176,7 @@
         }
 
         .settings {
-            background-color: rgba($background-color, 0.3);
+            background-color: $setting-background-color;
             padding: 0 11px 0 7px;
         }
 

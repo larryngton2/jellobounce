@@ -98,7 +98,7 @@
       font-size: 12px;
       color: $text-color;
       border: none;
-      border-bottom: solid 2px $accent-color;
+      border-bottom: solid 2px $setting-color;
       padding: 5px;
       border-radius: 3px;
       transition: ease border-color 0.2s;

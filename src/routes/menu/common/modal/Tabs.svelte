@@ -49,7 +49,7 @@
   }
 
   .tab-button {
-    background-color: rgba($background-color, 0.25);
+    background-color: $setting-color;
     color: $text-color;
     padding: 10px;
     border: solid 1px transparent;

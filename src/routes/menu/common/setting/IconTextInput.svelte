@@ -62,7 +62,7 @@
   .input {
     color: $text-color;
     font-size: 20px;
-    background-color: rgba($background-color, 0.25);
+    background-color: $setting-color;
     border: none;
     padding: 0 20px 0 18px;
     width: 100%;
@@ -76,7 +76,7 @@
   .button-container {
     display: flex;
     align-items: center;
-    background-color: rgba($background-color, 0.25);
+    background-color: $setting-color;
     border-radius: 0 12px 12px 0;
     transition: ease background-color 0.25s;
 

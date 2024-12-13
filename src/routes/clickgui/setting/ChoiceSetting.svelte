@@ -106,12 +106,16 @@
             }
 
             &.expanded {
-                margin-bottom: 10px;
+                margin-bottom: 7px;
             }
         }
     }
+
     .nested-settings {
-        border-left: solid 2px $accent-color;
-        padding-left: 7px;
+        border: solid 1px rgba(#2f2f2f, 0.5);
+        background-color: rgba(black, 0.2);
+        border-radius: 6px;
+        padding: 7px;
+        box-shadow: $soft-shadow;
     }
 </style>

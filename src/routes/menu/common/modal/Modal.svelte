@@ -21,8 +21,9 @@
         <img src="img/menu/icon-close.svg" alt="close" />
       </button>
 
-      <div class="title">{title}</div>
-
+      <div class="title">
+        {title}
+      </div>
       <div class="content">
         <slot />
       </div>
@@ -63,7 +64,6 @@
     font-size: 34px;
     position: relative;
     width: max-content;
-    align-self: center;
     margin-bottom: 25px;
   }
 

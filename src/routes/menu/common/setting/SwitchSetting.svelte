@@ -14,7 +14,7 @@
       bind:checked={value}
       on:change={() => dispatch("change")}
     />
-    <span class="slider"></span>
+    <span class="button"></span>
   </label>
 
   <div class="title">{title}</div>
@@ -32,57 +32,41 @@
   .title {
     color: $text-color;
     font-size: 20px;
-    margin-left: 10px;
     font-weight: 400;
   }
 
-  .slider {
+  .button {
     position: absolute;
     top: 2px;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: darken($text-color, 55%);
-    transition: ease 0.4s;
-    height: 14px;
-    border-radius: 10px;
-
-    &::before {
-      position: absolute;
-      content: "";
-      height: 21px;
-      width: 21px;
-      top: -4px;
-      left: -10px;
-      background-color: $text-color;
-      transition: ease 0.4s;
-      border-radius: 50%;
-    }
+    background-color: $text-dimmed-color;
+    transition: ease 0.25s;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .switch {
     position: relative;
     display: flex;
-    width: 28px;
-    height: 18px;
+    width: 30px;
+    height: 30px;
     align-items: center;
     cursor: pointer;
     margin: 0 10px;
 
     input {
       display: none;
-    }
 
-    input:checked + .slider {
-      background-color: color.scale(
-        desaturate($accent-color, 60%),
-        $lightness: -15%
-      );
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(125%);
-      background-color: $accent-color;
+      &:checked + .button {
+        background-color: $accent-color;
+        box-shadow: 0 0 25px rgba(black, 0.75);
+      }
     }
   }
 </style>
