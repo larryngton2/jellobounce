@@ -89,10 +89,10 @@
   }
 
   .nested-settings {
-        border: solid 1px rgba(#2f2f2f, 0.5);
-        background-color: rgba(black, 0.2);
-        border-radius: 6px;
-        padding: 7px;
-        box-shadow: $soft-shadow;
+    border: solid 1px rgba(#2f2f2f, 0.5);
+    background-color: rgba(black, 0.2);
+    border-radius: 6px;
+    padding: 7px;
+    box-shadow: $soft-shadow;
   }
 </style>

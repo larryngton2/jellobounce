@@ -79,11 +79,11 @@
         class="text"
         transition:fly|global={{ duration: 500, x: -50, easing: expoOut }}
     >
-        jello
+        jello<span class="text2">bounce</span>
     </div>
 </div>
 
-<div class="shaderfix"></div>
+<div class="shaderfix" />
 
 <style lang="scss">
     @import "../../../colors.scss";
@@ -110,6 +110,27 @@
         text-shadow: $text-shadow;
         font-weight: 400;
         padding: 0 7px;
+
+        .text2 {
+            margin-left: 1.5px;
+            font-size: 27px;
+            color: darken($text-color, 10%);
+            animation: pulse 5s infinite;
+        }
+    }
+
+    @keyframes pulse {
+        0% {
+            color: darken($text-color, 10%);
+        }
+
+        50% {
+            color: darken($text-color, 15%);
+        }
+
+        100% {
+            color: darken($text-color, 10%);
+        }
     }
 
     .fade {
@@ -119,7 +140,7 @@
         background-color: $fade-color;
         width: 100vw;
         height: 100vh;
-        z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999; // just to be sure
+        z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999; // just to be 100% sure
     }
 
     .shaderfix {
