@@ -110,25 +110,11 @@
         text-shadow: $text-shadow;
         font-weight: 400;
         padding: 0 7px;
+        opacity: 0.8;
 
         .text2 {
             margin-left: 1.5px;
             font-size: 27px;
-            color: darken($text-color, 10%);
-            animation: pulse 5s infinite;
-        }
-    }
-
-    @keyframes pulse {
-        0% {
-            color: darken($text-color, 10%);
-        }
-
-        50% {
-            color: darken($text-color, 15%);
-        }
-
-        100% {
             color: darken($text-color, 10%);
         }
     }
