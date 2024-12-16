@@ -56,7 +56,7 @@
 {/if}
 
 <style lang="scss">
-    @import "../../../../colors.scss";
+    @use "../../../../colors.scss" as *;
 
     .targethud {
         //position: fixed;

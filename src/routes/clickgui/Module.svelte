@@ -39,8 +39,8 @@
         }, 500);
     });
 
-    highlightModuleName.subscribe(() => {
-        if (name !== $highlightModuleName) {
+    highlightModuleName.subscribe((m) => {
+        if (name !== m) {
             return;
         }
 
@@ -131,7 +131,7 @@
 </div>
 
 <style lang="scss">
-    @import "../../colors.scss";
+    @use "../../colors.scss" as *;
 
     .module {
         position: relative;

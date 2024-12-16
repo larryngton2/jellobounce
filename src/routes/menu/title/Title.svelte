@@ -135,7 +135,7 @@
 </Menu>
 
 <style lang="scss">
-    @import "../../../colors.scss";
+    @use "../../../colors.scss" as *;
 
     .clock {
         color: white;

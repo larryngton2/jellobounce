@@ -8,7 +8,7 @@
 </div>
 
 <style lang="scss">
-    @import "../../../colors";
+    @use "../../../colors.scss" as *;
 
     .loader-wrapper {
         position: absolute;

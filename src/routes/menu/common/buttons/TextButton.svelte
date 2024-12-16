@@ -22,7 +22,7 @@
 </button>
 
 <style lang="scss">
-  @import "../../../../colors.scss";
+  @use "../../../../colors.scss" as *;
 
   .icon-text-button {
     background-color: rgba($background-color, $opacity);

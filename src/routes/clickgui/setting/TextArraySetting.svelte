@@ -65,7 +65,7 @@
 </div>
 
 <style lang="scss">
-  @import "../../../colors.scss";
+  @use "../../../colors.scss" as *;
 
   .input-wrapper {
     display: grid;

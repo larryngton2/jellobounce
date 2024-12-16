@@ -158,9 +158,9 @@
         }, 500);
     }
 
-    highlightModuleName.subscribe(() => {
+    highlightModuleName.subscribe((m) => {
         const highlightModule = modules.find(
-            (m) => m.name === $highlightModuleName,
+            (m) => m.name === m.name,
         );
         if (highlightModule) {
             panelConfig.zIndex = ++$maxPanelZIndex;
@@ -257,7 +257,7 @@
 </div>
 
 <style lang="scss">
-    @import "../../colors.scss";
+    @use "../../colors.scss" as *;
 
     .panel {
         border-radius: 12px;

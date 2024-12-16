@@ -33,7 +33,7 @@
 </div>
 
 <style lang="scss">
-  @import "../../../colors.scss";
+  @use "../../../colors.scss" as *;
 
   .effect {
     font-weight: 600;

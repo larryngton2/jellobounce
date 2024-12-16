@@ -51,7 +51,7 @@
 </div>
 
 <style lang="scss">
-  @import "../../../../colors";
+  @use "../../../../colors.scss" as *;
 
   .account {
     padding: 15px 15px;

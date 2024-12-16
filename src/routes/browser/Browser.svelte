@@ -63,7 +63,7 @@
 {/if}
 
 <style lang="scss">
-    @import "../../colors.scss";
+    @use "../../colors.scss" as *;
 
     .browser-controls {
         display: flex;

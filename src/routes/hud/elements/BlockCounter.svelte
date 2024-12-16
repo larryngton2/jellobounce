@@ -33,7 +33,7 @@
 {/if}
 
 <style lang="scss">
-    @import "../../../colors.scss";
+    @use "../../../colors.scss" as *;
 
     .count {
         background-color: rgba($background-color, $opacity);

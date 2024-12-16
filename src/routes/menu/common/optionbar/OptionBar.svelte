@@ -11,7 +11,7 @@
 </div>
 
 <style lang="scss">
-    @import "../../../../colors";
+    @use "../../../../colors.scss" as *;
 
     .option-bar {
         background-color: rgba($background-color, $opacity);

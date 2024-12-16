@@ -14,7 +14,7 @@
 </button>
 
 <style lang="scss">
-  @import "../../../../colors.scss";
+  @use "../../../../colors.scss" as *;
   .button {
     background-color: transparent;
     border: none;

@@ -86,7 +86,7 @@
 <div class="shaderfix" />
 
 <style lang="scss">
-    @import "../../../colors.scss";
+    @use "../../../colors.scss" as *;
 
     .main-wrapper {
         display: grid;

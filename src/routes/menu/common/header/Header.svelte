@@ -9,7 +9,7 @@
 </div>
 
 <style lang="scss">
-  @import "../../../../colors.scss";
+  @use "../../../../colors.scss" as *;
 
   .header {
     display: flex;

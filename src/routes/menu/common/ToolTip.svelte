@@ -27,7 +27,7 @@
 </div>
 
 <style lang="scss">
-  @import "../../../colors.scss";
+  @use "../../../colors.scss" as *;
 
   .tooltip {
     background-color: $accent-color;

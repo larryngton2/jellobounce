@@ -208,7 +208,7 @@
 </div>
 
 <style lang="scss">
-  @import "../../colors.scss";
+  @use "../../colors.scss" as *;
 
   .search {
     position: fixed;

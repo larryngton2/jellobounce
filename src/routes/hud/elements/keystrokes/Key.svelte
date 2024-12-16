@@ -22,7 +22,7 @@
 </div>
 
 <style lang="scss">
-  @import "../../../../colors.scss";
+  @use "../../../../colors.scss" as *;
 
   .key {
     height: 35px;

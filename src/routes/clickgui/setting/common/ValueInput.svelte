@@ -48,7 +48,7 @@
 ></span>
 
 <style lang="scss">
-    @import "../../../../colors.scss";
+    @use "../../../../colors.scss" as *;
 
     .value {
         font-family: monospace;

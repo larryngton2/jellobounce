@@ -43,7 +43,7 @@
 {/if}
 
 <style lang="scss">
-  @import "../../../colors.scss";
+  @use "../../../colors.scss" as *;
 
   .scoreboard {
     min-width: 200px;

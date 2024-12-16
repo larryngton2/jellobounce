@@ -18,7 +18,7 @@
 />
 
 <style lang="scss">
-  @import "../../../colors.scss";
+  @use "../../../colors.scss" as *;
 
   .search {
     background-color: $misc-background-color;

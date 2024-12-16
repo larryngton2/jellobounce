@@ -37,7 +37,7 @@
 </button>
 
 <style lang="scss">
-  @import "../../../../colors.scss";
+  @use "../../../../colors.scss" as *;
 
   .button-setting {
     position: relative;

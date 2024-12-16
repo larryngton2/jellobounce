@@ -29,7 +29,7 @@
 </div>
 
 <style lang="scss">
-  @import "../../../colors.scss";
+  @use "../../../colors.scss" as *;
 
   .menu {
     padding: 45px;

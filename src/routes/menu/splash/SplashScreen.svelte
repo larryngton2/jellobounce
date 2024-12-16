@@ -21,7 +21,7 @@
 </div>
 
 <style lang="scss">
-  @import "../../../colors.scss";
+  @use "../../../colors.scss" as *;
 
   .progress {
     z-index: 1;
